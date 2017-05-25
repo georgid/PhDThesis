@@ -1,0 +1,243 @@
+#LyX 2.2 created this file. For more info see http://www.lyx.org/
+\lyxformat 508
+\begin_document
+\begin_header
+\save_transient_properties true
+\origin unavailable
+\textclass memoir
+\options pdftex,usenames,dvipsnames,noend,nofillcomment,figure
+\use_default_options false
+\maintain_unincluded_children false
+\language english
+\language_package default
+\inputencoding auto
+\fontencoding default
+\font_roman "default" "default"
+\font_sans "default" "default"
+\font_typewriter "default" "default"
+\font_math "auto" "auto"
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100 100
+\font_tt_scale 100 100
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize 11
+\spacing single
+\use_hyperref true
+\pdf_title "Your topic"
+\pdf_author "You"
+\pdf_subject "This is about this and that"
+\pdf_keywords "comma separated, as many, as you want"
+\pdf_bookmarks false
+\pdf_bookmarksnumbered false
+\pdf_bookmarksopen false
+\pdf_bookmarksopenlevel 1
+\pdf_breaklinks false
+\pdf_pdfborder false
+\pdf_colorlinks false
+\pdf_backref page
+\pdf_pdfusetitle false
+\pdf_quoted_options "pdftex,hyperfigures,breaklinks,colorlinks,pdfcreator={LaTeX with hyperref package},pdfproducer={pdflatex},citecolor=LinkColor,linkcolor=LinkColor,urlcolor=ExtLinkColor"
+\papersize a4paper
+\use_geometry false
+\use_package amsmath 2
+\use_package amssymb 2
+\use_package cancel 0
+\use_package esint 1
+\use_package mathdots 0
+\use_package mathtools 0
+\use_package mhchem 0
+\use_package stackrel 0
+\use_package stmaryrd 0
+\use_package undertilde 0
+\cite_engine natbib
+\cite_engine_type authoryear
+\biblio_style plainnat
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 0
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\quotes_language english
+\papercolumns 1
+\papersides 2
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Chapter*
+Acknowledgements
+\end_layout
+
+\begin_layout Standard
+This thesis could not have been the same without the input of many mentors,
+ influencers, and friends.
+ 
+\end_layout
+
+\begin_layout Standard
+The most valuable piece of support came from the CompMusic team - for me
+ a friendly multicultural atmosphere, where at felt very much at home.
+ At the first place, CompMusic and this work would not have been there without
+ the vision of Xavier Serra.
+ I am extremely grateful to him for believing in me and for his constant
+ readiness to reach a hand and guide me, as well as for the freedom of topic
+ he gave me.
+ My personal thanks go to Sertan Şentürk for his patient in-depth explanations
+ of Makam music concepts as well as the fruitful research ideas; Ajay Srinivasam
+urthy for his never-ending improvement advices and productive talks on graphical
+ models; Rong Gong (the fellow singing voice explorer); Sankalp Gulati (the
+ great example of multi-productivity), Rafael Caro Repetto (for the excellent
+ music theory hints), Gopala Krishna Koduri (for the startup-related chats),
+ Andrés Ferraro (for his patience until we got together a working software
+ prototype), Mohamed Sordo (my music hack day buddy), Sercan Atlı (for helping
+ with the postproduction of the recorded singing).
+\end_layout
+
+\begin_layout Standard
+I am greatly thankful to Andre Holzapfel for his guidance and kind reception
+ in Stockholm.
+ I deeply feel that with his multicultural music understanding and long
+ research experience he had a major contribution on my latest pieces of
+ work to stand out.
+ 
+\end_layout
+
+\begin_layout Standard
+Being part of the vibrant community of MTG-ers I could benefit to the highest
+ extent from the numerous opportunities for idea exchange.
+ This research has benefited from discussions with Emilia Gómez (she knows
+ the answer to every doubt!), Marius Miron (my Balkan brother from another
+ father), Nadine Kroher (the coolest summer school mate), Dmitry Bogdanov
+ (the green tea provider), Pablo Alonso (the fastest feature coder), Juan
+ José Bosch (for the excellent research hints), Alastair Porter, Xavier
+ Favory, Oriol Romanì, Giuseppe Bandiera, Julián Urbano, Jordi Pons, Sergio
+ Oramas, Julio Carabias, Frederic Font, Zacharias Vamvakousis, Rafael Ramírez,
+ Sergio Giraldo, Martì Umbert, Merlijn Blaauw, Panos Papiotis, Stanislaw
+ Gorlow, ...
+\end_layout
+
+\begin_layout Standard
+I am thankful to Cristina, Sonia and Lydia for reducing the administrative
+ burden and last but not least to Alba Rosado for providing immense help
+ with the most critical factor for this research: arranging the AGAUR research
+ grant! 
+\end_layout
+
+\begin_layout Standard
+I am grateful to my fellow researchers in the domain of lyrics-related studies
+ Anna Kruspe, Daniel Stoller and Matt McVicar for the productive discussions
+ and their valuable improvement suggestions.
+\end_layout
+
+\begin_layout Standard
+On my journey in Music Information Retrieval (MIR), which ended up with
+ this dissertation, I was fortunate to interact with many researchers that
+ gave me valuable ideas and directions (in chronological order): Sebastian
+ Stober (he opened my eyes for MIR), Rolf Bardeli (motivated me to return
+ to MIR in my astray years of speech research), Frank Kurth, Christian Dittmar,
+ Meinard Müller, Maarten Grachten, Gerhard Widmer, Florian Krebs, Markus
+ Schedl, Peter Knees, Sebastian Böck, Andreas Arzt, Tom Collins (for the
+ motivating words in the hardest moments), Robert Kaye, Ryan Groves, Anssi
+ Klapuri, Thomas Lidy, Amélie Anglade, Anja Volk, Jakob Abesser, Colin Raffel,
+ ...
+\end_layout
+
+\begin_layout Standard
+Without my family my productivity would not have been the same.
+ I am grateful to my mother Nikolina for habituating me to be persevering
+ in life and also in this writing journey.
+ I deeply thank my sister Velizara, who, with her brilliant design skills,
+ provided an immense support in depicting the diagrams throughout this thesis.
+ I am happy to also know Georgi Petrov, who was next to me in the last most
+ critical days (nights) before submission.
+\end_layout
+
+\begin_layout Standard
+I deeply believe that my passion for MIR will remain to be strong and life-long
+ mainly because of the amazing people I met and will be meeting...
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+%%% Local Variables: 
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+%%% mode: latex
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+%%% TeX-master: "thesis"
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+%%% End: 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_body
+\end_document

@@ -1,0 +1,3549 @@
+#LyX 2.2 created this file. For more info see http://www.lyx.org/
+\lyxformat 508
+\begin_document
+\begin_header
+\save_transient_properties true
+\origin unavailable
+\textclass memoir
+\use_default_options false
+\master PhDThesis_Georgi_Knowledge_based_Lyrics_Tracking.lyx
+\maintain_unincluded_children false
+\language english
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman "default" "default"
+\font_sans "default" "default"
+\font_typewriter "default" "default"
+\font_math "auto" "auto"
+\font_default_family default
+\use_non_tex_fonts true
+\font_sc false
+\font_osf false
+\font_sf_scale 100 100
+\font_tt_scale 100 100
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize default
+\spacing single
+\use_hyperref true
+\pdf_bookmarks true
+\pdf_bookmarksnumbered false
+\pdf_bookmarksopen false
+\pdf_bookmarksopenlevel 1
+\pdf_breaklinks false
+\pdf_pdfborder true
+\pdf_colorlinks false
+\pdf_backref false
+\pdf_pdfusetitle true
+\papersize default
+\use_geometry false
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine natbib
+\cite_engine_type authoryear
+\biblio_style plainnat
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 0
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 3
+\tocdepth 2
+\paragraph_separation indent
+\paragraph_indentation default
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Chapter
+Lyrics-to-audio Alignment with Middle-level Complementary Context
+\end_layout
+
+\begin_layout Section
+Introduction
+\end_layout
+
+\begin_layout Standard
+In this chapter, we propose how to improve the baseline lyrics-to-audio
+ alignment method by considering some context facets, complementary to lyrics.
+
+\series bold
+ 
+\series default
+We focus on one particular middle-level facet - the structure of the sung
+ melodic line.
+ To this end, we study the influence of the structure of the sung melodic
+ line on its lyrics.
+ Studies of sheet music have indicated that there is a correlation between
+ the accents of sung syllables and the accents in the melodic phrase 
+\begin_inset CommandInset citation
+LatexCommand citep
+key "nichols2009relationships"
+
+\end_inset
+
+.
+ Singers may often prolong or reduce the duration of some syllables, in
+ order to align them with the melodic accents.
+\end_layout
+
+\begin_layout Standard
+Music scores provide important contextual information complementary to lyrics,
+ including note durations.
+ Nevertheless, the length of sung syllables could deviate considerably from
+ the durations indicated in the music score.
+ Singers in OTMM, in particular, tend to deviate from the music score to
+ a significantly larger extent, in comparison to, for example, eurogenetic
+ pop music or classical music.
+ To address this, we propose an extension of the phonetic recognizer that
+ models explicitly syllable durations.
+ The proposed duration aware model is designed to accommodate duration variation
+s
+\color black
+.
+ The major 
+\color inherit
+technical contribution of this chapter is the derivation an inference method
+\color black
+ for the model.
+ Information about the durations is obtained from the music score.
+ To our knowledge, this study is the first application of modeling of music-scor
+e-induced duration for sung syllables.
+ 
+\end_layout
+
+\begin_layout Standard
+To proof the transferability of the proposed explicit-duration model outside
+ of OTMM, we evaluate on material from jingju.
+ The comparison to jingju has an aim to quantitatively evaluate if the duration
+ knowledge contributes to a different degree for another music tradition.
+ Jingju is a music tradition, characterized by sung syllables that span
+ particularly long time intervals.
+ Being a largely oral tradition, it
+\color black
+ rarely has machine-readable music scores
+\color inherit
+.
+ Instead, to determine how long to sustain a given syllable, actors follow
+ conventions for the structure of the melodic phrase.
+ Therefore we apply the previously proposed core modeling, wherein syllable
+ durations are derived from these conventions, instead of score.
+ Among all the approaches presented in this thesis, this is the clearest
+ example of an approach informed by music-specific knowledge.
+ 
+\end_layout
+
+\begin_layout Standard
+
+\color black
+The chapter is organized as follows: We start off by introducing existing
+ computational approaches of lyrics tracking, which explicitly model durations
+ of syllables (Section 
+\color inherit
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "sec:Background-on-duration-aware"
+
+\end_inset
+
+
+\color black
+).
+ In Section 
+\color inherit
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "sec:Probabilistic-model"
+
+\end_inset
+
+
+\color black
+ we introduce the duration aware probabilistic model.
+ Then we describe its application in two different cases: Firstly, in Section
+ 
+\color inherit
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "sec:Durations-inferred-from"
+
+\end_inset
+
+
+\color black
+ we study how durations parsed from music scores in OTMM can be utilized
+ as input reference syllable durations.
+ Secondly, the core model is applied to jingju, for which 
+\color inherit
+reference durations are obtained from music-specific knowledge in the form
+ of rules (Section 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "sec:Durations-inferred-from-1"
+
+\end_inset
+
+).
+\end_layout
+
+\begin_layout Section
+Background on duration aware lyrics-to-audio alignment
+\begin_inset CommandInset label
+LatexCommand label
+name "sec:Background-on-duration-aware"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The phonetic recognizer approach is based on phoneme HMMs.
+ Standard HMMs have the drawback that they do not impose any restrictions
+ on the waiting time in a state, resulting in a geometric distribution.
+ This does not correspond to the naturally occurring durations of phonemes
+ in speech.
+ Introducing restrictions on the state waiting time of the phoneme HMMs
+ improves speech recognition results 
+\begin_inset CommandInset citation
+LatexCommand citep
+key "ferguson1980variable"
+
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Standard
+Unlike speech, for which the variation of the durations of the vowels is
+ relatively small, sung vowels can have significantly bigger variations
+ and long durations.
+ HMMs are by far not capable to represent vowels with long durations, because
+ the waiting time implied by the geometric distribution cannot be unlimitedly
+ long 
+\begin_inset CommandInset citation
+LatexCommand citep
+key "rabiner1989tutorial"
+
+\end_inset
+
+.
+ Durations can be modeled instead by a duration-explicit hidden Markov model
+ (DHMM) (also known as hidden semi-Markov model).
+ In DHMMs the underlying process is allowed to be a semi-Markov chain with
+ variable duration of each state 
+\begin_inset CommandInset citation
+LatexCommand citep
+key "yu2010hidden"
+
+\end_inset
+
+.
+ The idea of the DHMM is that the actual waiting time in a state can be
+ generated by any statistical distribution.
+ Common choices are the gamma distribution or normal distribution, whereby
+ the distribution's parameters can be set by using some a-priori knowledge
+ about the waiting time.
+ In this respect, DHMM provide a flexible methodology that allows the injection
+ of some music-specific context knowledge, from which the expected waiting
+ time of a phoneme can be derived.
+ 
+\end_layout
+
+\begin_layout Standard
+An approach to detect keywords from a cappella English pop songs exploiting
+ knowledge about possible phoneme durations is presented in 
+\begin_inset CommandInset citation
+LatexCommand citep
+key "kruspe2015keyword"
+
+\end_inset
+
+.
+ The authors used a DHMM with a gamma distribution, motivated by findings
+ that gamma distribution represents well naturally observed phoneme durations
+ in speech.
+ The mean and variance of each phoneme is empirically estimated from a small
+ portion of an a cappella dataset.
+ The precision of keyword detection increased when durations were restricted.
+ A limitation is that the learned phoneme parameters do not take into account
+ the structure of the melodic phrase, i.e.
+ the duration of a phoneme is globally estimated, based on some learning
+ data.
+ In addition to that, DHMMs have been successful in modeling other problems
+ from the domain of music information retrieval.
+ In particular, they can represent chord durations in automatic chord recognitio
+n 
+\begin_inset CommandInset citation
+LatexCommand citep
+key "chen2012chord"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Section
+Duration aware probabilistic model
+\begin_inset CommandInset label
+LatexCommand label
+name "sec:Probabilistic-model"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename Phd_Figs/durations/dbn_duration.jpg
+	lyxscale 20
+	width 50page%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+DBN representing the duration aware phonetic recognizer.
+ Circles and squares denote continuous and discrete variables, respectively.
+ Gray nodes and white nodes represent observed and hidden variables, respectivel
+y.
+ A duration counter 
+\begin_inset Formula $h^{D}$
+\end_inset
+
+ keeps track of the waiting time in a phoneme state 
+\begin_inset Formula $h$
+\end_inset
+
+.
+ When 
+\begin_inset Formula $h_{D}$
+\end_inset
+
+ reaches 0, the binary indicator node f is fired, which triggers a change
+ to next phoneme.
+ 
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:DBN durations"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+In this section we describe the syllable-duration aware probabilistic model,
+ presented first in 
+\begin_inset CommandInset citation
+LatexCommand citet
+key "dzhambazov2015lyrics_smc"
+
+\end_inset
+
+.
+ In Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:DBN durations"
+
+\end_inset
+
+ a DBN represents the duration spent in a phoneme 
+\begin_inset Formula $h$
+\end_inset
+
+ explicitly as a duration counter variable 
+\begin_inset Formula $h^{D}$
+\end_inset
+
+.
+ When the duration counter expires (reaches 0), the indicator node 
+\begin_inset Formula $f_{k}$
+\end_inset
+
+ turns on, the current phoneme 
+\begin_inset Formula $h_{k}$
+\end_inset
+
+ can change state, and the next duration counter, 
+\begin_inset Formula $h_{k}^{D}$
+\end_inset
+
+, is reset.
+ The reason there is no 
+\begin_inset Formula $h$
+\end_inset
+
+ to 
+\begin_inset Formula $f$
+\end_inset
+
+ arc is that the duration termination process is deterministic 
+\begin_inset CommandInset citation
+LatexCommand citep
+after "Figure 2.22"
+key "murphy2002dynamic"
+
+\end_inset
+
+.
+ Inference in such a DBN with the Viterbi decoding will have time complexity
+ of 
+\begin_inset Formula $O(TDH^{2})$
+\end_inset
+
+, where D is the maximal duration of the counter, T is the total time of
+ a recording, and H is the number of phonemes in the phoneme network.
+ In the case of forced alignment, it reduces to 
+\begin_inset Formula $O(TDH)$
+\end_inset
+
+.
+ In comparison to speech, the range of D for sung phonemes (especially in
+ traditions like jingju with reasonably long vowels ) can cause an extremely
+ big time complexity.
+ 
+\end_layout
+
+\begin_layout Standard
+A limitation of the DBN is that due to the additional hidden counter variable
+ 
+\begin_inset Formula $h_{D}$
+\end_inset
+
+ the size of the state space can become enormous and memory-demanding.
+ To overcome that, we have adopted the idea of 
+\begin_inset CommandInset citation
+LatexCommand citet
+key "chen2012chord"
+
+\end_inset
+
+ not to explicitly add the 
+\begin_inset Formula $h^{D}$
+\end_inset
+
+ to the model, but instead to extend the inference (Viterbi decoding) by
+ handling the duration of states.
+ Note that this inference does not reduce the time complexity.
+ In what follows we describe a variation of Viterbi decoding method, in
+ which maximization is carried over the most likely duration for each state.
+ The duration counter is controlled by a normal distribution with mean derived
+ from a lookup table of reference durations 
+\begin_inset Formula $R_{i}$
+\end_inset
+
+, where i is the 
+\begin_inset Formula $i^{th}$
+\end_inset
+
+ phoneme in the phoneme network.
+ The way the lookup table is constructed is related to how the complementary
+ context is exploited and is the topic of sections 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "sec:Durations-inferred-from"
+
+\end_inset
+
+ and 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "sec:Durations-inferred-from-1"
+
+\end_inset
+
+ 
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+ADD: add pics of reference durations from poster jingju
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Parameter definitions
+\end_layout
+
+\begin_layout Standard
+The Viterbi decoding is adapted from the procedure described in 
+\begin_inset CommandInset citation
+LatexCommand citet
+key "chen2012chord"
+
+\end_inset
+
+.
+ We assume that the duration 
+\begin_inset Formula $d$
+\end_inset
+
+ for a state 
+\begin_inset Formula $i$
+\end_inset
+
+ may vary according to a normal distribution 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+
+\begin_inset Formula $P_{i}(d)$
+\end_inset
+
+
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+ with mean at the reference duration 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+
+\begin_inset Formula $d=R_{i}$
+\end_inset
+
+
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+ and standard deviation 
+\begin_inset Formula $\sigma$
+\end_inset
+
+.
+ 
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+
+\color red
+ADD: why normal distrib? it does not allow shortening of syllables
+\color inherit
+ which is allowed by gamma).
+\end_layout
+
+\end_inset
+
+We will use a separate global standard deviation 
+\begin_inset Formula $\sigma_{v}$
+\end_inset
+
+ for all vowels and a global one 
+\begin_inset Formula $\sigma_{c}$
+\end_inset
+
+ for all consonants.
+ For the sake of representation clarity, in the following equations we will
+ use only one standard deviation symbol 
+\begin_inset Formula $\sigma$
+\end_inset
+
+.
+ 
+\color red
+
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+
+\color red
+DETAIL: OVER_MAX dur is used to cut the duration 
+\begin_inset Formula $R_{i}$
+\end_inset
+
+, 
+\end_layout
+
+\end_inset
+
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+ 
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+
+\begin_inset Note Comment
+status collapsed
+
+\begin_layout Plain Layout
+IMPLEMENT: rd(i) hmm.continuous._DurationHMM._DurationHMM.setDurForStates
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Recursion
+\end_layout
+
+\begin_layout Standard
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+Let us define 
+\begin_inset Formula $R_{max}$
+\end_inset
+
+ 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+be the maximal possible reference duration value 
+\begin_inset Formula $\max_{i}(R_{i})+\sigma$
+\end_inset
+
+.
+\end_layout
+
+\end_inset
+
+
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+ The recursion step in the Viterbi algorithm from Eq.
+ 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:time-variable-viterbi-1"
+
+\end_inset
+
+ is extended by adding 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+a term for the duration distribution 
+\begin_inset Formula $P_{i}(d)$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+For 
+\begin_inset Formula $R_{max}<t\leq T$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{eqnarray}
+\delta_{k}(i) & = & \max_{d}\{\delta_{k-d}(i-1).\nonumber \\
+ &  & P_{i}(d)^{\alpha}\thinspace[B_{k}(i,d)]^{1-\alpha}\}\label{eq:decoding}
+\end{eqnarray}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+where 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+
+\begin_inset Formula 
+\begin{equation}
+B_{k}(i,d)=\Pi_{s=k-d+1}^{k}b_{i}(O_{s})
+\end{equation}
+
+\end_inset
+
+ is the observation probability of staying 
+\begin_inset Formula $d$
+\end_inset
+
+ frames in state 
+\begin_inset Formula $i$
+\end_inset
+
+ until frame 
+\begin_inset Formula $k$
+\end_inset
+
+.
+ The domain of 
+\begin_inset Formula $d$
+\end_inset
+
+ comes from the normal distribution 
+\begin_inset Formula $(\max\{R_{i}-\sigma,1\},R_{i}+\sigma)$
+\end_inset
+
+ and is reduced for states with reference duration 
+\begin_inset Formula $R_{i}<\sigma$
+\end_inset
+
+.
+ 
+\begin_inset Note Comment
+status collapsed
+
+\begin_layout Plain Layout
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+The recursive relation 
+\begin_inset Formula $B_{i}(t,d+1)=$
+\end_inset
+
+
+\begin_inset Formula $B_{i}(t,d)\thinspace b_{i}(O_{t-d})$
+\end_inset
+
+ allows to precompute a table and for efficient decoding
+\end_layout
+
+\end_inset
+
+
+\begin_inset Note Comment
+status collapsed
+
+\begin_layout Plain Layout
+IMPL: boundaries for d set in hmm.continuous.DurationPdf.DurationPdf.getMinRefDur
+\end_layout
+
+\end_inset
+
+ 
+\begin_inset Note Comment
+status collapsed
+
+\begin_layout Plain Layout
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+IMPL: recursive rule eq:decoding in hmm.continuous._DurationHMM._DurationHMM.getMaxP
+hi
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+A duration back-pointer is defined as
+\begin_inset Formula 
+\begin{eqnarray}
+\chi_{k}(i) & = & \arg\max_{d}\{\delta_{k-d}(i-1).\nonumber \\
+ &  & P_{i}(d)^{\alpha}\thinspace[B_{k}(i,d)]^{1-\alpha}\}\label{eq:backpointer}
+\end{eqnarray}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Note that in forced alignment the source state could be only the previous
+ state 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+from the phoneme sequence 
+\begin_inset Formula $i-1$
+\end_inset
+
+, therefore the transition probabilities 
+\begin_inset Formula $a_{ij}$
+\end_inset
+
+ are omitted.
+ 
+\begin_inset Note Comment
+status collapsed
+
+\begin_layout Plain Layout
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+Thus no maximization over transition from different source states in necessary.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+To be able to control the influence of the duration we have introduced a
+ weighting factor 
+\begin_inset Formula $\alpha$
+\end_inset
+
+.
+ Note that setting 
+\begin_inset Formula $\alpha$
+\end_inset
+
+ to zero is equivalent to using a uniform distribution for 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+
+\begin_inset Formula $P_{i}(d)$
+\end_inset
+
+
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+.
+\begin_inset Note Comment
+status collapsed
+
+\begin_layout Plain Layout
+IMPL: 
+\end_layout
+
+\begin_layout Plain Layout
+instead of 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+
+\begin_inset Formula $\delta_{t}(i)$
+\end_inset
+
+
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+ we rewrite the corresponding
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+
+\begin_inset Formula $\phi_{t}(i)$
+\end_inset
+
+
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+ (to comply with the notation of Rabiner in V.
+ A) as 
+\begin_inset Formula $\phi_{t}(i)=max_{d}\{\phi_{t-d}(i-1)+\alpha log[p_{i}(d)]+(1-\alpha)\Sigma_{s=t-d+1}^{t}log[b_{i}(O_{s})]\}$
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout Plain Layout
+and 
+\begin_inset Formula $\kappa_{t}^{'}(i)=log\pi_{i}+log[p_{i}(t)]+\Sigma_{s=1}^{t}(O_{s})$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Plain Layout
+—–
+\end_layout
+
+\begin_layout Plain Layout
+the scaling presented in Cheng et al.
+ is not needed since we let in python a flag to track if there is underfllow.
+ We divide B_map by its max as suggested by Cheng.
+ 
+\end_layout
+
+\end_inset
+
+
+\begin_inset Note Comment
+status collapsed
+
+\begin_layout Plain Layout
+note that when d_max(currT)<t <D_max 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+it might be 
+\begin_inset Formula $p_{i}(t)=0$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Initialization
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+ADD: An initialization step is needed, see paper Chen 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+For 
+\begin_inset Formula $t\leq R_{max}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{eqnarray}
+\delta_{k}(i) & = & \max\{\delta_{k}(i)^{*},\thinspace\kappa_{k}(i)\}\label{eq:deltaStarOrKappa}
+\end{eqnarray}
+
+\end_inset
+
+
+\begin_inset Note Comment
+status open
+
+\begin_layout Plain Layout
+IMPL: hmm.continuous._DurationHMM._DurationHMM._initBeginingPhis
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+where a reduced-duration delta 
+\begin_inset Formula $\delta_{k}(i)^{*}$
+\end_inset
+
+ is defined in the same way as in Eq.
+ 
+\begin_inset CommandInset ref
+LatexCommand eqref
+reference "eq:decoding"
+
+\end_inset
+
+ but 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+
+\begin_inset Formula 
+\begin{equation}
+d\in\begin{cases}
+emptySet, & t\le R_{i}-\sigma\\
+(R_{i}-\sigma,\min\{t-1,R_{i}+\sigma\}), & else
+\end{cases}
+\end{equation}
+
+\end_inset
+
+ reduces the duration to k when 
+\begin_inset Formula $k<R_{i}+\sigma$
+\end_inset
+
+.
+ 
+\begin_inset Note Comment
+status open
+
+\begin_layout Plain Layout
+these boundary rules are defined in hmm.continuous._DurationHMM._DurationHMM.compute
+PhiStar
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+Lastly the probability of staying at initial state 
+\begin_inset Formula $i$
+\end_inset
+
+ at time 
+\begin_inset Formula $k$
+\end_inset
+
+ is defined as: 
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+
+\begin_inset Formula 
+\begin{equation}
+\kappa_{k}(i)=\pi_{i}P_{i}(k){}^{\alpha}[\Pi_{s=1}^{k}(O_{s})]^{1-\alpha}
+\end{equation}
+
+\end_inset
+
+ for 
+\begin_inset Formula $k\in(1,R_{i}+\sigma)$
+\end_inset
+
+.
+\begin_inset Note Comment
+status collapsed
+
+\begin_layout Plain Layout
+IMPL: kappa_t(i) are computed for t in 1:R_i + 
+\backslash
+sigma, from R_i + 
+\backslash
+sigma to R_max + 
+\backslash
+sigma remains -infinity from initialization
+\end_layout
+
+\end_inset
+
+
+\begin_inset Note Comment
+status collapsed
+
+\begin_layout Plain Layout
+Python IMplementational remark:
+\end_layout
+
+\begin_layout Plain Layout
+(all indices for delta, kappa, phi as well as t are in range 0:len-1 ) Only
+ d = 1:D because d is discretized, so 0 could be a meaningful value 
+\end_layout
+
+\end_inset
+
+
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Subsubsection*
+backtracking
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Formula $t=T$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Formula $q_{t}=N$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Formula $d=\chi_{t}(q_{t})$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+while t > d do:
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Formula $q_{t-d+1...}q_{t-1}=q_{t}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+update
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Formula $t=t-d$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Formula $q_{t}=q_{t+1}-1$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Formula $d=\chi_{t}(q_{t})$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Backtracking
+\end_layout
+
+\begin_layout Standard
+Finally the decoded state sequence is derived by backtracking starting at
+ the last state 
+\begin_inset Formula $N$
+\end_inset
+
+ and switching to a source state a number of 
+\begin_inset Formula $d=\chi_{k}(i)$
+\end_inset
+
+ frames ahead according to the backpointer from Eq.
+ 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:backpointer"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Newpage pagebreak
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Durations derived from music score
+\begin_inset CommandInset label
+LatexCommand label
+name "sec:Durations-inferred-from"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+In this section we present an application of the duration aware model to
+ material from OTMM.
+ Singers in OTMM tend to deviate from the music score to a significantly
+ large extent.
+
+\color black
+ 
+\color inherit
+The goal is to show that the duration aware model is capable to accommodate
+ these varying durations
+\color black
+.
+ A reference lookup syllable duration table is constructed from note values
+ from the music score.
+ 
+\color inherit
+
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename Phd_Figs/durations/LAA_duration_score_overview.pdf
+	width 100text%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Overview of the steps of the lyrics-to-audio alignment system aware of phoneme
+ durations.
+ Durations are derived from the note values in the music score.
+ The phonetic recognizer is a duration-explicit HMM
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "overiview_durations-score"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+A general overview of the proposed approach is presented in Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "overiview_durations-score"
+
+\end_inset
+
+.
+ As in all approaches presented in this thesis, first an audio recording
+ is manually divided into segments according to the coarse level complementary
+ context - the sections of the composition.
+ In the case of OTMM the boundaries of vocal section (one of 
+\emph on
+zemin
+\emph default
+, 
+\emph on
+nakarat
+\emph default
+, 
+\emph on
+meyan
+\emph default
+) are indicated in the music score.
+ An audio recording and its corresponding score are input.
+ Relying on HMMs of phonemes the DHMM returns start and end timestamps of
+ the aligned lyrics phrases.
+ In the rest of this chapter for brevity we will refer to the duration aware
+ model as DHMM.
+ 
+\end_layout
+
+\begin_layout Subsection
+Deriving phoneme durations
+\end_layout
+
+\begin_layout Standard
+For each lyrics syllable a reference duration is derived by summing the
+ values of its corresponding musical notes (in units of 64th notes).
+ 
+\color black
+Then the reference duration is spread among its constituent phonemes, whereby
+ consonants are assigned constant duration and the rest is assigned to the
+ vowel.
+ 
+\color inherit
+Each consonants in a syllable is assigned a constant reference duration
+ 
+\begin_inset Formula $R_{i}$
+\end_inset
+
+ = 0.3 seconds.
+ 
+\begin_inset Note Comment
+status collapsed
+
+\begin_layout Plain Layout
+IMPL: Syllable.Syllable.calcPhonemeDurations
+\end_layout
+
+\end_inset
+
+To align a given recording the score-inferred lengths are linearly rescaled
+ to match its musical tempo.
+ After that scaling the unit of 
+\begin_inset Formula $R_{i}$
+\end_inset
+
+ becomes the number of acoustic frames.
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+here the experiment of Rong
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Experiments
+\end_layout
+
+\begin_layout Standard
+Experiments are carried out on the 
+\emph on
+a cappella lyrics OTMM dataset
+\emph default
+ (Section 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "subsec:A-cappella-lyrics-1"
+
+\end_inset
+
+) and the 
+\emph on
+multi-instrumental lyrics OTMM dataset
+\emph default
+ (Section 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "subsec:Accompanied-vocal-OTMM"
+
+\end_inset
+
+).
+ Alignment is performed on each manually divided audio section and results
+ are reported per recording (on total for its sections).
+ To assess the benefit of the DHMM, results are compared to the baseline
+ phonetic recognizer, presented in Section 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "sec:Evaluation"
+
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Standard
+We summarize results for the most optimal 
+\begin_inset Formula $\alpha=0.97$
+\end_inset
+
+.
+ The most optimal standard deviation for vowels 
+\begin_inset Formula $\sigma_{v}$
+\end_inset
+
+ was found to be 0.7, while we fixed the one for consonants 
+\begin_inset Formula $\sigma_{c}$
+\end_inset
+
+ to 0.1 seconds, based on the fact that consonant durations do not vary significa
+ntly.
+ These parameters were optimized by minimizing the alignment error on a
+ separate development dataset of 20 minutes OTMM acapella recordings.
+ To assure precision, we measured alignment of the development dataset on
+ annotations on the word level.
+ 
+\end_layout
+
+\begin_layout Subsubsection
+Evaluation metrics
+\end_layout
+
+\begin_layout Standard
+Alignment accuracy is measured as the percentage of duration of correctly
+ aligned regions from total audio duration (see Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:percentage_alignment"
+
+\end_inset
+
+ for an example).
+ 
+\end_layout
+
+\begin_layout Standard
+In addition, we define a metric 
+\emph on
+musical score in-sync
+\emph default
+ (MSI) to measure the approximate degree to which a singer performs a recording
+ in synchronization with note values, indicated in the music score.
+ Low accuracy of MSI indicates a higher temporal deviation from the music
+ score.
+ We compute
+\emph on
+ 
+\emph default
+MSI per a recording as the AA of score-inferred reference durations 
+\begin_inset Formula $R_{i}$
+\end_inset
+
+ compared to ground-truth, as if they were results after the alignment.
+ 
+\begin_inset Note Comment
+status open
+
+\begin_layout Plain Layout
+IMPL: grThurhWordList used to compare instead of decodedWordList in doitOneChunk.
+decodeAudioChunk
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection
+Discussion
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float table
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\align center
+
+\size small
+\begin_inset FormulaMacro
+\newcommand{\arraystretch}{1.2}
+\end_inset
+
+ 
+\begin_inset Tabular
+<lyxtabular version="3" rows="8" columns="3">
+<features tabularvalignment="middle">
+<column alignment="left" valignment="top" width="38col%">
+<column alignment="center" valignment="top" width="25col%">
+<column alignment="center" valignment="top" width="25col%">
+<row>
+<cell alignment="left" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+\size small
+System variant
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+\size small
+alignment
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+linebreak
+\end_layout
+
+\end_inset
+
+
+\family default
+\series bold
+\shape default
+\size small
+\emph default
+\bar default
+\strikeout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+ accuracy
+\series default
+ 
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\series bold
+\size small
+alignment
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+linebreak
+\end_layout
+
+\end_inset
+
+
+\family default
+\series bold
+\shape default
+\size small
+\emph default
+\bar default
+\strikeout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+ error
+\series default
+ 
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+musical score in-sync
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+88.14
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0.32
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+baseline a cappella
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+70.2 
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+1.14
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+DHMM acapella
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+90.04
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0.26
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+baseline polyphonic
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+67.46
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+1.26
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+DHMM polyphonic
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+77.74
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0.63
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+HMM+adaptation 
+\begin_inset CommandInset citation
+LatexCommand citet
+key "mesaros2008automatic"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+-
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+1.4
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+HMM+
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+linebreak
+\end_layout
+
+\end_inset
+
+ singer adaptation 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "fujihara2011lyricsynchronizer"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+85.2
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+-
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\size small
+\begin_inset VSpace -0.3cm*
+\end_inset
+
+ 
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Alignment accuracy (in percent) for musical score in-sync; different system
+ variants: baseline HMM and DHMM; state-of-the-art for other languages.
+ Alignment accuracy is reported as total for all recordings.
+ Additionally the total mean phrase alignment error (in seconds) is reported
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset label
+LatexCommand label
+name "results_overiview"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Table 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "results_overiview"
+
+\end_inset
+
+ presents comparison of the proposed DHMM system performance and the baseline
+ system.
+ It can be observed that modeling of durations with DHMM increases the accuracy
+ by 10 absolute percent.
+ One reason for this are cases of long vocals, in which the standard HMM
+ switches to the next phoneme prematurely (due to its inability to stay
+ long in a given state).
+ In contrast, the duration-explicit decoding allows picking the optimal
+ duration (which can be traced in an example in Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "example-of-decoded-Praat"
+
+\end_inset
+
+).
+ 
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename Phd_Figs/durations/KiseyeZeminPhoneLevel.png
+	lyxscale 30
+	width 100text%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+An example of decoded phonemes.
+ 
+\emph on
+very top
+\emph default
+: resynthesized spectrum;
+\emph on
+ upper level
+\emph default
+: ground truth, 
+\emph on
+middle level
+\emph default
+: HMM; 
+\emph on
+bottom level
+\emph default
+: DHMM;
+\emph on
+ 
+\emph default
+(excerpt from the recording 
+\emph on
+Kimseye etmem şikayet
+\emph default
+ sung by Bekir Unluater)
+\end_layout
+
+\end_inset
+
+
+\color blue
+
+\begin_inset CommandInset label
+LatexCommand label
+name "example-of-decoded-Praat"
+
+\end_inset
+
+
+\begin_inset Note Comment
+status open
+
+\begin_layout Plain Layout
+copied from /Users/joro/workspace/AlignmentDuration/report/DurationHSMM_polyphon
+ic_EUSIPCO/KiseyeZeminPhoneLevel.png
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+ 
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+FUTURE: is this true for songs where average vocal duration is short?, maybe
+ add on figure 2 tempo BPM as well
+\end_layout
+
+\end_inset
+
+
+\begin_inset Float figure
+wide true
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Box Frameless
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename Phd_Figs/durations/scatterCorrelation.eps
+	lyxscale 30
+	width 100text%
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Comparison between results from DHMM (for both polyphonic and acapella)
+ and the baseline HMM.
+ The metric used is alignment accuracy.
+ A connected triple of shapes represents results for one recording.
+ Results are ordered according to
+\emph on
+ musical score in-sync 
+\emph default
+(on the horizontal axis)
+\begin_inset Note Comment
+status open
+
+\begin_layout Plain Layout
+taken from ~/workspace/AlignmentDuration/report/DurationHSMM_polyphonic_EUSIPCO/
+scatterCorrelation.eps
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "per_recording_Accuracy"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\emph on
+\color red
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+
+\emph on
+\color red
+IMPL:
+\emph default
+ For experiment details see file 
+\emph on
+experiments.
+ FIle missing.
+ 
+\end_layout
+
+\begin_layout Plain Layout
+
+\emph on
+\color red
+-baseline is with htk
+\end_layout
+
+\begin_layout Plain Layout
+DHMM: ParametersAlgo.DEVIATION_IN_SEC = 0.1 used.
+ OVER_MAX_DUR_FACTOR (OMDF) is amount (in %) on top of reference duration
+ considered 
+\begin_inset Note Comment
+status open
+
+\begin_layout Plain Layout
+ (in _calcCurrStatePhi and initPhis)
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+features are different from HTK: - no cepstral mean norm done
+\end_layout
+
+\begin_layout Plain Layout
+sp are mandatory and ( cannot be skipped in the alignment.
+ do not know how to implement grammar in Viterbi )
+\end_layout
+
+\end_inset
+
+
+\emph default
+\color inherit
+Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "per_recording_Accuracy"
+
+\end_inset
+
+ allows a glance at results per recording, ordered according to MSI
+\emph on
+
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+
+\emph on
+\begin_inset Foot
+status collapsed
+
+\begin_layout Plain Layout
+The per-recording results are published at 
+\begin_inset CommandInset href
+LatexCommand href
+name "https://drive.google.com/file/d/0B4bIMgQlCAuqY3hKc25WTm9kTEk/view?usp=sharing"
+target "here"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+.
+ 
+\emph default
+It can be observed that the DHMM performs consistently better than the baseline
+ (with some exceptions, for which accuracy is close).
+ Unlike the relatively stable accuracy for the a cappella case, when background
+ instruments are present, the accuracy varies more among recordings.
+ 
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+FUTURE: test for these cases with bigger OMDF 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+For the sake of comparison, the alignment results of the best existing LAA
+ systems for English pop songs 
+\begin_inset CommandInset citation
+LatexCommand citep
+key "mesaros2008automatic"
+
+\end_inset
+
+ and for Japanese pop 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "fujihara2011lyricsynchronizer"
+
+\end_inset
+
+ are also listed.
+ These are abbreviated in Table 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "results_overiview"
+
+\end_inset
+
+ respectively as 
+\emph on
+HMM + adaptation 
+\emph default
+and 
+\emph on
+HMM + singer adaptation
+\emph default
+.
+ In these studies alignment is evaluated also on the 
+\color black
+level of a lyrical line/phrase.
+
+\color inherit
+ Despite the lack of adaptation, our DHMM system, based on an acoustic model
+ trained only on speech, yields results in simlar order to these reference
+ approaches.
+\end_layout
+
+\begin_layout Section
+Durations derived from music knowledge
+\begin_inset CommandInset label
+LatexCommand label
+name "sec:Durations-inferred-from-1"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+In jingju the durations, indicated in scores are not so strictly observed
+ as in OTMM.
+ Instead as a reference usually serve the orally transmitted singing examples
+ of master actors.
+ During time, as part of this oral practice, specific rules have been formed:
+ For example, if a poetry lyrics line has 10 syllables, a rule of thumb
+ is that it consists of 2 3-syllable dous, followed by a 4-syllable dou.
+ Respectively, if a poetry line has 7 syllables, it is a rule of thumb that
+ it consist of 2 2-syllable dous, followed by a 3-syllable 
+\emph on
+dou
+\emph default
+ reference phoneme durations.
+ These rules provide an excellent source to derive the phonemes reference
+ durations for a duration-informed LAA.
+ Therefore, we apply the duration aware probabilistic model (see 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "sec:Probabilistic-model"
+
+\end_inset
+
+), whereby syllable reference durations are derived from these principles,
+ instead of the music score.
+ The experiments in this Section are first presented in 
+\begin_inset CommandInset citation
+LatexCommand citet
+key "dzhambazov_lyrics_jingju"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Subsection
+Steps of a phonetic recognizer
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename Phd_Figs/durations/LAA_duration_dous_overview.pdf
+	lyxscale 50
+	width 100text%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Overview of the steps of the lyrics-to-audio alignment system aware of phoneme
+ durations.
+ Durations are derived from music knowledge: the rules of durations of dous
+ (syllable groups).
+ The phonetic recognizer is a duration-explicit HMM
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset label
+LatexCommand label
+name "approach overview"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+introduce by s.th.
+ like: here we comment the steps of a phonetic recogniser.
+ 
+\end_layout
+
+\end_inset
+
+A general overview of the proposed approach is presented in Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "approach overview"
+
+\end_inset
+
+.
+ As in all approaches presented in this thesis, first an audio recording
+ is manually divided into segments according to the coarse level complementary
+ context - the sections of the composition.
+ In the case of jingju as a section serves a lyrics line or a couplet (two
+ lines).
+ Because lyrics in jingju are derived from poetry a lyrics line is in fact
+ a lyrics sentence.
+ 
+\begin_inset Note Comment
+status open
+
+\begin_layout Plain Layout
+Lyrics are read from TextGrid annotation layer 'lines' IMPL: lyricsParser.divideI
+ntoSectionsFromAnno
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Paragraph
+Training phoneme models
+\begin_inset CommandInset label
+LatexCommand label
+name "par:Training-phoneme-models"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The lyrics transcription in pinyin, divided into sentences for each aria,
+ is expanded to phonemes based on grapheme-to-phoneme rules for Mandarin.
+ A syllable-to-phoneme mapping table for Mandarin is used.
+ Together with native Chinese speakers in the 
+\emph on
+CompMusic
+\emph default
+ team we created a mapping of pinyin syllables to the x-sampa phonetic alphabet
+ 
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+Part of the mapping (for diphthongs) rules can be found at 
+\begin_inset CommandInset href
+LatexCommand href
+target "https://github.com/georgid/AlignmentDuration/blob/noteOnsets/src/for_jingju/syl2ph.txt"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+.
+ Due to the small amount of training material, and due to their relatively
+ small ratio in total recording duration, most unvoiced consonants have
+ been grouped into one class.
+ 
+\color black
+Due to lack of publicly available Mandarin speech corpus, we trained the
+ phoneme models on the jingju a cappella dataset (
+\color inherit
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "subsec:A-cappella-lyrics"
+
+\end_inset
+
+
+\color black
+).
+ To assure a reasonable amount of training data, we trained in a 3-fold
+ manner, using 10 of the arias from the dataset.
+ Each fold has 5 arias of around 40 minutes each.
+ 
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+
+\color black
+ADD: how we cut the audio, first experiment on singing
+\end_layout
+
+\end_inset
+
+A mapping from the 
+\emph on
+\color inherit
+MLP-English 
+\emph default
+to Mandarin was not endeavored, because it seemed infeasible due to the
+ audibly significant differences in the acoustics of the Mandarin vowels.
+ Diphthongs and triphthongs make the sound of vowels very dependent on the
+ acoustic context.
+  
+\color black
+ 
+\end_layout
+
+\begin_layout Standard
+The first 13 
+\color black
+MFCCs
+\color inherit
+ and their delta and accelerations are extracted from 25ms audio frames
+ with the hop size of 10ms from the a cappella singing.
+ The extracted features are then fed to fit a GMM with 40 components for
+ each phoneme.
+
+\color black
+ Phoneme-level annotations were used to train GMMs.
+ Phoneme-level annotations were used to isolate the segments for each phoneme.
+
+\color inherit
+ For jingju we prefer such a big number of mixture components to assure
+ that it fits the varying acoustic conditions of the big number of diphtongs.
+ 
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+ADD: why these parameters
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Subsubsection
+Vocal/nonvocal segmentation
+\end_layout
+
+\begin_layout Plain Layout
+tested on dan-xipi-01, resulted in worse accuracy.
+ 
+\end_layout
+
+\begin_layout Plain Layout
+TODO: test on all with and without vocal
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Music-knowledge-based durations
+\end_layout
+
+\begin_layout Standard
+In Jingju an actor has the option to sustain the vocal of the 
+\emph on
+dou
+\emph default
+’s final syllable.
+ We will refer to the final syllable of a 
+\emph on
+dou 
+\emph default
+as 
+\emph on
+key syllable.
+
+\emph default
+ Therefore, reference phoneme durations are derived according to the 
+\emph on
+key syllables
+\emph default
+, as follows: 
+\end_layout
+
+\begin_layout Standard
+Firstly,
+\emph on
+ 
+\emph default
+each 
+\emph on
+key syllable 
+\emph default
+in
+\emph on
+ 
+\emph default
+a 
+\emph on
+dou
+\emph default
+ is assigned longer reference duration, while the rest gets equal durations.
+ 
+\begin_inset Note Comment
+status collapsed
+
+\begin_layout Plain Layout
+IMPL: in SentenceJingju.SentenceJingju.assignReferenceDurations()
+\end_layout
+
+\end_inset
+
+ Additionally, we observed in the dataset (see Section 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "subsec:A-cappella-lyrics"
+
+\end_inset
+
+) that usually the last 
+\emph on
+key syllable
+\emph default
+ of the last sentence in a 
+\emph on
+banshi
+\emph default
+ is prolonged additionally.
+ Thus we lenghtened additionally the reference syllable duration of these
+ last 
+\emph on
+key syllables.
+ 
+\emph default
+Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "example"
+
+\end_inset
+
+ depicts an example.
+ According to 
+\emph on
+dou
+\emph default
+ groups the 3rd, 6th and last syllable are expected to be prolonged.
+ Note that these expectations often do not hold - in this example they do
+ not hold for the 3rd syllable.
+\end_layout
+
+\begin_layout Standard
+To apply the duration aware probabilistic model, we need to segment further
+ the syllable reference durations down to phonemes reference durations 
+\begin_inset Formula $R_{i}$
+\end_inset
+
+.
+ To this end, the reference durations of syllables are divided among their
+ constituent phonemes, according to the head-belly-tail division of syllables
+ in Mandarin 
+\begin_inset CommandInset citation
+LatexCommand citep
+key "duanmu2000phonology"
+
+\end_inset
+
+.
+ We assign consonants a fixed reference duration 
+\begin_inset Formula $R_{c}=0.3$
+\end_inset
+
+ seconds, while the rest of the syllable is distributed equally among vowels.
+ 
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+ADD2: Another complication is that it is not known which of the vowels in
+ the dphtongs or triphtong bears the longest part.
+\end_layout
+
+\end_inset
+
+The reference durations 
+\begin_inset Formula $R_{i}$
+\end_inset
+
+ are linearly scaled to a reference number of frames according to the ratio
+ between the number of phonemes in a lyrics line and the duration of its
+ corresponding audio segment.
+ 
+\color black
+In comparison to the model presented for OTMM, we opted for a separate standard
+ deviation 
+\begin_inset Formula $d_{c}$
+\end_inset
+
+ for consonants, and 
+\begin_inset Formula $d_{v}$
+\end_inset
+
+ for vowels.
+ Proper values for 
+\begin_inset Formula $d_{c}$
+\end_inset
+
+ and 
+\begin_inset Formula $d_{v}$
+\end_inset
+
+ assure that a phoneme sung longer or shorter than the expected 
+\begin_inset Formula $R_{i}$
+\end_inset
+
+ can be adequately handled.
+
+\color inherit
+ 
+\begin_inset Note Comment
+status open
+
+\begin_layout Plain Layout
+IMPL: jingju.SyllableJingju.SyllableJingju.calcPhonemeDurations
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename Phd_Figs/durations/praat_annotation_sentence_refDurs.eps
+	width 60page%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+An example of 10-syllable sentence, being last in a 
+\emph on
+banshi
+\emph default
+ (before the 
+\emph on
+banshi
+\emph default
+ changes).
+ Actual syllable durations are in pinyin, whereas reference durations are
+ in orange parallelograms (below).
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset label
+LatexCommand label
+name "example"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Experiments
+\end_layout
+
+\begin_layout Standard
+Evaluation is carried on the dataset, presented in Section 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "subsec:A-cappella-lyrics"
+
+\end_inset
+
+.
+ Alignment accuracy is measured as the percentage of duration of correctly
+ aligned regions from total audio duration (see Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:percentage_alignment"
+
+\end_inset
+
+ for an example).
+ In the context of the work, presented in this dissertation a value of 100
+ means perfect matching of all Mandarin syllable boundaries from evaluated
+ audio.
+ Accuracy is measured for each manually segmented lyrics sentence and accumulate
+d on total for all the recordings.
+\end_layout
+
+\begin_layout Standard
+To define a glass ceiling accuracy, alignment was performed considering
+ phoneme annotations as an oracle for the acoustic features.
+ Considering phoneme annotations, we set the probability of a phoneme to
+ 1 during its time interval and 0 otherwise.
+ We found that the median accuracy per a sentence of lyrics is close to
+ 100%, which means that the model is generally capable of handling the highly-va
+rying vocal durations of jingju singing.
+ Most optimal results were obtained with 
+\begin_inset Formula $\sigma_{c}$
+\end_inset
+
+ = 0.7; 
+\begin_inset Formula $\sigma_{v}$
+\end_inset
+
+ = 3.0 
+\begin_inset Note Comment
+status collapsed
+
+\begin_layout Plain Layout
+done by setting parameter withOracle in doitOneChunkAlign.doitOneChunkAlign
+\end_layout
+
+\begin_layout Plain Layout
+For each state for a phoneme, for the frames of its duration assign 1 in
+ B_map.
+ So B_map is zero for all other phonemes.
+ 
+\end_layout
+
+\end_inset
+
+
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+2.0 is much better than 0.1.
+ 2.0 is comparable to 1.0.
+ vowel gets longer deviationInSec.
+ Try first reading syllable durs from textGrid and )
+\end_layout
+
+\end_inset
+
+
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+weighting factor alpha = 0.97
+\end_layout
+
+\end_inset
+
+ 
+\begin_inset Note Comment
+status collapsed
+
+\begin_layout Plain Layout
+if phoneme is not present in model, approximate by copying the model for
+ a closely sounding phoneme.
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Quotes eld
+\end_inset
+
+missing
+\begin_inset Quotes erd
+\end_inset
+
+ -> 
+\begin_inset Quotes eld
+\end_inset
+
+replace by
+\begin_inset Quotes erd
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+U^ -> copy u
+\end_layout
+
+\begin_layout Plain Layout
+@ -> copy e
+\end_layout
+
+\begin_layout Plain Layout
+9 -> copy O
+\end_layout
+
+\begin_layout Plain Layout
+—-
+\end_layout
+
+\begin_layout Plain Layout
+for these since capital letters are used, they dont make difference when
+ loading .pkl files.
+\end_layout
+
+\begin_layout Plain Layout
+N -> copy n
+\end_layout
+
+\begin_layout Plain Layout
+A -> copy a
+\end_layout
+
+\begin_layout Plain Layout
+o -> copy O
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+As a baseline we employed a standard HMM with Viterbi decoding with the
+ 
+\emph on
+htk
+\emph default
+ toolkit 
+\begin_inset CommandInset citation
+LatexCommand citet
+key "young1993htk"
+
+\end_inset
+
+.
+ For both HMM and DHMM, because of the small size of the dataset, evaluation
+ is done by cross validation on 3 folds with approximately equal number
+ of syllables.
+
+\color green
+ 
+\color black
+Phoneme models are trained on 10 of the arias and evaluated on a 5-aria
+ hold-out subset
+\color inherit
+.
+ 
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+ADD2: which links to the folds
+\end_layout
+
+\end_inset
+
+ Table 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "table_reults_jingju"
+
+\end_inset
+
+ shows that the proposed duration model outperforms substantially the baseline
+ alignment.
+ Looking at oracle, one can conclude that reaching closer to it can be achieved
+ in the future by improving the phoneme models, to capture phoneme identities
+ in a more deterministic way.
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float table
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Tabular
+<lyxtabular version="3" rows="3" columns="4">
+<features tabularvalignment="middle">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+oracle
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+baseline
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+DHMM
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+average
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+98.5
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+56.6
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+89.9
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+median per sentence
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+98.3
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+75.2
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+92.3
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Comparison of total oracle, baseline and DHMM alignment.
+ Accuracy is reported as accumulate correct duration over accumulate total
+ duration over all sentences from a set of arias.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "table_reults_jingju"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Note Comment
+status collapsed
+
+\begin_layout Plain Layout
+IMPL: run with commit: https://github.com/georgid/JingjuAlignment/commit/87e593d2
+c32c6a385c69691370f2bb8ee77328cf
+\end_layout
+
+\begin_layout Plain Layout
+see comments of commit in github
+\end_layout
+
+\begin_layout Plain Layout
+—-
+\end_layout
+
+\begin_layout Plain Layout
+baseline is with htk.
+ So it has silence model and the one hiere does not.
+ So include it in paper.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\color black
+\begin_inset Newpage pagebreak
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Summary
+\end_layout
+
+\begin_layout Standard
+
+\color black
+In this chapter we proposed how to extend an HMM-based phonetic recognizer
+ for lyrics-to-audio alignment by utilizing lyrics duration information
+ as a cue, complementary to phonetic timbre.
+ An advantage of the presented model is that it allows room for certain
+ temporal flexibility to handle cases of significant deviation of sung vowels
+ from the expected reference durations.
+ We evaluated on material from two music traditions: OTMM and jingju.
+ 
+\end_layout
+
+\begin_layout Standard
+
+\color black
+For OTMM reference phoneme durations are inferred from sheet music.
+ The proposed model is tested on polyphonic audio recordings, as well as
+ on an acapella dataset.
+ Results show that the explicit modeling of phoneme durations outperforms
+ a baseline approach, unaware of durations, by absolute 10 percent on the
+ level of lyrics phrases.
+ Information about durations can serves as a an important 'stepping stone'
+ for the alignment process especially in the case of polyphonic audio, for
+ which timbral features may not be  deterministic enough.
+  
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+
+\color black
+an advantege is that duraitons are from temporal context well, compared
+ to annas durations which are not
+\end_layout
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+
+\color black
+For jingju we derived the expected syllable durations from music rules,
+ specific for this music genre.
+ 
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+
+\color black
+CONCLUSION: the best improvement comes from a priori syllable duration informati
+on this makes it limited to musical score
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+ADD: Comparie the application of the syllable-duration aware model for two
+ traditions.
+ It contributes to a different degree for each of them: is the degree of
+ improvement similar for the two music traditions.
+ 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_body
+\end_document

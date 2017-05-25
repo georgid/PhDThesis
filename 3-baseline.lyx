@@ -1,0 +1,4684 @@
+#LyX 2.2 created this file. For more info see http://www.lyx.org/
+\lyxformat 508
+\begin_document
+\begin_header
+\save_transient_properties true
+\origin unavailable
+\textclass memoir
+\options noend,nofillcomment,figure
+\use_default_options false
+\maintain_unincluded_children false
+\language english
+\language_package default
+\inputencoding auto
+\fontencoding default
+\font_roman "default" "default"
+\font_sans "default" "default"
+\font_typewriter "default" "default"
+\font_math "auto" "auto"
+\font_default_family default
+\use_non_tex_fonts true
+\font_sc false
+\font_osf false
+\font_sf_scale 100 100
+\font_tt_scale 100 100
+\graphics default
+\default_output_format pdf4
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize 11
+\spacing single
+\use_hyperref true
+\pdf_title "Your topic"
+\pdf_author "You"
+\pdf_subject "This is about this and that"
+\pdf_keywords "comma separated, as many, as you want"
+\pdf_bookmarks false
+\pdf_bookmarksnumbered false
+\pdf_bookmarksopen false
+\pdf_bookmarksopenlevel 1
+\pdf_breaklinks false
+\pdf_pdfborder false
+\pdf_colorlinks false
+\pdf_backref page
+\pdf_pdfusetitle false
+\pdf_quoted_options "pdftex,hyperfigures,breaklinks,colorlinks,pdfcreator={LaTeX with hyperref package},pdfproducer={pdflatex},citecolor=LinkColor,linkcolor=LinkColor,urlcolor=ExtLinkColor"
+\papersize a4paper
+\use_geometry false
+\use_package amsmath 2
+\use_package amssymb 2
+\use_package cancel 0
+\use_package esint 1
+\use_package mathdots 0
+\use_package mathtools 0
+\use_package mhchem 0
+\use_package stackrel 0
+\use_package stmaryrd 0
+\use_package undertilde 0
+\cite_engine natbib
+\cite_engine_type authoryear
+\biblio_style plainnat
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 0
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\quotes_language english
+\papercolumns 1
+\papersides 2
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Chapter
+Baseline Lyrics-to-audio Alignment Model
+\end_layout
+
+\begin_layout Section
+Introduction
+\end_layout
+
+\begin_layout Standard
+In this chapter we depict our lyrics-to-audio alignment (LAA) baseline system.
+ It is a phonetic recognizer, based on phoneme HMMs.
+ To date most of the studies on LAA are based on the phonetic recognizer
+ approach, as described in Section 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "sec:Background-on-Lyrics-to-Audio"
+
+\end_inset
+
+.
+ The goal is to describe the key elements of the baseline approach, which
+ are not related to the complementary context of lyrics.
+ In this way we 'set the scene' for the methodologies that consider context
+ - the main contribution of this thesis.
+ They will be the focus of the following two chapters.
+ To this end, in this chapter we go through the key steps of a phonetic
+ recognizer and describe which existing methodologies we plugged in.
+ Some of these are tailored to the specific characteristics of OTMM (see
+ Section 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "sec:Background-on-Ottoman"
+
+\end_inset
+
+).
+ In particular, we explain how we utilized a method for linking structural
+ sections of the composition to their respective audio segments in a recording.
+ Further, we describe the benefit of a predominant melody extraction method.
+ We comment on tuning their parameters.
+ We present in more details the construction of the phoneme network from
+ the lyrics transcription, for which some rules for Turkish language are
+ required.
+\end_layout
+
+\begin_layout Standard
+A major contribution of this chapter is a strategy to represent phonemes
+ in Turkish language by mapping them to phonemes in English.
+ This enables the use of a reliable model for English as a viable replacement
+ for Turkish, for which the available training material is scarce.
+ We also describe the datasets used to evaluate the LAA methods, presented
+ throughout this thesis.
+ Compiling datasets, representative of the music tradition and the key facets
+ of complementary context, is an important effort of this study.
+\end_layout
+
+\begin_layout Standard
+We start the chapter by describing the evaluation datasets, comprising both
+ a cappella and multi-instrumental recordings from OTMM (Section 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "sec:Dataset"
+
+\end_inset
+
+).
+ We then introduce our choices for each of the steps of the standard phonetic
+ recognizer in Section 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "sec:Steps-of-phonetic"
+
+\end_inset
+
+.
+ We describe the construction of the phoneme network in Section 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "subsec:Accompaniment-attenuation"
+
+\end_inset
+
+.
+ In Section 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "sec:Training-the-acoustic"
+
+\end_inset
+
+, we present a comparison of three strategies to train the acoustic model
+ for Turkish language.
+ Finally, in Section 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "sec:Evaluation"
+
+\end_inset
+
+ we discuss the alignment results by evaluating the baseline model on the
+ presented datasets.
+\end_layout
+
+\begin_layout Section
+Datasets
+\begin_inset CommandInset label
+LatexCommand label
+name "sec:Dataset"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+In this thesis we have evaluated the proposed lyrics tracking approaches
+ on a dataset of selected recordings from OTMM repertoire.
+ To this end we prepared two datasets: 
+\emph on
+multi-instrumental lyrics OTMM dataset, 
+\emph default
+which encompasses original studio recordings with accompaniment of multiple
+ instruments, and an 
+\emph on
+a cappella lyrics OTMM dataset, 
+\emph default
+which contains solo signing voice
+\emph on
+.
+
+\emph default
+ Additionally, we compiled a 
+\emph on
+multi-instrumental vocal onsets OTMM dataset
+\emph default
+ with annotations of vocal note onsets containing performances with well-perceiv
+ed percussive accents.
+ In all datasets we payed special attention to annotating carefully the
+ timestamps of the music events, in which complementary context manifests.
+\end_layout
+
+\begin_layout Subsection
+
+\emph on
+Multi-instrumental lyrics OTMM dataset
+\begin_inset CommandInset label
+LatexCommand label
+name "subsec:Accompanied-vocal-OTMM"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\color black
+The 
+\emph on
+\color inherit
+multi-instrumental lyrics OTMM dataset, 
+\emph default
+which
+\color black
+ we compiled, consists of 13 performances with a soloing singer - 5 with
+ male and 8 with female one.
+ The performances are from 11 compositions in the şarkı form and have
+\color inherit
+ total duration of 
+\color black
+19 minutes.
+ They are drawn from the 
+\emph on
+CompMusic
+\emph default
+
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+{}
+\end_layout
+
+\end_inset
+
+ corpus of OTMM repertoire 
+\begin_inset CommandInset citation
+LatexCommand citep
+key "uyar2014corpus_dlfm"
+
+\end_inset
+
+ and
+\color inherit
+ have varying recording quality, including historic recordings.
+ Some these are not necessarily with good studio quality.
+
+\color black
+ Music scores are provided in a custom machine-readable format, called 
+\emph on
+symbTr,
+\emph default
+
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+{}
+\end_layout
+
+\end_inset
+
+ complying with the 
+\emph on
+humdrum
+\emph default
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+{}
+\end_layout
+
+\end_inset
+
+ notation philosophy 
+\begin_inset CommandInset citation
+LatexCommand citep
+key "karaosmanouglu2012turkish"
+
+\end_inset
+
+.
+ These scores contain annotations of the structural sections of the şarkı
+ form.
+ 
+\color inherit
+The words in a section are further split adopting the division into melodic
+ phrases, proposed by 
+\begin_inset CommandInset citation
+LatexCommand citet
+key "karaosmanouglu2014symbolic"
+
+\end_inset
+
+.
+ What the authors call a musical phrase represents a musically-meaningful
+ motif of the melodic line.
+ A phrase spans roughly the same number of metrical cycles depending on
+ the tempo (1 or 2 cycles).
+ This corresponds to up to 4 words depending on their length.
+ A melodic phrase often also contains short instrumental motives before
+ or after the vocal line.
+ If an original phrase boundary splits a word we have modified it to include
+ the complete word, in order to assure appropriate evaluation on word or
+ phrase level.
+ Table 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "dataset-1"
+
+\end_inset
+
+ presents statistics about phrases.
+ The total number of words in the dataset are 732.
+\end_layout
+
+\begin_layout Standard
+
+\color black
+The performance recordings contain the annotations of the boundaries of
+ segments corresponding to the score sections, which have been done in the
+ study of 
+\begin_inset CommandInset citation
+LatexCommand citet
+key "senturk2014linking_jnmr"
+
+\end_inset
+
+.
+ We annotated further the melodic phrase boundaries using the 
+\emph on
+Praat
+\emph default
+ annotation tool
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+
+\color black
+\begin_inset CommandInset href
+LatexCommand href
+target "http://www.fon.hum.uva.nl/praat/"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+.
+
+\color inherit
+ Whenever needed, we split or merged some melodic phrases with outlier duration
+ so that phrases within a recording have approximately equal duration 
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+The dataset is available at 
+\begin_inset CommandInset href
+LatexCommand href
+target "http://compmusic.upf.edu/turkish-sarki"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float table
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Tabular
+<lyxtabular version="3" rows="2" columns="3">
+<features booktabs="true" tabularvalignment="middle">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+total #sections 
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+#phrases per section 
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+#words per phrase
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+75 
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+2 to 5 
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+1 to 4
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Phrase and section statistics for the OTMM dataset
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset label
+LatexCommand label
+name "dataset-1"
+
+\end_inset
+
+ 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+
+\emph on
+A cappella lyrics OTMM dataset
+\begin_inset CommandInset label
+LatexCommand label
+name "subsec:A-cappella-lyrics-1"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Due to the lack of appropriate a cappella material in the şarkı form, we
+ recorded especially for this study an a cappella version of the 
+\emph on
+accompanied vocal OTMM dataset
+\emph default
+.
+\end_layout
+
+\begin_layout Standard
+
+\color black
+The vocal parts of the 
+\emph on
+\color inherit
+multi-instrumental lyrics OTMM dataset
+\emph default
+\color black
+ have been sung by professional singers,
+\color inherit
+ especially recorded for this study.
+ A performance has been recorded while listening to the original recording,
+ whereby instrumental sections are left as silence.
+ This assures that the order, in which sections are performed, is kept the
+ same.
+ Therefore, the generated timestamps are valid for the accompanied version,
+ too.
+ Although each recorded singer has some peculiar time advances and delays
+ of given syllables, the recordings are to a very high degree in-sync with
+ the originals.
+ We carefully checked that by listening simultaneously to both the original
+ and the a cappella version
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+The audio and the annotations are available under a CC license at 
+\begin_inset CommandInset href
+LatexCommand href
+target "http://compmusic.upf.edu/turkish-makam-acapella-sections-dataset"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+Additionally, the singing voice for 6 recordings (with a total duration
+ of around 10 minutes) from the dataset has been annotated with MIDI notes
+ inferred by the music score.
+ Special care is taken to place the note onset on the time instant, when
+ voiced sound starts.
+ If a syllable starts with an unvoiced phoneme, the onset is placed at the
+ beginning of the vowel (see Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "example_annotaion"
+
+\end_inset
+
+).
+ In addition, as onset is considered the point in time in which a transition
+ to a new note is started, at the beginning of the common in OTMM slurs
+ and portamentos 
+\begin_inset Foot
+status collapsed
+
+\begin_layout Plain Layout
+Onset annotations are available at http://compmusic.upf.edu/node/233
+\end_layout
+
+\end_inset
+
+.
+\begin_inset Note Comment
+status open
+
+\begin_layout Plain Layout
+IMPL: a cappella dataset is in /Users/joro/Downloads/ISTANBULSymbTr2/ and
+ polyphonic dataset is in ~/Downloads/lyrics-2-audio-test-data/ 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+
+\emph on
+Multi-instrumental vocal onsets OTMM dataset
+\begin_inset CommandInset label
+LatexCommand label
+name "subsec:Multi-instrumental-vocal-onsets"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Unlike the previous two datasets, being designed for LAA, we compiled 
+\emph on
+the multi-instrumental vocal onsets OTMM dataset
+\emph default
+ to be used for note onset detection of singing voice.
+ We utilize it for automatic note onset detection, informed by underlying
+ metrical accents.
+ To that end, all recordings have clearly audible percussive strokes, at
+ some of the beats in a metrical cycle.
+ Except for vocal onsets, timestamps of beats are also annotated.
+ It is a subset of the dataset, presented in 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "holzapfel2014tracking"
+
+\end_inset
+
+, including only the recordings with singing voice present.
+ It is divided into training and test dataset.
+ The test dataset comprises 5 1-minute excerpts from recordings with solo
+ singing voice for each of two meter classes, referred to as usuls in Turkish
+ makam: the 9/8-usul aksak and the 8/8-usul düyek.
+ All excerpts are manually annotated with beats, downbeats and vocal note
+ onsets
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+The dataset is available at 
+\begin_inset CommandInset href
+LatexCommand href
+name "http://compmusic.upf.edu/otmm-vocal-onsets-dataset"
+target "http://compmusic.upf.edu/otmm-vocal-onsets-dataset"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+.
+ Interestingly, each usul has a characteristic pattern of beat positions,
+ on which percussive strokes are hit.
+ For example, in aksak the beats 1,3,4,5,7 and 9 have strokes.
+ Musicians observe these patterns rather conservatively.
+ 
+\end_layout
+
+\begin_layout Standard
+The training set spans around 7 minutes of audio from each of the two usuls,
+ annotated also manually with beats and downbeats.
+ Due to the scarcity of material with solo singing voice, several excerpts
+ with choir sections were included.
+\end_layout
+
+\begin_layout Subsection
+
+\emph on
+A cappella lyrics jingju dataset
+\begin_inset CommandInset label
+LatexCommand label
+name "subsec:A-cappella-lyrics"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The dataset has been especially compiled for this study and consists of
+ excerpts from 15 arias, chosen from the 
+\emph on
+CompMusic
+\emph default
+ corpus of jingju arias, compiled by 
+\begin_inset CommandInset citation
+LatexCommand citet
+key "repetto2014creating"
+
+\end_inset
+
+.
+ It has total duration of 67 minutes and comprises two female singers.
+ For a given aria were present two versions: a recording with voice plus
+ accompaniment and an accompaniment-only one.
+ From these, we generated a cappella singing by subtracting manually the
+ instrumental accompaniment from the complete version 
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+The resulting monophonic singing is perceived as clean as if it were a cappella,
+ having slightly audible artifacts from percussion on the non-vocal regions
+\end_layout
+
+\end_inset
+
+.
+ Table 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "dataset"
+
+\end_inset
+
+ presents the average values per sentence and syllable.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float table
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Tabular
+<lyxtabular version="3" rows="4" columns="2">
+<features booktabs="true" tabularvalignment="middle">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top" width="0pt">
+<row>
+<cell alignment="center" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+#sentences per aria
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+9.2
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+#syllables per sentence
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+10.7
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+avrg sentence duration (sec)
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+18.3
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+avrg syllable duration (sec)
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+2.4
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Sentence and syllable statistics for the jingju dataset
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset label
+LatexCommand label
+name "dataset"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Each aria is annotated on different event granularities: from the 
+\emph on
+banshi
+\emph default
+ type, through boundaries of lyrics sentences, down to boundaries of syllables
+ and boundaries of phonemes.
+ Annotations are carefully done by native Chinese speakers and a jingju
+ opera musicologist
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+These are the 
+\emph on
+CompMusic 
+\emph default
+team members Rong Gong, Yile Yang and Rafael Caro Repetto
+\end_layout
+
+\end_inset
+
+.
+ The phoneme set has 29 phonemes and is derived from Chinese pinyin, and
+ represented using the x-sampa standard
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+Annotations are made available at 
+\begin_inset CommandInset href
+LatexCommand href
+target "http://compmusic.upf.edu/node/286"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+.
+ To assure enough training data for each model, certain underrepresented
+ phonemes are grouped into phonetic classes, based on their perceptual similarit
+y.
+\end_layout
+
+\begin_layout Section
+Steps of the phonetic recognizer
+\begin_inset CommandInset label
+LatexCommand label
+name "sec:Steps-of-phonetic"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+An overview of the steps of the proposed approach can be seen in Figure
+ 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "overview_baseline"
+
+\end_inset
+
+.
+ These steps comply with the typical steps of a generic phonetic recognizer
+ approach (presented in Fig.
+ 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "steps_phonetic_recognizer"
+
+\end_inset
+
+ of the Background Chapter).
+ In what follows we discuss in details the design choices and the preferred
+ solutions for each step.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename Phd_Figs/baseline/LAA_baseline_overview.png
+	lyxscale 20
+	width 100text%
+
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Overview of the steps of the baseline lyrics-to-audio alignment system
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "overview_baseline"
+
+\end_inset
+
+ 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Structural segmentation
+\end_layout
+
+\begin_layout Standard
+Being a challenging problem itself, a full-fledged SVD is outside the scope
+ of this study.
+ We instead divided manually each audio recording into sections (e.g.
+ zemin, nakarat, meyan) as indicated in the music score, whereby instrumental-on
+ly sections were discarded.
+ In the şarkı form each vocal segment corresponds to a structural section
+ (zemin, nakarat, or meyan).
+ We assign manually to each segmented vocal section its corresponding lyrical
+ line, in order to assure correct lyrics.
+\end_layout
+
+\begin_layout Standard
+All alignment throughout this thesis is performed on an audio recording
+ and text for each vocal section separately.
+ LAA on complete audio recordings was not desirable due to the unpredictability
+ of the sections order and addition of improvisation sections during performance.
+\end_layout
+
+\begin_layout Standard
+To verify the feasibility of automating the structural segmentation, we
+ utilized a method for linking score sections to their beginning and ending
+ timestamps in a recording with Makam singing 
+\begin_inset CommandInset citation
+LatexCommand citep
+key "senturk2014linking_jnmr"
+
+\end_inset
+
+.
+ Due to the high accuracy of this method, almost all sections are mapped
+ correctly with minor section boundary displacements.
+ We showed that integrating section linking as a preprocessing step yields
+ estimated section boundaries that are not detrimental to matching the correct
+ lyrics sections 
+\begin_inset CommandInset citation
+LatexCommand citep
+key "dzhambazov2014lyrics_fma"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Subsection
+Accompaniment attenuation
+\begin_inset CommandInset label
+LatexCommand label
+name "subsec:Accompaniment-attenuation"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+It is rather infeasible to successfully track the phonemes in multi-instrumental
+ music signals by using the models, trained solely on a cappella singing.
+ The harmonic partials in unaccompanied singing are relatively straightforward
+ to extract because they form clear intensity peaks in the spectrogram.
+ A simple intensity-peak-picking strategy is however prone to failure in
+ accompanied singing, because of the interference with instrumental harmonic
+ partials.
+ To handle this case many harmonic partial extraction methods were proposed
+ (see Section 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "subsec:Background-Accompaniment-attenuation"
+
+\end_inset
+
+).
+\end_layout
+
+\begin_layout Standard
+Such a method requires a melody contour as an input, being generated by
+ a melodic source.
+ We first extract the vocal contour of the singing voice.
+ Then, based on it, its harmonic partials are derived from the spectrum.
+ Then the vocal harmonic partials are resynthesized into an interpolated
+ vocal spectrum 
+\begin_inset Formula $\bar{X_{t}}$
+\end_inset
+
+.
+ Finally, we extract acoustic features from 
+\begin_inset Formula $\bar{X_{t}}$
+\end_inset
+
+ instead of the original polyphonic spectrum.
+\end_layout
+
+\begin_layout Subsubsection
+Singing voice melody extraction
+\begin_inset CommandInset label
+LatexCommand label
+name "subsec:Singing-voice-melody"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+To extract the contour of the predominant singing voice in music with instrument
+al accompaniment, we utilized the algorithm, described in 
+\begin_inset CommandInset citation
+LatexCommand citet
+key "atli2014audio"
+
+\end_inset
+
+.
+ It is a method for extraction of the melody of a predominant instrument.
+ It relies on the basic methodology of 
+\begin_inset CommandInset citation
+LatexCommand citet
+key "salamon2012melody"
+
+\end_inset
+
+, but modifies the way in which the final melody contour is selected from
+ a set of candidate contours, in order to reflect the specificities of OTMM:
+ 
+\end_layout
+
+\begin_layout Enumerate
+It chooses a finer bin resolution of only 7.5 cents that approximately correspond
+s to the smallest noticeable change in Makam melodic scales.
+ 
+\end_layout
+
+\begin_layout Enumerate
+Unlike the original methodology, it does not discard time intervals where
+ the peaks of the pitch contours have relatively low magnitude.
+ This accommodates time intervals at the end of the melodic phrases, where
+ Makam singers might sing softer.
+ 
+\end_layout
+
+\begin_layout Standard
+In addition to generating f0 values, the algorithm performs in the same
+ time a predominant source detection: it returns zero for f0 in regions
+ with no dominant melody.
+ The melody contour obtained this way has its origin not only from singing
+ voice but also from accompanying instruments.
+ This happens in short instrumental interludes, where an accompanying instrument
+s carries the main melody.
+\end_layout
+
+\begin_layout Subsubsection
+Harmonic model
+\end_layout
+
+\begin_layout Standard
+We utilized the harmonic model of 
+\begin_inset CommandInset citation
+LatexCommand citet
+key "Serra89asystem"
+
+\end_inset
+
+ to filter the spectral peaks corresponding to the the harmonic partials
+ of the singing voice.
+ The spectral peaks are computed at the expected location of harmonic partials
+ at multiples of the fundamental frequency 
+\begin_inset Formula $f^{n}\approx h_{n}f^{0}$
+\end_inset
+
+ , where 
+\begin_inset Formula $h_{n}$
+\end_inset
+
+ is the harmonic index (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:harmonic-model"
+
+\end_inset
+
+).
+ Parabolic interpolation refines the exact frequency locations.
+ We estimated 
+\begin_inset Formula $\bar{X_{t}}$
+\end_inset
+
+ with a relatively huge number of harmonics (30), in order to preserve as
+ much as possible the phoneme identity information.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+Yh[k]=\sum_{r=1}^{R}A_{r}W[k-r\hat{f}_{0}]\label{eq:harmonic-model}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\align center
+\begin_inset Float figure
+placement h
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename Phd_Figs/baseline/example_fundFreq.png
+	width 40page%
+
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Extracted predominant melody
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\align center
+\begin_inset VSpace medskip
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename Phd_Figs/baseline/example_fundFreq_harmonics.png
+	width 40page%
+
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Detected harmonic partials with the harmonic model, based on the predominant
+ melody
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+An example of extracting harmonic partials of predominant voice with the
+ harmonic model
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+It should be noted that it is not an end goal of this study to segregate
+ the singing voice from the polyphonic mix.
+ Methods that are focusing on a good separation of the singing voice strive
+ to obtain a representation of the vocal content with the least amount of
+ introduced artifacts 
+\begin_inset CommandInset citation
+LatexCommand citep
+key "chandna2017monoaural"
+
+\end_inset
+
+.
+ By contrast, in our case some artifacts may be acceptable as long as they
+ do not distort significantly the distinction of the identity of vowels.
+ Nevertheless, as a benchmark, we carried out a study, in which we evaluated
+ the quality of voice segregation using the harmonic model 
+\begin_inset CommandInset citation
+LatexCommand citep
+key "dzhambazov_svs_mirex"
+
+\end_inset
+
+.
+ 
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+ADD: common ss metrics are ...
+ They showed...
+ blah blah
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection
+Resynthesis
+\end_layout
+
+\begin_layout Standard
+The interpolated vocal harmonic partials are resynthesized by means of a
+ constant overlap add resynthesis with the 
+\emph on
+sms-tools
+\emph default
+ package
+\begin_inset Foot
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset CommandInset href
+LatexCommand href
+target "http://mtg.upf.edu/technologies/sms"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+.
+ Despite being distorted by energy leaks from instruments, the interpolated
+ partials seem to preserve well the overall spectral shape of the singing
+ voice, including the formant frequencies, which encode the phoneme identities.
+ The resynthesis allowed us to listen and verify that vocals are still to
+ a large extent intelligible.
+\end_layout
+
+\begin_layout Standard
+Note that melody resynthesis usually results in singing voice with perceivably
+ worse intelligibility of the phonemes than the original signal.
+ Some unvoiced consonants are dropped, as well as some artifacts are introduced.
+ However, for computers, which are not as versed as human listeners in distingui
+shing among sources, the accompaniment reduction is an imperative step.
+\end_layout
+
+\begin_layout Standard
+An example for the audio segment with the lyrics phrase 
+\emph on
+bakmıyor çeşmi siyah
+\emph default
+ can be seen in Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "figure_resynthesis"
+
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Standard
+\align center
+\begin_inset Float figure
+placement h
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename Phd_Figs/baseline/spectrogramOriginalWithLyrics.png
+	width 40page%
+
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Original spectrogram.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\align center
+\begin_inset VSpace medskip
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename Phd_Figs/baseline/spectrogramSynthesisWithLyrics.png
+	width 40page%
+
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Spectrogram of resynthesized harmonic partials content.
+ Note that some unvoiced consonants are replaced with silences 
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset label
+LatexCommand label
+name "figure_resynthesis"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+An example of the resynthesized harmonic partials of singing voice for the
+ lyrics phrase 
+\emph on
+bakmıyor çeşmi siyah.
+ 
+\emph default
+Content up to 10 kHz is shown.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Acoustic Features
+\begin_inset CommandInset label
+LatexCommand label
+name "subsec:Features"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\begin_layout Standard
+MFCCs have several parameters, that could be tuned according to the application
+ use case.
+ A standard for extracting MFCCs for the characterization of singing voice
+ are the default parameters of the HMM toolkit (
+\emph on
+htk
+\emph default
+), which is tailored to speech recognition 
+\begin_inset CommandInset citation
+LatexCommand citep
+key "young1993htk"
+
+\end_inset
+
+.
+ The paramters are presented in Table 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "table-params_MFCC"
+
+\end_inset
+
+ and are eplained in details in the 
+\emph on
+htk book
+\emph default
+
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+\begin_inset CommandInset href
+LatexCommand href
+target "https://www.researchgate.net/publication/236023819_The_HTK_book_for_HTK_version_34"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+.
+ We adopted these to assure consistency to previous work, as in fact all
+ the background lyrics-to-audio alignment approaches reviewed in the previous
+ chapter rely on the htk variant of MFCC features.
+ We believe that an important contribution of this work, from a practical
+ point of view, is that we ported the variant of MFCC with the 
+\emph on
+htk
+\emph default
+ parameters to the open-source feature extraction library essentia
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+\begin_inset CommandInset href
+LatexCommand href
+target "http://essentia.upf.edu/documentation/"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+.
+ Reducing the dependency on 
+\emph on
+htk
+\emph default
+ encourages the easier reproducibility and extensibility of this research
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+A walkthrough on how to reproduce the htk-parameters in essentia is available
+ at 
+\series bold
+
+\begin_inset CommandInset href
+LatexCommand href
+target "https://github.com/georgid/mfcc-htk-an-librosa/blob/master/mfcc_parameters_comparison_essentia.ipynb"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float table
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+
+\emph on
+TARGETKIND = MFCC_0_D_A_Z
+\end_layout
+
+\begin_layout Plain Layout
+
+\emph on
+TARGETRATE = 100000.0
+\end_layout
+
+\begin_layout Plain Layout
+
+\emph on
+WINDOWSIZE = 250000.0
+\end_layout
+
+\begin_layout Plain Layout
+
+\emph on
+USEHAMMING = T
+\end_layout
+
+\begin_layout Plain Layout
+
+\emph on
+PREEMCOEF = 0.97
+\end_layout
+
+\begin_layout Plain Layout
+
+\emph on
+NUMCHANS = 26
+\end_layout
+
+\begin_layout Plain Layout
+
+\emph on
+CEPLIFTER = 22
+\end_layout
+
+\begin_layout Plain Layout
+
+\emph on
+NUMCEPS = 12
+\end_layout
+
+\begin_layout Plain Layout
+
+\emph on
+HIFREQ=8000
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Parameters of MFCC extraction (in the HMM toolkit format) 
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset label
+LatexCommand label
+name "table-params_MFCC"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Phoneme network
+\end_layout
+
+\begin_layout Standard
+The phonetic recognizer is a HMM, wherein the states of the HMM represent
+ the sequence of phonemes from the phoneme transcription of the lyrics.
+ As we described in Section 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "subsec:Phoneme-network"
+
+\end_inset
+
+ the goal of the grapheme-to-phoneme conversion is to create the phoneme
+ transcription out of the word sequence, comprising the input lyrics for
+ a particular vocal section.
+\end_layout
+
+\begin_layout Standard
+A phonetic recognizer HMM can be represented as a DBN with a single hidden
+ state for the current phoneme (Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "DBN_model"
+
+\end_inset
+
+).
+ In all DBN diagrams in this thesis we use circles and squares to denote
+ continuous and discrete variables, respectively.
+ Also gray nodes and white nodes represent observed and hidden variables,
+ respectively.
+ Although in initial experiments we trained a 3-state-HMM per phoneme, in
+ most of the work presented in this dissertation a single-state HMM was
+ preferred.
+ Preliminary experiments revealed that the alignment accuracy with 3-states
+ is not noticeably better than that with one state.
+ In this section we present the derivation of the phoneme network for Turkish
+ language, in alignment with the focus of this chapter on the OTMM music.
+ While in general the derivation of the phoneme network used for jingju
+ is following the same principles, some Mandarin-particular details are
+ discussed in Section 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "par:Training-phoneme-models"
+
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename Phd_Figs/baseline/phoneme_DBN.jpg
+	scale 30
+
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+DBN for the baseline phonetic recognizer: one hidden variable represents
+ the phoneme state.
+ Circles and squares denote continuous and discrete variables, respectively.
+ Gray nodes and white nodes represent observed and hidden variables, respectivel
+y.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "DBN_model"
+
+\end_inset
+
+ 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection
+Graphene-to-phoneme conversion
+\end_layout
+
+\begin_layout Standard
+The words are expanded to phonemes based on a phonetic alphabet, designed
+ for each particular language.
+ For this sake linguists have developed the international phonetic alphabet
+ (IPA) - a language-independent notation system of phoneme sounds 
+\begin_inset Foot
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset CommandInset href
+LatexCommand href
+name "https://en.wikipedia.org/wiki/International_{}Phonetic_{}Alphabet"
+target "https://en.wikipedia.org/wiki/International_Phonetic_Alphabet"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+.
+ For each language exists one or several options for an alphabet of machine-read
+able representation of IPA.
+ For Turkish we have adopted the alphabet METUbet, proposed for one of the
+ speech recognition state-of-the art systems for Turkish 
+\begin_inset CommandInset citation
+LatexCommand citep
+after "Table 1"
+key "Salor2007580"
+
+\end_inset
+
+.
+ METUbet is very easy to interpret, because of its intuitiveness.
+ All latin written characters are mapped to their corresponding latin phoneme,
+ while the characters ç, ş, ı, ö, ü unique for Turkish language, are mapped
+ to capital letters - respectively C, S, E, OE, UE.
+ The unpronounced ğ is omitted from the transcript, whereas g is represented
+ as GG.
+\end_layout
+
+\begin_layout Standard
+After the grapheme-to-phoneme conversion optional filler silence tokens
+ are inserted in between words.
+ A silence model represents short non-voiced time intervals, when singing
+ voice is not active to accommodate silent pauses or breaths between words.
+ Using METUbet the lyrics phrase
+\emph on
+ bakmıyor çeşmi siyah
+\emph default
+ is expanded to a phoneme sequence seen in Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "phoneme sequence"
+
+\end_inset
+
+.
+ Square brackets denote zero or one occurrence of a token, and vertical
+ bars denote alternatives.
+ Its corresponding phoneme network is depicted in Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "phoneme_network"
+
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Standard
+\align center
+\begin_inset Float figure
+placement h
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+
+\size large
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+{}
+\end_layout
+
+\end_inset
+
+[sp] b a k m I y o r [sp] C e S m i [sp] s i y a h [sp]
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "phoneme sequence"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Phoneme sequence for the lyrics phrase
+\emph on
+ bakmıyor çeşmi siyah
+\emph default
+.
+ 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename Phd_Figs/baseline/phoneme_network_bakmiyor.jpg
+	width 50page%
+
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "phoneme_network"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Phoneme network for the lyrics phrase
+\emph on
+ bakmıyor çeşmi siyah
+\emph default
+.
+ 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+An example of the phoneme sequence and phoneme network for the phrase 
+\emph on
+bakmıyor çeşmi siyah
+\emph default
+ for a cappella voice.
+ The phoneme set used is the Turkish METUbet 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection*
+Handling accompaniment artifacts
+\begin_inset CommandInset label
+LatexCommand label
+name "subsec:Handling-accompaniment-artifacts"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The phoneme network for accompanied singing ideally should be identical
+ to the a cappella one presented above.
+ In practice however, some of the phonemes in the accompaniment attenuation
+ process are not accurately resynthesized.
+ To address such cases, we build the network in a flexible way.
+\end_layout
+
+\begin_layout Standard
+Except for silences, another filler model for non-vocal parts is introduced:
+ a model for the instrumental background.
+ We assume that the stochastic characteristics of the background music could
+ be approximated by those of the instrumental-only regions in a music recording.
+ We trained therefore a GMM for accompaniment instruments (ACC) from the
+ time intervals, which are not annotated as words in the test dataset.
+ It has a substantial amount of mixtures (40) to be able to capture the
+ diverse timbral characteristics of background instruments.
+ It is integrated as a single-state-HMM in the phoneme network.
+ Setting the filler models as optional lets the phonetic recognizer activate
+ the ACC model, depending on whether sound from background instruments was
+ re-synthesized by the sinusoidal model, due to short regions, detected
+ falsely as being vocal (see accompaniment attenuation step).
+ In addition, this also accommodates potential instrumental leaks due to
+ automatically detected boundary timestamps of vocal sections, displaced
+ from the actual boundaries of sung lyrics.
+\end_layout
+
+\begin_layout Standard
+A side effect of the resynthesis is that non-voiced consonants are not synthesiz
+ed, which leaves short time intervals of silence.
+ Looking carefully at Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "figure_resynthesis"
+
+\end_inset
+
+ one can notice that the time intervals for most METUbet unvoiced consonants:
+ 
+\emph on
+k
+\emph default
+,
+\emph on
+ S
+\emph default
+, 
+\emph on
+s
+\emph default
+, and 
+\emph on
+h
+\emph default
+ are converted into silences.
+ 
+\begin_inset CommandInset citation
+LatexCommand citet
+key "fujihara2011lyricsynchronizer"
+
+\end_inset
+
+ suggested to tackle this problem by incorporating a separate method for
+ detection of unvoiced consonants in the musical audio.
+ The strategy we used instead is replacing unvoiced consonants by silence
+ in the phoneme sequence.
+ For example, for the phrase 
+\emph on
+bakmıyor çeşmi siyah
+\emph default
+ it will look accordingly in Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "phoneme sequence-1"
+
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Standard
+\align center
+\begin_inset Float figure
+placement h
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+
+\size large
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+{}
+\end_layout
+
+\end_inset
+
+[sp
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+textbar
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+{}
+\end_layout
+
+\end_inset
+
+ACC] b a sp m I y o r [sp
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+textbar
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+{}
+\end_layout
+
+\end_inset
+
+ACC] sp e sp m i [sp
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+textbar
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+{}
+\end_layout
+
+\end_inset
+
+ACC] sp i y a sp [sp
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+textbar
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+{}
+\end_layout
+
+\end_inset
+
+ACC]
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "phoneme sequence-1"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Phoneme sequence for the lyrics phrase
+\emph on
+ bakmıyor çeşmi siyah
+\emph default
+.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename Phd_Figs/baseline/phoneme_network_bakmiyor_accompaniment.jpg
+	width 100text%
+
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "phoneme_network-1"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Phoneme network for the lyrics phrase
+\emph on
+ bakmıyor çeşmi siyah
+\emph default
+.
+ 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+An example of the phoneme sequence and phoneme network for the phrase 
+\emph on
+bakmıyor çeşmi siyah
+\emph default
+ when accompanying instruments are present.
+ The phoneme set used is the Turkish METUbet 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "phoneme_network-1"
+
+\end_inset
+
+ presents its corresponding phoneme network.
+ We evaluated the contribution of this simple resynthesis handling strategy
+ by comparing to the performance of alignment between the resynthesizes
+ audio and the phoneme network of Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "phoneme_network"
+
+\end_inset
+
+ that is meant for a cappella singing.
+ The results (see Table 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "results baseline"
+
+\end_inset
+
+) outlined a slight improvement with the accompaniment aware network.
+ We inspected carefully the flawed alignment cases with the a cappella phoneme
+ network.
+ This revealed that sometimes when there is a fricative in the vicinity
+ of an inter-word 
+\emph on
+sp
+\emph default
+ (for example the 
+\emph on
+ş
+\emph default
+ from 
+\emph on
+çeşmi
+\emph default
+ following the 
+\emph on
+sp
+\emph default
+ between 
+\emph on
+bakmıyor
+\emph default
+ and 
+\emph on
+çeşmi
+\emph default
+) the Viterbi would confuse the model of 
+\emph on
+sp
+\emph default
+ with the MFCCs for the fricative sound, due to the similarity of the phoneme
+ acoustics of the two.
+ This means that usually a couple of phoneme models (ç and e in this example)
+ are assigned falsely to the MFCCs frames of the inter-word silence, which
+ is extended in longer time than it should be.
+ Sometimes instead of being delayed, the 
+\emph on
+sp 
+\emph default
+model is prematurely 'jumped to' due to the same type of fricative confusion.
+ In contrast, when leaks of accompaniment sounds are present, the added
+ ACC model helps in distinguishing between the fricative and silence/ACC.
+ 
+\end_layout
+
+\begin_layout Section
+Training the acoustic model
+\begin_inset CommandInset label
+LatexCommand label
+name "sec:Training-the-acoustic"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\color black
+To represent the 
+\emph on
+acoustic model
+\emph default
+ 
+\begin_inset Formula $P(y_{k}|x_{k})$
+\end_inset
+
+ of observing the MFCC feature vector 
+\begin_inset Formula $y_{k}$
+\end_inset
+
+ at a time instant 
+\begin_inset Formula $k$
+\end_inset
+
+, given a phoneme 
+\begin_inset Formula $x_{k}$
+\end_inset
+
+, a classifier of the different phonemes is needed.
+ In essence, for a phonetic recognizer a hidden variable is the current
+ phoneme class 
+\begin_inset Formula $x_{k}$
+\end_inset
+
+ (see Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "DBN_model"
+
+\end_inset
+
+).
+ The phoneme classifier has to represent the acoustic specificities of the
+ different phonemes.
+ In this section we present how we trained GMMs and MLPs - two different
+ types of classifiers.
+ 
+\end_layout
+
+\begin_layout Subsection
+Gaussian mixture models
+\end_layout
+
+\begin_layout Standard
+
+\color black
+As presented in Section 
+\color inherit
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "subsec:Phoneme-network"
+
+\end_inset
+
+ the GMMs until recently have been the de facto choice of phonetic timbre
+ classifier.
+ GMMs have the ability, given enough mixtures, to approximate arbitrarily
+ shaped densities.
+ It is reasonable to assume that each mixture represents a broad class of
+ a phonetic timbre event.
+ Another reason to prefer GMMs, is the so called 
+\emph on
+embedded reestimation
+\emph default
+ training technique.
+ By means of it, it is relatively straightforward to train the GMM parameters
+ even from material with no phoneme annotations.
+ Embedded reestimation is an generalization of the Expectation Maximization
+ algorithm over time-series of feature vectors and has an efficient implementati
+on in the HMM toolkit (
+\emph on
+htk
+\emph default
+) 
+\begin_inset CommandInset citation
+LatexCommand citep
+key "young1993htk"
+
+\end_inset
+
+.
+ Utilizing 
+\emph on
+htk 
+\emph default
+we fitted a 9-component GMM for each phoneme on feature vectors extracted
+ from a dataset of Turkish speech 
+\begin_inset CommandInset citation
+LatexCommand citep
+key "Salor2007580"
+
+\end_inset
+
+.
+ The dataset encompasses diverse speech recordings totaling to approximately
+ 500 minutes.
+ Preliminary experiments confirmed that the trained models can successfully
+ recognize withheld material from the same dataset
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+here add graph of saturation
+\end_layout
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+To address the acoustic differences between speech and singing an adaptation
+ of the trained GMMs to singing material is needed.
+ However due to lack of sufficient adaptation material we did not perform
+ any adaptation.
+ Instead of that we explored the option of using neural networks for the
+ observation model.
+\end_layout
+
+\begin_layout Subsection
+Multilayer perceptron neural networks
+\end_layout
+
+\begin_layout Standard
+Recent work on keyword spotting in English a cappella singing showed that
+ a MLP trained on singing-like material results in much better accuracy,
+ compared to a GMM, trained on speech 
+\begin_inset CommandInset citation
+LatexCommand citet
+key "kruspe2015training"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+This motivated us to take the opportunity to consider the deep MLP model
+ the authors trained from amateur singers in their subsequent work - 
+\begin_inset CommandInset citation
+LatexCommand citep
+key "kruspe2016bootstrapping"
+
+\end_inset
+
+.
+ We introduced their training procedure in Section 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "par:Training-on-singing"
+
+\end_inset
+
+ and will refer to their model as
+\emph on
+ MLP-English.
+
+\emph default
+ The 
+\emph on
+MLP-English
+\emph default
+ has 3 hidden layers with sigmoid activation function.
+ The layers have respectively 1024, 850 and 1024 neurons and have as input
+ the first 13 MFCCs, extracted with the 
+\emph on
+htk
+\emph default
+ extraction parameters, described in 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "subsec:Features"
+
+\end_inset
+
+ plus their deltas and accelerations.
+ This results in a 39-dimensional feature vector.
+ The phonetic alphabet used is the English-specific encoding of IPA from
+ Carnegie Mellon University (CMU)
+\begin_inset Foot
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset CommandInset href
+LatexCommand href
+target "http://cmusphinx.sourceforge.net/"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+Since we did not have as many Turkish singing voice phoneme annotations,
+ sufficient for training a deep MLP, we simply adapted the 
+\emph on
+MLP-English
+\emph default
+ to Turkish.
+ We exploited two cross-language phoneme mapping strategies: direct mapping
+ and fuzzy mapping
+\end_layout
+
+\begin_layout Subsubsection
+Direct cross-language mapping
+\begin_inset CommandInset label
+LatexCommand label
+name "subsec:Direct-cross-language-mapping"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+As observation probability for each Turkish phoneme we substituted the probabili
+ty of an English phoneme from the output layer of the 
+\emph on
+MLP-English
+\emph default
+.
+ The mappings we used are listed in Table 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "Phoneme-mappings"
+
+\end_inset
+
+.
+ 
+\begin_inset Float table
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Tabular
+<lyxtabular version="3" rows="2" columns="13">
+<features tabularvalignment="middle">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<row>
+<cell alignment="center" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+METUbet 
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+IY 
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+AA 
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+UE 
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+E 
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+LL 
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+I 
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+O 
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+M 
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+U 
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+OE 
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+NN
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+VV
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+CMU 
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+iy 
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+aa 
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+y 
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+eh 
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+l 
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+ax 
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+ao 
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+m 
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+uw 
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+ow 
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+n
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+v
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Tabular
+<lyxtabular version="3" rows="2" columns="14">
+<features tabularvalignment="middle">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<row>
+<cell alignment="center" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+METUbet 
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Z 
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+C 
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+ZH 
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+H 
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+CH 
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+B 
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+D 
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+GG 
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+F 
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+KK 
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+P 
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+S 
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+RR 
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+CMU 
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+z 
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+jh 
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+zh 
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+hh 
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+ch 
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+b 
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+d 
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+g 
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+f 
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+k 
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+p 
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+s 
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+r 
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Direct mapping of English CMU phonemes to Turkish METUbet.
+ Upper row vowels and liquids.
+ Lower row all the rest consonants.
+ 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "Phoneme-mappings"
+
+\end_inset
+
+ 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+To most phonemes in Turkish corresponds an English phoneme that represents
+ a sound with perceivably the same acoustics.
+ The only two Turkish phonemes not existing in English are OE and UE, for
+ which we experimented with different mappings and ended up with respectively
+ 
+\emph on
+ow 
+\emph default
+and 
+\emph on
+y
+\emph default
+ as most optimal.
+\end_layout
+
+\begin_layout Subsubsection
+Fuzzy cross-language mapping
+\end_layout
+
+\begin_layout Standard
+A more reasonable alternative to enforcing a phoneme to be represented by
+ exactly one phoneme from another language is a weighted sum of the acoustics
+ of a set of similar phonemes.
+ Such types of 'fuzzy' many-to-one mapping strategy has been proposed for
+ speech synthesis of a given speaker from her mother tongue to another language
+ by 
+\begin_inset CommandInset citation
+LatexCommand citet
+key "sun2016personalized"
+
+\end_inset
+
+.
+ Adopting the core idea of their concept we trained GMM model in the steps
+ presented in Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "cross-language strategy"
+
+\end_inset
+
+.
+ First the extracted MFCC features from a cappella vocal OTMM dataset are
+ input to the 
+\emph on
+English-MLP
+\emph default
+ and a vector of the posterior probabilities 
+\begin_inset Formula $p(s_{n}|x_{k})$
+\end_inset
+
+ of the 
+\begin_inset Formula $n=39$
+\end_inset
+
+ English phoneme classes for each time frame k are generated (see left half
+ of Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "cross-language strategy"
+
+\end_inset
+
+).
+ These phonetic posterior probabilities are commonly known as posteriograms.
+ Then in a second stage, a new model is trained to capture the mapping relations
+hips between the posteriograms 
+\begin_inset Formula $p(s_{n}|x_{t})$
+\end_inset
+
+ and the 38 Turkish phoneme classes.
+ The posteriograms are fed into the classifier as if they were the acoustic
+ feature vectors.
+ While 
+\begin_inset CommandInset citation
+LatexCommand citet
+key "sun2016personalized"
+
+\end_inset
+
+ built another deep neural network, we preferred a 2-component GMM classifier,
+ because GMMs could handle training material with data size as small as
+ 30 minutes of phoneme-annotated singing.
+ Note that arguably one could train GMMs by embedded reestimation to avoid
+ the need of phoneme annotations.
+ However we preferred carefully done manual annotations of phoneme boundaries
+ to make sure proper mappings.
+ Then on recognition the English posteriograms are generated in the same
+ way as in training.
+ Training of the GMMs was conducted with leave-one-recording-out cross validatio
+n.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename Phd_Figs/baseline/cross-language-mapping.png
+	lyxscale 20
+	scale 40
+
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Cross-language phoneme mapping strategy from the source language (English)
+ to the target language (Turkish).
+ The English-MLP feed-forward network is trained on a huge singing voice
+ dataset, whereas the GMMs are trained with phoneme annotations of a subset
+ of the small 
+\emph on
+a cappella vocal Makam
+\emph default
+ dataset.
+ 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "cross-language strategy"
+
+\end_inset
+
+ 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace medskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+We compared the two mapping strategies with the GMM model trained with Turkish
+ by evaluating the percent of correctly identified phoneme time frames.
+ The percent of correct frames has been used to evaluate the accuracy of
+ the 
+\emph on
+MLP-English
+\emph default
+ model.
+ This is done by setting to 1 the phonemes with maximum posterior probability
+ for each time frame and zero to the rest of the phonemes.
+ Then this sparse activation matrix is intersected with an oracle matrix,
+ inferred from manually annotated phoneme boundaries.
+ The first two models were evaluated on the whole phoneme-annotated subset
+ of the 
+\emph on
+a cappella vocal OTMM dataset, 
+\emph default
+whereas the
+\emph on
+ 
+\emph default
+MLP-FuzzyM in the leave-one-out cross validation manner 
+\begin_inset Foot
+status collapsed
+
+\begin_layout Plain Layout
+We created a simple phoneme evaluation script available at 
+\begin_inset CommandInset href
+LatexCommand href
+target "https://github.com/georgid/AlignmentDuration/blob/noteOnsets/test/evalPhonemes.py"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float table
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Tabular
+<lyxtabular version="3" rows="4" columns="2">
+<features tabularvalignment="middle">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+model 
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+% correct frames
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+GMM 
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+9.8
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+MLP-DirectM 
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+15.4
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+MLP-FuzzyM 
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+9.2
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Percent of correctly identified phoneme frames for the 3 different phoneme
+ models utilized: GMM trained from Turkish speech, 
+\emph on
+MLP-English
+\emph default
+ model mapped directly to Turkish phonemes, 
+\emph on
+MLP-English
+\emph default
+ model mapped by the proposed fuzzy phoneme mapping strategy.
+ 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fuzzy_evaluation"
+
+\end_inset
+
+ 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The direct mapping of the 
+\emph on
+English-MLP 
+\emph default
+evidences a major improvement over the GMMs trained on speech (Table 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fuzzy_evaluation"
+
+\end_inset
+
+).
+ It still scores reasonably worse than the reported 23 % in 
+\begin_inset CommandInset citation
+LatexCommand citet
+key "kruspe2016bootstrapping"
+
+\end_inset
+
+ on excerpts from the same English dataset, with which it was trained.
+ This large margin indicates that the direct mapping strategy may not be
+ the most optimal one.
+ Surprisingly the fuzzy mapping strategy did not yield improvement over
+ the baseline GMM.
+ We believe that the explanation lies in the very small size of the training
+ singing dataset with phoneme annotations.
+ We attribute the remarkable improvement of the English-to-Turkish directly
+ mapped model to the big learning capacity of a deep feedforward neural
+ network.
+\end_layout
+
+\begin_layout Section
+Experiments
+\begin_inset CommandInset label
+LatexCommand label
+name "sec:Evaluation"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Experiments are carried out on the 
+\emph on
+a cappella lyrics OTMM dataset
+\emph default
+ (Section 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "subsec:A-cappella-lyrics-1"
+
+\end_inset
+
+) and the 
+\emph on
+multi-instrumental lyrics OTMM dataset
+\emph default
+ (Section 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "subsec:Accompanied-vocal-OTMM"
+
+\end_inset
+
+).
+ To assess the effectiveness of the accompaniment attenuation (AA) step,
+ we aligned the multi-instrumental recordings from the 
+\emph on
+a cappella lyrics OTMM dataset
+\emph default
+ with and without AA.
+ In initial experiments we build a python wrapper around the HMM toolkit
+ (htk) that has efficient Viterbi decoding 
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+\begin_inset CommandInset href
+LatexCommand href
+name "https://github.com/georgid/Lyrics2AudioAligner"
+target "https://github.com/georgid/Lyrics2AudioAligner"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+.
+ To assure the same parameter setting of the baseline and the models that
+ are aware of complementary context, we preferred to implement a custom
+ HMM and Viterbi decoding
+\begin_inset Foot
+status collapsed
+
+\begin_layout Plain Layout
+It is available as part of the repository 
+\begin_inset CommandInset href
+LatexCommand href
+name "https://github.com/georgid/AlignmentDuration"
+target "https://github.com/georgid/AlignmentDuration"
+
+\end_inset
+
+ by setting the parameter 
+\emph on
+WITH_DURATIONS
+\emph default
+ to 0.
+ This repository has adopted some classes and Viterbi decoding logic from
+ 
+\begin_inset CommandInset href
+LatexCommand href
+name "https://github.com/guyz/HMM"
+target "https://github.com/guyz/HMM"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+.
+ The results reported are run with the latter implementation.
+ We make available the source code of all experiments in this dissertation
+ with the intention to serve as the first fully reproducible system for
+ LAA.
+ In addition, we hope this will encourage future research not only on LAA,
+ but also on related computational topics of lyrics tracking.
+ 
+\end_layout
+
+\begin_layout Standard
+When accompanying instruments are present, we employed the modified phoneme
+ network, which can handle possible artifacts from the AA step (see Section
+ 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "subsec:Handling-accompaniment-artifacts"
+
+\end_inset
+
+).
+\end_layout
+
+\begin_layout Subsection
+Evaluation metrics
+\end_layout
+
+\begin_layout Standard
+Throughout this thesis, we evaluate the LAA by the metrics 
+\emph on
+average absolute error
+\emph default
+ and 
+\emph on
+accuracy (percentage of correct segments
+\emph default
+), introduced in Section 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "subsec:Evaluation-metrics"
+
+\end_inset
+
+.
+ Due to the lack of standard evaluation script we implemented both metrics
+\begin_inset Foot
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset CommandInset href
+LatexCommand href
+name "https://github.com/georgid/AlignmentEvaluation"
+target "https://github.com/georgid/AlignmentEvaluation"
+
+\end_inset
+
+ The implementation of the 
+\emph on
+percentage of correct segments
+\emph default
+ metric was ported from the script, kindly provided by H.
+ Fujihara used in his work 
+\begin_inset CommandInset citation
+LatexCommand citet
+key "fujihara2011lyricsynchronizer"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+.
+ The alignment error and accuracy are computed at boundaries of the lyrics
+ phrases, as manually annotated.
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float table
+placement h
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Tabular
+<lyxtabular version="3" rows="8" columns="6">
+<features booktabs="true" tabularvalignment="middle">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+acoustic model
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+data
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+AA
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+AH
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+accuracy 
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+error
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+GMMs
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+a cappella 
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+-
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+-
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+70.2 
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+1.14
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+MLP-DirectM
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+a cappella 
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+-
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+-
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+79.2 
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0.57
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+GMMs
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+multi-instrumental
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+N
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+-
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+59.1
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+invented
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+2.15
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+GMMs
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+multi-instrumental
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Y
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+N
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+63.2
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+1.98
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+GMMs
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+multi-instrumental
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Y
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Y
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+67.5 
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+1.26
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+Mesaros
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+multi-instrumental
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+-
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+-
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+-
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+1.4
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Fujihara
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+multi-instrumental
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+-
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+-
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+85.2
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+-
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Comparison of performance of the baseline phonetic recognizer with different
+ variants of the acoustic model.
+  Evaluation is performed on both a cappella and accompanied singing from
+ OTMM.
+ Alignment accuracy and alignment error on the boundaries of lyrics phrases
+ and reported on total for all recordings.
+ Mesaros stands for the approach of 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+
+\begin_inset CommandInset citation
+LatexCommand citet
+key "mesaros2008automatic"
+
+\end_inset
+
+; Fujihara for the approach of 
+\begin_inset CommandInset citation
+LatexCommand citet
+key "fujihara2011lyricsynchronizer"
+
+\end_inset
+
+.
+ 
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+AH stands for handling accompaniment artifacts (see Section 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "subsec:Handling-accompaniment-artifacts"
+
+\end_inset
+
+).
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset label
+LatexCommand label
+name "results baseline"
+
+\end_inset
+
+ 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace medskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Discussion
+\end_layout
+
+\begin_layout Standard
+Table 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "results baseline"
+
+\end_inset
+
+ lists results for the different system variants and steps of the recognizer.
+ We compared the performance of the baseline phonetic recognizer on a cappella
+ singing with two different variants of the acoustic model: with phoneme
+ GMMs and MLP-DirectM (direct mapping to English-phonemes MLP).
+ The GMMs result in rather low accuracy.
+ 
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+ADD: comment why no direct mapping with accompaniment, refer to paper for
+ detailed results.
+ More comments
+\end_layout
+
+\end_inset
+
+As to multi-instrumental material, adding the accompaniment attenuation
+ improves reasonably accuracy (from 59.1 to 67.5 %).
+ However still below the a cappella (70.2) clearly there is still room for
+ improvement.
+ In fact, investigating particular recording excerpts with low accuracy
+ revealed that false positives of the AA module is a considerable reason
+ for misalignment.
+ We realize that the harmonic model (a generic model of singing voice) may
+ not be the most optimal choice for music with heterophonic character.
+ 
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+FUTURE: song-wise errors are not well correlated.
+ probable reason: different accuracy of vocal resynthesis? 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+We observed that a problem is that alignment performs poorly towards the
+ end of longer sections, which results in outliers of huge magnitude.
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+ADD: Fuji also compares with no GMM 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Although coming from different genre and language, we compare our alignment
+ results to the best existing alignment systems for English pop songs 
+\begin_inset CommandInset citation
+LatexCommand citep
+key "mesaros2008automatic"
+
+\end_inset
+
+ and for Japanese pop 
+\begin_inset CommandInset citation
+LatexCommand citep
+key "fujihara2011lyricsynchronizer"
+
+\end_inset
+
+.
+ These are short-named in Table 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "results baseline"
+
+\end_inset
+
+ respectively as Mesaros 
+\emph on
+ 
+\emph default
+and Fujihara.
+ In these works alignment is also evaluated with GMMs on the 
+\color black
+level of a lyrical line/phrase.
+
+\color inherit
+ Our baseline approach differs from both works essentially in that they
+ conduct speech-to-singing-voice adaptation.
+ In comparison, we did not perform any adaptation of the original speech
+ model.
+ Adaptation data of clean singing voice for a particular singer might not
+ always be available and thus does not allow the system to scale to data
+ from unknown singers.
+ Our baseline's best error on the multi-instrumental material is comparable
+ to the system of 
+\begin_inset CommandInset citation
+LatexCommand citet
+key "mesaros2008automatic"
+
+\end_inset
+
+, but still far from the accuracy of 
+\begin_inset CommandInset citation
+LatexCommand citet
+key "fujihara2011lyricsynchronizer"
+
+\end_inset
+
+.
+ The most possible explanation is the acoustic mismatch between our  phoneme
+ GMMs and the characteristics of singing voice.
+ This is confirmed by the rather low results on a cappella singing.
+ Training phoneme acoustics merely on speech is clearly suboptimal.
+ The high score of the MLP-DirectM confirms that training on singing voice
+ is a big advantage.
+ 
+\end_layout
+
+\begin_layout Standard
+Moreover, 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "fujihara2011lyricsynchronizer"
+
+\end_inset
+
+ trains a SVD module on data selected from material with same acoustic character
+istics as the test data.
+ The SVD module showed to notably increase the average accuracy of 72.1 %
+ for a baseline to accuracy of 85.2 % for their final system.
+\series bold
+
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+refine: 
+\series bold
+Similarly we observe that for our system evaluation on the acapella data
+ yields an accuracy by about the same percent higher than the polyphonic
+ one (see table 2).
+\end_layout
+
+\end_inset
+
+
+\series default
+ 
+\end_layout
+
+\begin_layout Section
+Summary
+\end_layout
+
+\begin_layout Standard
+In this chapter we described our lyrics-to-audio alignment (LAA) baseline
+ system.
+ It is a phonetic recognizer, based on phoneme HMMs.
+ We described the choices of the key steps of the phonetic recognizer, which
+ are not related to modeling complementary context.
+ Phoneme observation modeled as GMMs, trained on
+\color black
+ Turkish speech proved to be not the most optimal acoustic model.
+ The alignment accuracy on a cappella (70.2 %) is rather low; whereas on
+ multi-instrumental recordings (67.5%) is below the state of the art on LAA
+ on English pop songs (85.2 %).
+ 
+\color inherit
+The most possible explanation is the acoustic mismatch between our  phoneme
+ GMMs and the characteristics of singing voice.
+ To address this mismatch, we proposed
+\series bold
+ 
+\series default
+a strategy of mapping a state-of-the-art model for English, trained on English
+ pop songs, to Turkish.
+ We explored two different mapping strategies.
+ The simpler direct mapping increased significantly the alignment accuracy
+ (79.2 %).
+ To our knowledge, this thesis presents the first work on computational
+ modeling of sung lyrics, addressing the problem of inter-language phoneme
+ mapping.
+ 
+\end_layout
+
+\begin_layout Standard
+
+\color black
+Despite its superiority, not all experiments (these presented in Chapter
+ 4) are carried out with the phoneme GMMs.
+ This is because the mapping strategies were explored once the 
+\emph on
+English-MLP
+\emph default
+ became available (towards the end of this thesis
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+
+\color black
+August 2016
+\end_layout
+
+\end_inset
+
+).
+ However, the validity of the experiments in this dissertation is not negatively
+ influenced by that.
+ Since the ultimate goal is to show that complementary context aware modeling
+ outperforms the baseline approach presented in this chapter, the absolute
+ score of the baseline itself is of lesser importance.
+
+\color inherit
+ 
+\end_layout
+
+\end_body
+\end_document

@@ -1,0 +1,493 @@
+#LyX 2.2 created this file. For more info see http://www.lyx.org/
+\lyxformat 508
+\begin_document
+\begin_header
+\save_transient_properties true
+\origin unavailable
+\textclass memoir
+\use_default_options false
+\master PhDThesis_Georgi_Knowledge_based_Lyrics_Tracking.lyx
+\maintain_unincluded_children false
+\language english
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman "default" "default"
+\font_sans "default" "default"
+\font_typewriter "default" "default"
+\font_math "auto" "auto"
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100 100
+\font_tt_scale 100 100
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize default
+\spacing single
+\use_hyperref false
+\papersize default
+\use_geometry false
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine natbib
+\cite_engine_type authoryear
+\biblio_style plainnat
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 0
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Chapter
+Conclusions
+\end_layout
+
+\begin_layout Standard
+Broadly, this dissertation aimed to build culture-aware and domain-specific
+ MIR approaches using probabilistic models for tracking lyrics in music
+ audio signals.
+ We proposed specific probabilistic models to represent how the transitions
+ between consecutive sung phonemes are conditioned by different facets of
+ music-domain knowledge.
+ The models we build take into account some of these facets and consider
+ them as 
+\emph on
+temporal complementary context
+\emph default
+ that exists around lyrics.
+ 
+\end_layout
+
+\begin_layout Standard
+In order to evaluate the potential of the proposed models, we built a complete
+ methodology for the automatic alignment of lyrics to an audio recording
+ (LAA) and evaluated its performance by the accuracy of the LAA.
+ As a baseline we chose a phonetic recognizer based on hidden Markov models
+ (HMM): a methodology applied in most of hitherto computational studies
+ on lyrics tracking.
+ We applied the proposed methodologies on especially compiled for this study
+ datasets that are subsets from the CompMusic research corpora on OTMM and
+ jingju.
+ These music traditions pose a challenge to LAA because of their highly
+ expressive singing style and the resulting high degree of temporal variability
+ and relatively long syllable durations.
+ 
+\color black
+The reason is that traditional HMMs have waiting time in a state that cannot
+ be too long.
+ 
+\color inherit
+The low accuracy of the baseline phonetic recognizer confirmed that.
+ 
+\end_layout
+
+\begin_layout Standard
+To this end, we built two separate extensions of the phonetic recognizer:
+ one for middle-level complementary context and a separate one for fine-level
+ context.
+ As middle-level we modeled the influence of the structure of a melodic
+ phrase on the phoneme transitions of lyrics.
+ As to the fine-level context, we modeled how phoneme transitions interact
+ with the position of the accents in the metrical cycle.
+\end_layout
+
+\begin_layout Section
+Importance of complementary context
+\end_layout
+
+\begin_layout Standard
+We represented events from complementary context as components in a DBN
+ and their influence on the lyrics as a hierarchical dependence between
+ the components.
+ The presented solutions provide an alternative to the prevailing music-knowledg
+e-uninformed approach to modeling lyrics, in which the extracted phonetic
+ timbre features are agglomerated in a bottom-up fashion.
+ 
+\end_layout
+
+\begin_layout Subsection
+Middle-level context 
+\end_layout
+
+\begin_layout Standard
+
+\color black
+We first proposed a phonetic recognizer that utilizes lyrics duration informatio
+n as a cue, complementary to phonetic timbre.
+ 
+\color inherit
+It is representing how the position of a lyrics syllable in a melodic phrase
+ influences its duration.
+ 
+\color black
+An advantage of the model is that it allows room for certain temporal flexibilit
+y to handle cases of significant deviation of sung vowels from the expected
+ reference durations.
+
+\color inherit
+ Evaluation showed that syllable durations is the facet of complementary
+ context with biggest contribution to improvement of the baseline LAA (up
+ to absolute 10 %).
+ For OTMM, despite the accuracy of around 90% for a cappella singing, LAA
+ of material with instrumental accompaniment remains somewhat lower and
+ still far from industry-ready order of performance.
+ 
+\end_layout
+
+\begin_layout Standard
+For jingju the relative improvement was somewhat bigger than for OTMM.
+ One explanation is the very long durations of sung vowels in jingju, which
+ is a challenge to conventional HMMs.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+ADD.
+ we evaluated on two traditions.
+ The use cases are hard.
+ We do not have very high absolute accuracy.
+ 
+\end_layout
+
+\begin_layout Plain Layout
+The complementary context is a stepping stone, not used so far in LAA research.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Fine-level context
+\end_layout
+
+\begin_layout Standard
+
+\color black
+In this thesis we focused on one particular fine-level facet - the accents
+ in the metric cycle.
+ We studied the relation of metrical accents to lyrics in two steps: how
+ metrical accents interact with vocal onsets and how the latter, in turn,
+ interact with phoneme transitions.
+
+\color inherit
+ Therefore, we devised two separate probabilistic models for two separate
+ tasks: vocal-onset aware lyrics-to-audio alignment and metrical-accent
+ aware vocal onset detection.
+ We tested the model on recordings from OTMM.
+ Results confirmed that OTMM's well-grounded rhythmic framework provided
+ an excellent piece of domain knowledge context.
+\end_layout
+
+\begin_layout Standard
+For vocal-onset aware lyrics-to-audio alignment we conceptualized phoneme
+ transition rules that consider the presence of vocal note onsets.
+
+\color black
+ We integrated these into the
+\color inherit
+ transition model of the phonetic recognizer.
+ Results showed that the improvement of accuracy is not very substantial,
+ even with manually annotated onsets (around 3 absolute %).
+ 
+\color black
+In fact, for given cases (for example vowels held long on same pitch) onsets
+ are not conceptually capable of bringing any benefit.
+ 
+\color inherit
+However, we believe that, the derived phoneme transition rules are an important
+ linguistic contribution that can be exploited in other singing styles,
+ because the rules could be easily transferred to given languages, other
+ than Turkish.
+ 
+\end_layout
+
+\begin_layout Standard
+A limitation of the duration aware model is the requirement for external
+ source of syllable reference durations - usually the music scores.
+ To reduce this limitation, we built a separate methodology that relies
+ on automatically extracted musical events - vocal note onsets.
+ Based on evidence that in OTMM the position of note events in a melodic
+ phrase is influenced by the position in a metrical cycle, we designed a
+ model for simultaneously tracking vocal onsets and metrical accents.
+ Vocal onset detection in multi-instrumental music occurred, in fact, to
+ be one of the hardest MIR problems (scoring in the order of 35-40 % f-measure).
+ It is arguably even harder in OTMM because of the expressive singing style:
+ melodic onsets are often approached by slurs and melismas.
+ The complementary metrical accent context proved to be an important 'stepping
+ stone': the accuracy of vocal onset detection was increased reasonably
+ for two different usul types.
+ We believe that the biggest potential of the model lies in its generalisibility
+ - applying it to singing material with different singing style and meter
+ is as easy as tuning its parameters.
+ 
+\end_layout
+
+\begin_layout Standard
+The most important advantage of the metric-accent models is that they do
+ not necessarily depend on external sources of information such as music
+ scores.
+ 
+\end_layout
+
+\begin_layout Section
+Summary of contributions
+\end_layout
+
+\begin_layout Standard
+A summary of the specific contributions from the work presented in the dissertat
+ion are listed below.
+\end_layout
+
+\begin_layout Subsection
+Musicological contributions
+\end_layout
+
+\begin_layout Standard
+We hope that the outcomes of this work will motivate researchers to use
+ more often music context knowledge in future work.
+ Some particular contributions are: 
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+and this way bridge the semantic 
+\series bold
+gap.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+We showed that a model of complementary context can be adapted to a different
+ music tradition (the duration aware model has been applied to two different
+ traditions).
+ None of the facets of complementary context modeled are unique for a music
+ tradition.
+ This means that transferring the model to another music tradition is a
+ matter of reducing the music knowledge context to an appropriate set of
+ rules/patterns.
+ 
+\end_layout
+
+\begin_layout Itemize
+We compiled several datasets of OTMM and jingju with annotations of different
+ music facets including lyrics, vocal sections, onsets of singing voice,
+ beats.
+\end_layout
+
+\begin_layout Itemize
+The most successful LAA approach developed, the syllable-duration aware
+ LAA was integrated into Dunya-web.
+ It can enable musicologists to track in OTMM not only the aligned lyrics,
+ but also complementary musical facets and  music-specific phenomena.
+\end_layout
+
+\begin_layout Subsection
+Technical and scientific contributions
+\end_layout
+
+\begin_layout Itemize
+We conceptualized the interaction of phoneme transitions to other musical
+ facets.
+ These interactions were represented as hidden variables and their dependences
+ in DBNs.
+ DBNs are an elegant modeling tool (we presented illustrated the model dependenc
+ies in diagrams)
+\end_layout
+
+\begin_layout Itemize
+Inference in DBNs is computationally demanding.
+ Therefore, we proposed several implementation simplifications.
+\end_layout
+
+\begin_layout Itemize
+All the methodologies presented in this thesis are implemented as modular
+ and easy-to-extend software.
+ A special focus has been put on making them reproducible.
+ To our knowledge this is the first open source software for lyrics-to-audio
+ alignment that is based on computational study.
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace defskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Applying insights and methodologies from this culture-specific study can
+ open up and make the existing computational methods more versatile.
+ We hope that in the future researchers can apply and extend the outcomes
+ of this work to improve and enrich existing MIR methodologies, thus fulfilling
+ one of the ultimate goals of the CompMusic project 
+\begin_inset CommandInset citation
+LatexCommand citep
+key "serra2013roadmap"
+
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+Future work
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+Ina sense in OTMM the degree of unpredictability, in regard to a reference
+ score, can be considered the most closest to that of eurogenetic musics.
+ We strive to assess the generalizability of the methods of this study also
+ to eurogenetic musics, which are the focus of current MIR research.
+ Flexible durations of syllables is common in some eurogenetic genres such
+ as jazz singing.
+ Still, deviation from the musical score is acceptable only to a certain
+ extent, which is arguably comparable to that in OTMM, and much smaller
+ than in far-eastern traditions such as Beijing opera.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+onset-aware LAA has to be run on polyphonic.
+ At the end of this thesis the polyphonic dataset has still no lyrics annotation
+s.
+ The annotations of the lyrics a cappella dataset were not checked for their
+ corresponding original instrumental recordings.
+ There might be some time-inconsistencies.
+ 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\color red
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+
+\color red
+whereas the correlation of rhythmic accents and vowel onsets is an example
+ of the influence of a fine-level context, true to a large extent in modern
+ rock music.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\color black
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+onset aware alignment does not depend on score, only on language.
+\end_layout
+
+\begin_layout Plain Layout
+—
+\end_layout
+
+\begin_layout Plain Layout
+
+\color black
+In this way, the influence of metrical events on syllable transitions is
+ represented implicitly through its influence on note onsets, which are
+ in turn influenced by metrical events.
+ they can be combined in the future.
+\end_layout
+
+\begin_layout Plain Layout
+–
+\end_layout
+
+\begin_layout Plain Layout
+
+\color black
+In fact, for cases of vowels held long on same pitch, conceptually onsets
+ are not capable of bringing any benefit.
+ This can be handled by the syllable duration aware model.
+ We expect that it will be beneficial therefore to combine the two models
+ into one, as they complement each other conceptually.
+ 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_body
+\end_document

@@ -1,0 +1,247 @@
+#LyX 2.2 created this file. For more info see http://www.lyx.org/
+\lyxformat 508
+\begin_document
+\begin_header
+\save_transient_properties true
+\origin unavailable
+\textclass memoir
+\use_default_options false
+\maintain_unincluded_children false
+\language english
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman "default" "default"
+\font_sans "default" "default"
+\font_typewriter "default" "default"
+\font_math "auto" "auto"
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100 100
+\font_tt_scale 100 100
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize default
+\spacing single
+\use_hyperref false
+\papersize default
+\use_geometry false
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine natbib
+\cite_engine_type authoryear
+\biblio_style plainnat
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 0
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Chapter
+\paragraph_spacing single
+Applications
+\end_layout
+
+\begin_layout Standard
+Researchers of the CompMusic team have created a web application called
+ Dunya-web
+\begin_inset Foot
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset CommandInset href
+LatexCommand href
+name "http://dunya.compmusic.upf.edu/makam"
+target "http://dunya.compmusic.upf.edu/makam"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+ to showcase the technologies developed within the CompMusic project.
+ Dunya-web is an application aimed at culture-aware music discovery 
+\begin_inset CommandInset citation
+LatexCommand citep
+key "porter2013dunya_ismir"
+
+\end_inset
+
+.
+ Dunya-web has a makam part, representing algorithms developed for the computati
+onal analysis of OTMM 
+\begin_inset CommandInset citation
+LatexCommand citep
+key "senturk2015dunyaMakam_ismir"
+
+\end_inset
+
+.
+ Dunya-web stores all the audio recordings (including the OTMM datasets
+ described in Section 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "sec:Dataset"
+
+\end_inset
+
+) and music scores, together with the lyrics.
+ 
+\end_layout
+
+\begin_layout Standard
+The users can navigate the audio collection by searching or filtering by
+ recordings, compositions, artists, makams, musical forms and/or usuls.
+ Users can play the recordings and examine musical facets synchronous to
+ the audio playback.
+ Facets like pitch, the score, the tonic are visualized in a user-intuitive
+ way.
+ 
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+On top of that, it display some complementary musical facets and music-specific
+ phenomena.
+ Enriched music listening
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The most successful lyrics-to-audio alignment (LAA) approach for OTMM, developed
+ in this thesis, is the phonetic recognizer, aware of syllable durations.
+ We integrated its python implementation into Dunya-web for a subset of
+ the OTMM corpus available in Dunya-web (see Fig.
+ 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "dunya-web"
+
+\end_inset
+
+).
+ This subset includes vocal recordings in the şarkı form with music scores
+ and lyrics information available.
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+Dunya has also the scores integrated, also MB
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The ease of use of Dunya-web and intuitive interface allows expert users
+ (e.g.
+ music aficionados, musicologists and/or music students) to follow the aligned
+ lyrics, while listening to the audio.
+ Simultaneously, the acoustic features (inverse spectral representation
+ of MFCCs) representing the timbral differences of phonemes are displayed.
+ 
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+more about MFCCs and link to code for inverse MFCCs
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename Phd_Figs/dunya_web_lyrics.png
+	lyxscale 20
+	width 100text%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Dunya-web: an interface for the discovery of the music traditions of the
+ world.
+ The part on aligning automatically lyrics in vocal recordings of the OTMM
+ şarkı form is presented.
+ 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "dunya-web"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_body
+\end_document
