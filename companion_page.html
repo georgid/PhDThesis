@@ -1,0 +1,255 @@
+<script>
+$( document ).ready(function() {
+  $( ".link" ).css('color', '#2083c4');
+  $( ".link" ).css('cursor', 'pointer');
+  $( ".link" ).css('cursor', 'hand');
+  $( "#publication-cont" ).toggle();
+  $( "#examples-cont" ).toggle();
+  $( "#video-cont" ).toggle();
+  $( "#datasets-cont" ).toggle();
+  $( "#code-cont" ).toggle();
+  $( "#results-cont" ).toggle();
+  $( "#publication" ).click(function() {
+    $( "#publication-cont" ).toggle();
+    if ($("#publication-cont" ).is(":visible")) {
+      $(this).find('img').attr('src', "../../misc/menu-expanded.png");
+    
+    }else{
+      $(this).find('img').attr('src', "../../misc/menu-collapsed.png");
+  }
+  });
+
+  $( "#code" ).click(function() {
+    $( "#code-cont" ).toggle();
+    if ($("#code-cont" ).is(":visible")) {
+      $(this).find('img').attr('src', "../../misc/menu-expanded.png");
+    
+    }else{
+      $(this).find('img').attr('src', "../../misc/menu-collapsed.png");
+  }
+  });
+  $( "#video" ).click(function() {
+    $( "#video-cont" ).toggle();
+    if ($("#video-cont" ).is(":visible")) {
+      $(this).find('img').attr('src', "../../misc/menu-expanded.png");
+    
+    }else{
+      $(this).find('img').attr('src', "../../misc/menu-collapsed.png");
+  }
+  });
+
+  $( "#examples" ).click(function() {
+    $( "#examples-cont" ).toggle();
+    if ($("#examples-cont" ).is(":visible")) {
+      $(this).find('img').attr('src', "../../misc/menu-expanded.png");
+    
+    }else{
+      $(this).find('img').attr('src', "../../misc/menu-collapsed.png");
+  }
+  });
+
+  $( "#datasets" ).click(function() {
+    $( "#datasets-cont" ).toggle();
+    if ($("#datasets-cont" ).is(":visible")) {
+      $(this).find('img').attr('src', "../../misc/menu-expanded.png");
+    
+    }else{
+      $(this).find('img').attr('src', "../../misc/menu-collapsed.png");
+  }
+  });
+
+  $( "#results" ).click(function() {
+    $( "#results-cont" ).toggle();
+    if ($("#results-cont" ).is(":visible")) {
+      $(this).find('img').attr('src', "../../misc/menu-expanded.png");
+    
+    }else{
+      $(this).find('img').attr('src', "../../misc/menu-collapsed.png");
+  }
+  });
+});
+</script>
+<p>
+	This page is the companion web page for the PhD thesis titled</p>
+<h2 class="rtecenter">
+	Knowledge-based Probabilistic Modeling for Tracking Lyrics in Music Audio Signals</h2>
+<p class="rtecenter">
+	Georgi Dzhambazov</p>
+<p>
+	<em>(Last updated: 7 July 2017)</em></p>
+<hr />
+<h2 style="line-height: 20.5px; font-size: 16.4px;">
+	Abstract</h2>
+<p>
+	In this thesis, we devise computational models for tracking sung lyrics in multi-instrumental music recordings. We consider not only the low-level acoustic characteristics, representing the timbre of the sung phonemes, but also higher-level music knowledge, that is complementary to lyrics. We build probabilistic models, based on dynamic Bayesian networks (DBN) that represent the relation of phoneme transitions to two music knowledge facets:  the temporal structure of a lyrics line and the structure of the metrical cycle. In one model we exploit the fact the expected syllable durations depend on their position within a lyrics line. Then in another model, we propose how to estimate vocal onsets by tracking simultaneously the position in the metrical cycle, and how these estimated onsets influence the transitions between consecutive phonemes. Using the proposed models sung lyrics are automatically aligned to written lyrics on datasets from Ottoman Turkish makam and Beijing opera, whereby principles, specific for these music traditions are considered. Both models improve a baseline, unaware of music-specific knowledge. This confirms that music-specific knowledge is an important stepping stone for computationally tracking lyrics, especially in the challenging case of singing with instrumental accompaniment.</p>
+<hr />
+<p>
+	<b>A longer and detailed abstract is here: <a href="http://mtg.upf.edu/node/3751">http://mtg.upf.edu/node/3593</a></b></p>
+<p>
+	<b>Link to the <a href="mtg.upf.edu/system/files/publications/PhDThesis_Georgi_Knowledge_based_Lyrics_Tracking.pdf"> thesis document</a></b></p>
+<p>
+	<b>Link to the <a href="http://compmusic.upf.edu/system/files/static_files/presentation_phd.pdf">thesis defense presentation slides</a></b></p>
+<hr />
+<p>
+	<em>Please click on the headings to expand.</em></p>
+
+
+<h2 class="link" id="video" style="line-height: 20.5px; font-size: 16.4px;">
+	<a name="video"></a><img src="../../misc/menu-collapsed.png" style="margin-right: 4px;vertical-align: middle;height: 8px;" />Thesis defense presentation video</h2>
+<div id="video-cont">
+	<iframe allowfullscreen="" frameborder="0" height="300" src="https://www.youtube.com/embed/8wYu29aWRA0?" width="550"></iframe>
+	<hr />
+</div>
+
+
+<h2 class="link" id="datasets" style="line-height: 20.5px; font-size: 16.4px;">
+	<a name="datasets"></a><img src="../../misc/menu-collapsed.png" style="margin-right: 4px;vertical-align: middle;height: 8px;" />Datasets</h2>
+<div id="datasets-cont">
+	<p>
+		All the datasets (introduced in Chapter 3.2) used in our work are made publicly available for research purposes. Most of them are version controlled. The companion&nbsp;web pages&nbsp;corresponding to the publications list these associated datasets. They are listed below:
+	<ul>
+		<li>
+			<a href="http://compmusic.upf.edu/turkish-sarki">Multi-instrumental lyrics OTMM dataset</a></li>
+			<li>
+				<a href="http://compmusic.upf.edu/turkish-makam-acapella-sections-dataset">A cappella lyrics OTMM dataset</a></li>
+			<li>
+				<a href="http://compmusic.upf.edu/otmm-vocal-onsets-dataset">Multi-instrumental vocal onsets OTMM dataset</a>&nbsp;[under construction]&nbsp;</li>
+			<li>
+				<a href="http://compmusic.upf.edu/node/286">A cappella lyrics jingju dataset</a></li>
+	</ul>
+	<hr />
+</div>
+
+<h2 class="link" id="publication" style="line-height: 20.5px; font-size: 16.4px;">
+	<a name="publications"></a><img src="../../misc/menu-collapsed.png" style="margin-right: 4px;vertical-align: middle;height: 8px;" />Publications</h2>
+<div id="publication-cont">
+		<p>
+			A list of all<span style="font-size: 13.12px;">&nbsp;publications by the author done as part of the work in MTG&nbsp;</span>can be found <a href="http://mtg.upf.edu/biblio/author/810">here</a>. Here we list the ones relevant for the work presented in this thesis:</p>
+		<ul>
+			<li>
+				<div>
+					<span style="font-size: 13.12px;">Dzhambazov, Georgi,&nbsp;</span><span style="font-size: 13.12px;">Sertan Şent&uuml;rk and Xavier Serra (2014). <a href="http://mtg.upf.edu/node/2965">Automatic lyrics-to-audio alignment in classical Turkish music</a>. In Proceedings of 4th International Workshop on Folk Music Analysis (FMA 2014), Istanbul, Turkey, pp. 61&ndash;64 [Chapter 3, excluding Sections 3.2 and 3.4.2]</span></div>
+			</li>
+			<li>
+				<div>
+					<span style="font-size: 13.12px;">Dzhambazov, Georgi&nbsp;</span><span style="font-size: 13.12px;">and Xavier Serra.&nbsp;</span><a href="http://mtg.upf.edu/node/3266" style="font-size: 13.12px;">Modeling of phoneme durations for&nbsp;</a><span style="font-size: 13.12px;"><a href="http://mtg.upf.edu/node/3266">alignment between polyphonic audio and lyrics</a>. In Sound and Music Computing&nbsp;</span><span style="font-size: 13.12px;">Conference 2015, Maynooth, Ireland, 2015. [Chapters 4.3 and 4.4, Experiments in Chapter 3.5 were run with the baseline model from this paper]</span></div>
+			</li>
+			<li>
+				<div>
+					<span style="font-size: 13.12px;"><span style="font-size: 13.12px;">Dzhambazov, Georgi, Yile Yang, Rafael Caro Repetto, and Xavier Serra (2016).<a href="http://mtg.upf.edu/node/3517"> Automatic alignment of long syllables in a cappella Beijing opera</a>. In Proceedings of 6th International Workshop on Folk Music Analysis (FMA 2016), Dublin, Ireland, pp. 88&ndash;91.</span>&nbsp;[Chapter 4.5]</span></div>
+			</li>
+			<li>
+				<div>
+					Dzhambazov, Georgi, Ajay Srinivasamurthy, Sertan Şent&uuml;rk, and Xavier Serra (2016). <a href="http://mtg.upf.edu/node/3492">On the use of note onsets for improved lyrics-to-audio alignment in Turkish makam music</a>. In Proceedings of the 17th International Society for Music Information Retrieval Conference (ISMIR 2016), New York, NY, USA, pp. 716&ndash;722 [Chapter 5.4]</div>
+			</li>
+		</ul>
+		<p>
+			To reproduce these papers, the scripts and figures used to generate them are <a href="https://github.com/georgid/publications_PhD/tree/master">here</a><br />
+			</p>
+<hr />
+</div>
+
+<h2 class="link" id="code">
+	<a name="code"></a><img src="../../misc/menu-collapsed.png" style="margin-right: 4px;vertical-align: middle;height: 8px;" />Code</h2>
+
+	<div id="code-cont">
+		<p>
+			The core code corresponding to the experiments performed as a part of the thesis is organized different git repositories. Links to specific selected scripts/code are given below.</p>
+		<h4>
+			Evaluation Scripts</h4>
+		<ul>
+			<li>
+				<span style="font-size: 13.12px;"><a href="https://github.com/georgid/AlignmentEvaluation">A tool for evaluation of&nbsp;alignment metrics</a>&nbsp;[Chapter 2.2.1]</span></li>
+			<li>
+				<a href="https://github.com/georgid/AlignmentEvaluation/blob/master/align_eval/evalPhonemes.py">A tool for evaluation of percentage of correctly identified phoneme frames</a>&nbsp;[Chapter 3.4.2]</li>
+		</ul>
+
+		<h4>
+			Core algorithms</h4>
+		<ul>
+			<li>
+				<div class="standard">
+					<a id="magicparlabel-509687" style="font-size: 13.12px;">A python wrapper to align with the&nbsp;Viterbi decoding of </a><a href="https://github.com/georgid/Lyrics2AudioAligner/tree/synthesis/AlignmentStep">htk</a>&nbsp;[Experiments from FMA 2014 paper]</div>
+			</li>
+
+			<li>
+				<div class="standard">
+					<a href="https://github.com/georgid/AlignmentDuration">Duration aware lyrics-to-audio alignment</a>&nbsp;[Chapter 4]</div>
+				<ul>
+					<li>
+						<div class="standard">
+							set the parameter WITH_DURATIONS to 0 [for Chapter 3.5]</div>
+					</li>
+					<li>
+						<div class="standard">
+							<a href="https://github.com/georgid/AlignmentDuration/tree/noteOnsets/src/for_makam">package for OTMM</a> [Chapter 4.4]&nbsp;</div>
+					</li>
+					<li>
+						<div class="standard">
+							<a href="http://github.com/georgid/AlignmentDuration/tree/noteOnsets/src/for_jingju"><span style="font-size: 13.12px;">package for </span>jingju</a><span style="font-size: 13.12px;">&nbsp;[Chapter 4.5]</span></div>
+					</li>
+				</ul>
+			</li>
+			
+			<li>
+				<div class="standard">
+					<a href="https://github.com/georgid/pypYIN">Metrical-accent aware onset detection </a>&nbsp;[Chapter 5.3]
+					Code in this repository is still in progress...
+				</div>
+			</li>
+
+			
+			<li>
+				<div class="standard">
+					<a href="https://github.com/georgid/AlignmentDuration/blob/noteOnsets/src/for_makam/lyricalign_local.py">Note onset aware alignment </a>&nbsp;<span style="font-size: 13.12px;">&nbsp;</span><span style="font-size: 13.12px;">[Chapter 5.4]&nbsp;</span><span style="font-size: 13.12px;">(set parameters WITH_ORACLE_ONSETS=0,&nbsp;</span><span style="font-size: 13.12px;">WITH_DURATIONS=0, DETECTION_TOKEN_LEVEL = word</span><span style="font-size: 13.12px;">&nbsp;</span><span style="font-size: 13.12px;">)</span></div>
+			</li>
+		</ul>
+		
+		<h4>
+			Other tools</h4>
+		<ul>
+			<li>
+				<a href="https://github.com/georgid/Lyrics2AudioAligner/tree/synthesis/TrainingStep">Scripts for training the phoneme (acoustic) GMM</a>&nbsp;[Chapter 3.4.1]</li>
+			<li>
+				<a href="https://github.com/georgid/englishMLP2turkish">Scripts for preparing training the phoneme GMM with Fuzzy mapping</a>&nbsp;[Chapter 3.4.2.2]</li>
+			<li>
+				<a href="https://github.com/georgid/mfcc-htk-an-librosa/blob/master/mfcc_parameters_comparison_essentia.ipynb" style="font-size: 13.12px;">A walkthrough on how to reproduce the htk-type of MFCC extraction in essentia&nbsp;</a>[Chapter 3.3.3]&nbsp;<span style="font-size: 13.12px;">&nbsp;</span></li>
+			<li>
+				<a href="https://github.com/MTG/essentia/blob/master/src/examples/tutorial/example_inverse_mfccs.py">Example of how to invert MFCC to </a><a href="https://github.com/MTG/essentia/blob/master/src/examples/tutorial/example_inverse_mfccs.py">mel</a><a href="https://github.com/MTG/essentia/blob/master/src/examples/tutorial/example_inverse_mfccs.py"> domain&nbsp;</a>[Appendix]</li>
+		</ul>
+		The code for the individual experiments needs refactoring. It will be done soon..untill&nbsp;then if there is any confusion please feel free to contact the author.&nbsp;</div>
+
+<h2 class="link" id="results">
+	<a name="results"></a> <img src="../../misc/menu-collapsed.png" style="margin-right: 4px;vertical-align: middle;height: 8px;" />Results</h2>
+<div id="results-cont">
+	<h4>
+			Duration aware lyrics-to-audio alignment</h4>
+		<h5>
+			A demo of durations derived from music score for OTMM (Chapter 4.4) </h5>
+			<p>
+				1. Create an account in <a href="http://dunya.compmusic.upf.edu/social/login/">Dunya-web</a> 
+				2. Select <a href="http://dunya.compmusic.upf.edu/makam/"> OTMM songs</a> that have a vocal part (filter by form şarkı).
+				3. Click link "Access lyrics player" on the right hand-side (sometimes not available if no score available, etc.
+			</p>
+			 <p>Or you can have a look at <a href="http://dunya.compmusic.upf.edu/makam/lyric-align/727cff89-392f-4d15-926d-63b2697d7f3f">an example recording </a>
+			 </p>
+		<hr />
+		<h4>
+			Metrical-accent aware onset detection</h4>
+		<p>
+			in progress ...</p>
+		<hr />
+		
+</div>
+
+<!--break-->
+<p>
+	(This page and thesis document are generated by scripts <a href="https://github.com/georgid/PhDThesis/">here</a> )</p>
+
+<p>
+	For access to data, code, requests on work in progress, or if you have any questions/comments, please contact:</p>
+<p>
+	Georgi Dzhambazov </p>
+<p>
+	<img alt="" src="http://compmusic.upf.edu/system/files/static_files/email_georgi_0.jpg" style="width: 149px; height: 13px;" /></p>
+<p>
