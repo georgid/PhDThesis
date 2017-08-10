@@ -82,15 +82,40 @@ Introduction
 \begin_layout Standard
 The way music is created, shared, distributed and listened to has been recently
  changing rapidly due to advancements in Information Technology.
- Music Information Retrieval (MIR) is a research subfield of music technology
- that aims to advance in automatic music processing.
- Some of the subjects addressed in MIR research include building computational
- models for describing music structures and events, as well as their temporal
- progression.
+ 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+gls{MIR}
+\end_layout
+
+\end_inset
+
+ is a research subfield of music technology that aims to advance in automatic
+ music processing.
+ Some of the subjects addressed in 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+gls{MIR}
+\end_layout
+
+\end_inset
+
+ research include building computational models for describing music structures
+ and events, as well as their temporal progression.
 \end_layout
 
 \begin_layout Standard
-Any musical instrument is characterized also by an unique timbre.
+Any musical instrument is characterized by an unique timbre.
  Classes representing the perceived 'timbral colour' of the singing voice
  can be described by abstract categories, such as 
 \emph on
@@ -119,14 +144,14 @@ key "durga1978voice"
 .
  Still, the belonging of a singing excerpt to one particular colour class
  is rather subjective and varies from one listener to another.
- This means that there may not be a mutual agreement among listeners on
- where in time the exact transitions between these classes are.
+ This means that there may not be mutual agreement among listeners on where
+ in time the exact transitions between these classes are.
  
 \end_layout
 
 \begin_layout Standard
 Few instruments, including singing voice, have their timbre continuously
- vary in time, premising frequent timbral alterations.
+ vary in time, causing frequent timbral alterations.
  Unlike other instruments though, the singing voice has a unique characteristic:
  its ability to articulate actual lyrics.
  Lyrics are one of the most important musical aspects.
@@ -137,11 +162,10 @@ Few instruments, including singing voice, have their timbre continuously
 \end_layout
 
 \begin_layout Standard
-Phonemes - the building block of words - can be considered as a discrete
+Phonemes — the building blocks of words — can be considered as a discrete
  number of timbral classes, wherein each class has a characteristic spectral
  template.
- The ability to articulate phonemes is an innate characteristic of human
- speakers.
+ Human speakers possess the ability to articulate phonemes.
  In fact, singers articulate by means of given vowels even when not singing
  with actual lyrics.
  For brevity, in the rest of this thesis we will refer to the aspect of
@@ -151,9 +175,9 @@ Phonemes - the building block of words - can be considered as a discrete
 phonetic timbre
 \emph default
 .
- The transitions between consecutive phonemes can be considered as slow
- gradual changes of timbre as opposed to the short-term timbral fluctuations,
- which are rather related to the instability of the human vocal tract.
+ The transitions between consecutive phonemes can be considered as gradual
+ changes of timbre as opposed to the short-term timbral fluctuations, related
+ to the instability of the human vocal tract.
  We will refer to these changes as 
 \emph on
 phonetic timbre
@@ -163,8 +187,8 @@ phonetic timbre
 changes
 \emph default
 .
- That is to say, the timbre of singing voice, in addition to carrying the
- identity and 
+ That is to say, the timbre of the singing voice, in addition to carrying
+ the identity and 
 \emph on
 instrumental
 \emph default
@@ -187,9 +211,22 @@ The research carried out in this dissertation focuses on the acoustics of
  the lyrics of singing voice in polyphonic music and their relation to written
  lyrics.
  Sung lyrics can be studied from many different perspectives, whereas this
- thesis takes an MIR viewpoint, aiming at the analysis of temporal changes
- of lyrics content with an end goal of automatic synchronization between
- sung and written lyrics.
+ thesis takes an 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+gls{MIR}
+\end_layout
+
+\end_inset
+
+ viewpoint, aiming at the analysis of temporal changes of lyrics content
+ with an end goal of automatic synchronization between sung and written
+ lyrics.
  
 \end_layout
 
@@ -199,14 +236,26 @@ Scientific Context
 
 \begin_layout Standard
 Singing voice processing is still one of the most challenging subfields
- of MIR: Allegedly, none of the problems related to the singing voice could
- be considered nearly solved.
+ of 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+gls{MIR}
+\end_layout
+
+\end_inset
+
+.
  Challenging remain especially the problems of singing voice detection;
  transcription of the singing melody and transcription of the lyrics.
- The timbre of singing voice has multiple functions: Apart from articulating
- actual phonemes and representing the ‘instrumental quality’, singers use
- some timbral aspects to stand out from the rest of the accompanying instruments
- 
+ The timbre of singing voice has multiple functions: One is to articulate
+ actual phonemes; another is to represent the ‘instrumental quality’, which
+ makes singers stand out from the rest of the accompanying instruments in
+ orchestral performances 
 \begin_inset CommandInset citation
 LatexCommand citep
 key "sundberg1990science"
@@ -214,8 +263,6 @@ key "sundberg1990science"
 \end_inset
 
 .
- Despite all these, there is not much work on describing the singing voice
- timbre in a computational way.
  Some of the problems related to timbre are summarized by 
 \begin_inset CommandInset citation
 LatexCommand citet
@@ -238,9 +285,22 @@ ADD source filter model
 \end_layout
 
 \begin_layout Standard
-Looking at MIR in general, there is still a wide gap between what can be
- automatically extracted from audio recordings and the semantically meaningful
- high-level musical concepts, which listeners associate with singing 
+Looking at 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+gls{MIR}
+\end_layout
+
+\end_inset
+
+ in general, there is still a wide gap between what can be automatically
+ extracted from audio recordings and the semantically meaningful high-level
+ musical concepts, which listeners associate with singing 
 \begin_inset CommandInset citation
 LatexCommand citep
 key "wiggins2009semantic"
@@ -253,8 +313,21 @@ key "wiggins2009semantic"
  concepts are inferred by aggregating these features.
  In such approaches often high-level musical knowledge is not reflected
  in the computational model itself.
- Most MIR research outcomes have been validated against eurogenetic music
- and do not generalize to other music cultures of the world
+ Most 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+gls{MIR}
+\end_layout
+
+\end_inset
+
+ research outcomes have been validated against eurogenetic music and do
+ not generalize to other music cultures of the world
 \begin_inset Foot
 status collapsed
 
@@ -323,7 +396,7 @@ target "http://compmusic.upf.edu"
 
 \end_inset
 
- (Computational Models for the Discovery of the World’s Music) was envisioned
+(Computational Models for the Discovery of the World’s Music) was envisioned
  
 \begin_inset CommandInset citation
 LatexCommand citep
@@ -332,19 +405,31 @@ key "serra2013roadmap"
 \end_inset
 
 .
- Art music of five different cultures are being studied in the project:
- Hindustani (North India), Carnatic (South India), Turkish-makam (Turkey),
- Arab-Andalusian (Maghreb) and Beijing opera (China).
+ Art music of five different cultures is being studied in the project: Hindustan
+i (North India), Carnatic (South India), Turkish-makam (Turkey), Arab-Andalusian
+ (Maghreb) and Beijing opera (China).
  The classical music of Turkey, also often referred to as Turkish-makam,
  is the focus of this study.
- In this thesis we will refer to it as Ottoman Turkish Makam Music (OTMM)
- 
+ In this thesis we will refer to it as 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+gls{OTMM}
+\end_layout
+
+\end_inset
+
+
 \begin_inset Foot
 status open
 
 \begin_layout Plain Layout
 For the sake of compliance, this naming is adopted from a related computational
- study - 
+ study — 
 \begin_inset CommandInset citation
 LatexCommand citet
 key "senturk2016thesis"
@@ -362,10 +447,22 @@ key "senturk2016thesis"
 \end_layout
 
 \begin_layout Standard
-In particular for singing voice, in current MIR research little work focuses
- on methods, which model sung lyrics together with its interdependence on
- complementary musical aspects like, for example, the progression of a melodic
- phrase
+In particular for singing voice, in current 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+gls{MIR}
+\end_layout
+
+\end_inset
+
+ research little work focuses on methods, which model sung lyrics together
+ with their interdependence on complementary musical aspects like, for example,
+ the progression of a metrical cycle
 \begin_inset Note Note
 status open
 
@@ -384,15 +481,41 @@ status open
  Therefore it may be more feasible to develop a singing voice model that
  represents jointly phonetic timbre and these music principles for a particular
  music tradition.
- This is mainly because these  principles for a one music tradition could
- be summarized into a model in a much more straight-forward way, than for
+ This is mainly because these  principles for one music tradition could
+ be summarized into a model in a much more straight-forward way than for
  multiple genres of music.
 \end_layout
 
 \begin_layout Standard
-The work covered in this thesis has been developed to focus on OTMM.
- A personal motivation for me is that OTMM has nature very akin to the tradition
-al music of Bulgaria - the music with which I have grown.
+The work covered in this thesis has been developed to focus on 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+gls{OTMM}
+\end_layout
+
+\end_inset
+
+.
+ A personal motivation for me is that 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+gls{OTMM}
+\end_layout
+
+\end_inset
+
+ has nature very akin to the traditional music of Bulgaria — the music with
+ which I grew up.
  Being the official music of the Ottoman Empire, it has influenced enormously
  all Balkan music, and to a rather high extent Bulgarian traditional music.
  This made me naturally understand and appreciate its musically rich melodic
@@ -411,40 +534,32 @@ Why consider complementary musical facets?
 \begin_layout Standard
 The progression of lyrics in singing is not an isolated aspect: lyrics have
  an inherent correlation with other music facets.
- In an abstract sense lyrics can be imagined as the ‘flesh’ and the musical
- facets as the ‘music skeleton’: the lyrics progress, driven by the transitions
- of the ‘skeleton’ music events, such as melodic events and rhythmic events.
+ In an abstract sense these music facets can be imagined as the 'skeleton’
+ and lyrics as the ‘flesh’.
+ Upon song-writing composers often distribute the lyrics syllables, guided
+ by the locations of the ‘skeleton’ melodic and rhythmic accents.
  In this respect, studying the temporal aspects of sung lyrics also requires
- describing their relations to the temporal progression of underlying musical
- events.
- In this thesis we will refer to 
+ describing their relations to the temporal progression of the underlying
+ music events.
+ These relations unfold in time to form
 \emph on
-unit of lyrics
+ musical context
 \emph default
- (or 
+ in time for the sung lyrics, that is different from and in this sense 
 \emph on
-lyrical units
+complementary
 \emph default
-) as a general concept that stands for different linguistic granularity:
- lyrics line, a phrase of words, word, syllable, phoneme.
-\end_layout
-
-\begin_layout Standard
-These relations jointly unfold in time to form a 
+ to their timbre.
+ By
 \emph on
-complementary musical context
-\emph default
- of the sung lyrics.
- By 
-\emph on
-complementary musical context
+ complementary musical context
 \emph default
  (or simply 
 \emph on
 complementary context
 \emph default
-) we will refer to any musical facet, manifesting in events simultaneous
- to the transitions of lyrical units and having an influence on them
+) we will refer to any music facet, manifesting in events simultaneous to
+ the transitions of lyrical units and having an influence on them
 \begin_inset Foot
 status collapsed
 
@@ -463,7 +578,7 @@ key "mauch:thesis:2010"
 , where it is introduced for the task of chord estimation to serve a similar
  function.
  The authors use it to represent any musical facet, which is complementary
- to the harmonic content of chords - the main facet being tracked.
+ to the harmonic content of chords — the main facet being tracked.
  We decided to use 
 \emph on
 complementary
@@ -478,17 +593,26 @@ musical
 \end_inset
 
 .
- In this thesis we suggest to divide the complementary context of lyrics
- into three hierarchical levels with respect to its time granularity: the
- overall structure of the composition (coarse-level), the structure of a
- melodic phrase (middle-level) and the structure of a metrical cycle (fine-level
-).
+ In this thesis we will refer to 
+\emph on
+unit of lyrics
+\emph default
+ (or 
+\emph on
+lyrical units
+\emph default
+) as a general concept that stands for different linguistic granularity:
+ lyrics line, a phrase of words, word, syllable, phoneme.
+ For the sake of organization, we suggest dividing the complementary context
+ of lyrics into three hierarchical levels with respect to its time granularity:
+ the overall structure of the composition (coarse-level), the temporal structure
+ of a lyrics line (mid-level) and the structure of a metrical cycle (fine-level).
  
 \end_layout
 
 \begin_layout Standard
 Each facet of the complementary context manifests itself as the time progression
- of concrete musical events (see Figure 
+ of concrete music events (see Figure 
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "context_alignment"
@@ -501,23 +625,31 @@ reference "context_alignment"
  The transition from current structural section (e.g.
  verse, chorus) to another one can be considered a musical event, which
  signals the transition to another lyrics line (or whole lyrics paragraph).
- Then on the middle level of context, the position of a lyrics syllable
- in a melodic phrase influences its duration.
+ Then, on the mid-level of context, the duration of each lyrics syllable
+ is conditioned on events of the sung melodic phrase.
  Singers may prolong or shorten syllables, in order to align them with accents
  of the melodic phrase.
-
-\series bold
- 
-\series default
-On an even finer context granularity, the transitions between syllables
- are aligned with the accents of the metrical cycle.
+ Finally, onsets of syllables often co-occur with accents within a metrical
+ cycle.
  
 \end_layout
 
 \begin_layout Standard
-These interdependences become remarkably important in OTMM, which has some
- very specific principles of the main musical facets, explained by a well-ground
-ed theory 
+These interdependences are important for 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+gls{OTMM}
+\end_layout
+
+\end_inset
+
+, which has some very specific principles of the main musical facets, explained
+ by a well-grounded theory 
 \begin_inset CommandInset citation
 LatexCommand citep
 key "ederer2011theory,judetz1996meanings"
@@ -535,8 +667,8 @@ Add : for example
 
 \end_inset
 
- In addition to that, the sung melodic phrases in OTMM music are rich in
- expressive ornamentation elements (such as melismas).
+ In addition to that, the sung melodic phrases are rich in expressive ornamentat
+ion elements (such as melismas).
  
 \begin_inset Note Note
 status open
@@ -547,14 +679,27 @@ not very clear why these reasons are important
 
 \end_inset
 
-From all these reasons, OTMM provides an excellent framework to incorporate
- domain-specific knowledge into a context-aware model of sung lyrics.
+For all these reasons, 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+gls{OTMM}
+\end_layout
+
+\end_inset
+
+ provides an excellent framework to incorporate domain-specific knowledge
+ into a context-aware model of sung lyrics.
  
 \end_layout
 
 \begin_layout Standard
-The well-grounded theory of OTMM also paved the way to computational work
- on some of these aspects, including among others predominant melody extraction
+Its well-grounded theory also paved the way to computational work on some
+ of these aspects, including among others predominant melody extraction
  
 \begin_inset CommandInset citation
 LatexCommand citep
@@ -587,28 +732,80 @@ Why lyrics-to-audio alignment?
 \end_layout
 
 \begin_layout Standard
-In this thesis, we will focus on the concrete problem of lyrics-to-audio
- alignment (LAA).
- LAA aims  to automatically synchronize the lyrics in their two representations:
+In this thesis, we will focus on the concrete problem of 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+gls{LAA}
+\end_layout
+
+\end_inset
+
+.
+ It aims  to automatically synchronize the lyrics in their two representations:
  sung in an audio recording and written as text.
- An audio recording and its corresponding lyrics are input to a LAA system.
+ An audio recording and its corresponding lyrics are input to an alignment
+ system.
  It estimates their temporal relationship, providing as output the start
- and end timestamps of the phoneme sequence, comprising the lyrics.
+ timestamp of each phoneme from the phoneme sequence, comprising the lyrics.
  Among all research questions, related to sung lyrics defined in the context
- of MIR, we chose to work on LAA for several reasons.
+ of 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+gls{MIR}
+\end_layout
+
+\end_inset
+
+, we chose to work on 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+gls{LAA}
+\end_layout
+
+\end_inset
+
+ for several reasons.
 \end_layout
 
 \begin_layout Standard
-Firstly, the measuring the accuracy of a LAA system provides a quantitative
- way to access the influence of the complementary context on the transitions
+Firstly, the measuring the accuracy of an alignment system provides a quantitati
+ve way to access the influence of the complementary context on the transitions
  between sung lyrical units.
  From this perspective, we only focused on one aspect of singing voice timbre:
  the phonetic timbre changes.
- Secondly, automating the LAA has numerous user applications.
- Building a piece of work with market potential is also a major motivation
+ Secondly, automating the 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+gls{LAA}
+\end_layout
+
+\end_inset
+
+ has numerous end-user applications.
+ Building a piece of work with application potential is also a major motivation
  behind this research.
- Some applications of context-aware LAA include karaoke-like lyrics visualizatio
-n, automatic thumbnailing and enriched music listening.
+ Some applications of alignment include karaoke-like lyrics visualization,
+ automatic thumbnailing and enriched music listening.
 \end_layout
 
 \begin_layout Standard
@@ -636,8 +833,21 @@ Characterizing the lyrics content of singing when accompanying instruments
 This complexity is significantly mitigated in music traditions, which are
  centered around the singing voice, wherein the number of accompanying instrumen
 ts is often small.
- That is why, being a largely vocal-centered tradition, OTMM provides a
- feasible context to validate the modeling developed in this study.
+ That is why, being a largely vocal-centered tradition, 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+gls{OTMM}
+\end_layout
+
+\end_inset
+
+ provides a feasible context to validate the modeling developed in this
+ study.
 \begin_inset VSpace bigskip
 \end_inset
 
@@ -657,11 +867,37 @@ Opportunities and Challenges
 
 \begin_layout Standard
 Computational modeling of the singing voice has been focused to a large
- extent on transcribing the perceived melodic pitch, leaving other musical
- facets, among which is sung lyrics, less investigated.
+ extent on transcribing the perceived pitch of the melody, leaving other
+ musical facets, among which sung lyrics, less investigated.
  In the broad area of computational analysis of the language content of
- the singing voice, MIR researchers have explored tasks such as singing
- language identification, LAA, keyword spotting, lyrics transcription 
+ the singing voice, 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+gls{MIR}
+\end_layout
+
+\end_inset
+
+ researchers have explored tasks such as singing language identification,
+ 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+gls{LAA}
+\end_layout
+
+\end_inset
+
+, keyword spotting, lyrics transcription, which are well overviewed in 
 \begin_inset CommandInset citation
 LatexCommand citep
 key "goto2014singing"
@@ -701,7 +937,14 @@ key "Rabiner:1993:FSR:153687"
  However, compared to speech, multi-instrumental music has several substantially
  different acoustic characteristics.
  Among them are the presence of accompanying instruments, the longer and
- more varying durations of vowels; sections without singing voice.
+ more varying durations of vowels 
+\begin_inset CommandInset citation
+LatexCommand citep
+key "kruspekeyword"
+
+\end_inset
+
+ and sections without singing voice.
  
 \begin_inset Note Note
 status open
@@ -722,12 +965,27 @@ Opportunities and challenges of analysing Makam music
 \end_layout
 
 \begin_layout Standard
-In contrast to eurogenetic music, in OTMM the singing voice interacts with
- its accompanying instruments in a special way: Singers typically perform
- variations of a simultaneously played instrumental melody.
+In contrast to eurogenetic music, in 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+gls{OTMM}
+\end_layout
+
+\end_inset
+
+ the singing voice interacts with its accompanying instruments in a special
+ way: Singers typically perform variations of a simultaneously played instrument
+al melody.
  This interaction is commonly referred to as 
 \emph on
 heterophony 
+\emph default
+
 \begin_inset CommandInset citation
 LatexCommand citep
 key "Cooke"
@@ -735,24 +993,17 @@ key "Cooke"
 \end_inset
 
 
-\emph default
+\emph on
 .
- As a consequence, the harmonics of singing voice spectrum are interwoven
+
+\emph default
+ As a consequence, the harmonics of the singing voice spectrum are interwoven
  with the harmonics from the spectrum of other instruments.
- More precisely, certain harmonics of the voice can overlap with those of
- accompanying instruments, and thus can be distorted by the energy of the
- harmonics of these instruments.
+ Certain harmonics of the voice can overlap with the harmonics of accompanying
+ instruments, and thus can be distorted by their energy.
  Therefore a model for lyrics tracking, based on the traditional phonetic
  timbre features could easily loose track in music with heterophonic voice-instr
 ument interplay.
- 
-\end_layout
-
-\begin_layout Standard
-Applying most existing singing voice extraction techniques to OTMM will
- most likely not result in optimal estimation of phonetic timbre.
- A reason for this is that these have been developed on music with a rather
- different type of heterophony.
  For this reason, we expect that the use the context, complementary to phonetic
  timbre can provide the ‘stepping stones’ to the tracking of lyrics.
  
@@ -760,9 +1011,10 @@ Applying most existing singing voice extraction techniques to OTMM will
 
 \begin_layout Standard
 A benefit of the heterophony is that the main vocal melody is approximately
- doubled by backing instrument.
- This can ease to a certain extent the automatic extraction of the vocal
- melody contours 
+ doubled by some backing instruments.
+ This has been used among other factors to ease to a certain extent the
+ automatic extraction of the vocal melody contours in the recent work of
+ 
 \begin_inset CommandInset citation
 LatexCommand citep
 key "atli2014audio"
@@ -782,8 +1034,8 @@ Opportunities and challenges of analysing a specific music tradition
 \end_layout
 
 \begin_layout Standard
-Modeling lyrics is coupled with the particular singing language: the pronunciati
-ons of the phonemes of any language form an unique set of sounds.
+Modeling lyrics is coupled with the particular language of singing: the
+ pronunciations of the phonemes of any language form an unique set of sounds.
  Therefore classical approaches on modeling speech are trained and tested
  on material from the same language.
  Being a relatively new research field, lyrics modeling follows to a large
@@ -802,9 +1054,28 @@ ion see the Background chapter).
 \end_layout
 
 \begin_layout Standard
-Characteristic for the singing in most CompMusic traditions is that the
- sung vowels could be prolonged to a significant extent, when compared to
- vowels in eurogenetic music, in particular eurogenetic popular music.
+Characteristic for the singing in 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+gls{OTMM}
+\end_layout
+
+\end_inset
+
+ and jingju is that the sung vowels could be prolonged to a significant
+ extent 
+\begin_inset CommandInset citation
+LatexCommand citep
+key "ederer2011theory,wichmann1991listening"
+
+\end_inset
+
+, which makes it different from most eurogenetic musics.
  This lowers the quotient of consonants (a big portion of the language-specific
  sounds) from the total singing duration and thus mitigates their significance.
  This allows focusing on modeling of the acoustics of vowels, which makes
@@ -813,8 +1084,8 @@ Characteristic for the singing in most CompMusic traditions is that the
 \end_layout
 
 \begin_layout Standard
-When this dissertation was started, OTMM was the only CompMusic tradition,
- for which an extensive collection of machine-readable musical scores was
+When this dissertation was started, the Turkish was the only CompMusic tradition
+, for which an extensive collection of machine-readable musical scores was
  available.
  Music scores provide important contextual information complementary to
  lyrics, including but not limited to boundaries of structural sections,
@@ -833,7 +1104,20 @@ Research Objectives
 In alignment with the goals of CompMusic, the goal of this thesis is to
  build a culture-specific computational approach, which is meaningful for
  a concrete music repertoire.
- We have focused on OTMM due to the reasons listed above.
+ We have focused on 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+gls{OTMM}
+\end_layout
+
+\end_inset
+
+ due to the reasons listed above.
  
 \end_layout
 
@@ -845,7 +1129,7 @@ This thesis exploits computational approaches for analysis of music recordings.
  the audio signal.
  The recorded audio is the primary source of information together with the
  given lyrics.
- Using complementary context, the proposed alignment model outputs words
+ Using complementary context, the proposed alignment models output words
  together with their aligned timestamps (Fig.
  
 \begin_inset CommandInset ref
@@ -856,7 +1140,7 @@ reference "context_alignment"
 
 ).
  Two separate phonetic recognizers are created: One represents the influence
- of the structure of melodic phrases on syllable transitions (Chapter 4).
+ of the expected syllable durations on phoneme transitions (Chapter 4).
  Another one represents the influence of the structure of the metrical cycle
  (Chapter 5).
  Depending on the nature of the complementary context, different additional
@@ -866,12 +1150,12 @@ reference "context_alignment"
 placement H
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \align center
 \begin_inset Graphics
-	filename /Users/joro/Dropbox/Phd_Figs/diagram_introduction_musical_context.jpg
+	filename Phd_Figs/diagram_introduction_musical_context.jpg
 	lyxscale 20
 	width 90text%
 
@@ -886,9 +1170,9 @@ status collapsed
 \begin_layout Plain Layout
 Use of different facets of complementary context in the automatic lyrics-to-audi
 o alignment.
- Structural segmentation of a musical recording into melodic phrases is
+ Structural segmentation of a musical recording into lines of lyrics is
  considered a 'black box'.
- The audio signal of the obtained musical phrases, along with its corresponding
+ The audio signal of the obtained lyrics lines, along with its corresponding
  lyrics, is input to two separate phonetic recognizers.
  Both of them perform alignment of the audio signal to lyrics.
  Timestamps of aligned lyrics units are output.
@@ -916,9 +1200,23 @@ name "context_alignment"
 \end_layout
 
 \begin_layout Standard
-A supervised learning method represents the temporal aspect of the singing
- voice of sequential transiting from a phoneme to another one.
- It is an extension around the concept of hidden Markov models (HMMs) 
+The baseline method, on which we build upon, extends the 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+gls{HMM}
+\end_layout
+
+\end_inset
+
+-s — a supervised learning method.
+ It is preferred, because its probabilistic generative nature can describe
+ adequately the temporal progression of the singing voice from a phoneme
+ to another one 
 \begin_inset CommandInset citation
 LatexCommand citep
 key "Rabiner:1993:FSR:153687"
@@ -926,11 +1224,6 @@ key "Rabiner:1993:FSR:153687"
 \end_inset
 
 .
- HMMs are preferred because their probabilistic generative nature can describe
- adequately the temporal progression of the singing voice.
- The degree of temporal variability is particularly increased by the expressive
- singing style of OTMM.
- 
 \end_layout
 
 \begin_layout Subsection
@@ -938,18 +1231,18 @@ Broad research objectives
 \end_layout
 
 \begin_layout Subsubsection*
-Create a context aware computational approach to describe transitions between
- sung lyrics that is aware of specific complementary context
+Create a computational approach to describe transitions between sung lyrics
+ that is aware of specific complementary context
 \end_layout
 
 \begin_layout Standard
-The goal is to address these bits of knowledge from the complementary context,
+The goal is to address those bits of knowledge from the complementary context,
  which have a clear influence on the phonetic timbre changes.
  The way music events evolve in time for a given music tradition can be
  expressed as a set of music principles.
  As a result of the work of musicologists, such principles specific to a
  music tradition have been aggregated in terms of concrete patterns and
- constraints 
+ rules 
 \begin_inset CommandInset citation
 LatexCommand citep
 key "ederer2011theory,wichmann1991listening"
@@ -957,7 +1250,7 @@ key "ederer2011theory,wichmann1991listening"
 \end_inset
 
 .
- We aim to create a context aware machine learning method of tracking sung
+ We aim to create a context-aware machine learning method of tracking sung
  lyrics, which benefits from the knowledge, compacted in these music patterns.
  The model has to jointly represent them and their influence on the transitions
  between consecutive units of lyrics.
@@ -969,8 +1262,20 @@ key "ederer2011theory,wichmann1991listening"
 \begin_layout Standard
 Probabilistic graphical models provide an effective framework to integrate
  complementary context knowledge in terms of the components of the model.
- In this thesis, we will extensively use dynamic Bayesian networks (DBNs)
- - a particular graphical model that can represent not only dependencies
+ In this thesis, we will extensively use 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+gls{DBN}
+\end_layout
+
+\end_inset
+
+-s — a particular graphical model that can represent not only dependencies
  between concepts, but also their temporal progression 
 \begin_inset CommandInset citation
 LatexCommand citep
@@ -979,13 +1284,51 @@ key "murphy2002dynamic"
 \end_inset
 
 .
- The phonetic recognizer baseline provides a probabilistic framework (HMM),
- which allows to be extended to a DBN.
+ The phonetic recognizer baseline provides a probabilistic framework (
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+gls{HMM}
+\end_layout
+
+\end_inset
+
+), which allows to be extended to a 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+gls{DBN}
+\end_layout
+
+\end_inset
+
+.
  We suggest a method that captures the influence on the lyrics transitions
  of each considered facet of complementary context.
  To this end, we represent events from complementary context as components
- in a DBN and their influence on the lyrics as a hierarchical dependence
- between the components.
+ in a 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+gls{DBN}
+\end_layout
+
+\end_inset
+
+ and their influence on the lyrics as a hierarchical dependence between
+ the components.
  
 \end_layout
 
@@ -999,7 +1342,7 @@ structure of the composition (coarse-level)
 \end_layout
 
 \begin_layout Itemize
-structure of a melodic phrase (middle-level)
+lyrics durations (mid-level)
 \end_layout
 
 \begin_layout Itemize
@@ -1011,16 +1354,11 @@ We do not aim to explicitly model the influence of the structure of the
  music composition on lyrics.
  Instead, the segmentation of a recording into its sections is obtained
  from an external method, which is considered as a 'black box'.
- Each obtained section contains one or more melodic phrase.
- We use 
-\emph on
-melodic phrase
-\emph default
- as a generic term to represent a musically meaningful melodic entity, usually
- delimited by an instrumental break and usually corresponding to a lyrics
- line
+ Each obtained section contains one or more lyrics lines.
+  Usually a lyrics line corresponds to a melodic phrase — a musically meaningful
+ melodic entity, usually delimited by an instrumental break 
 \begin_inset Foot
-status collapsed
+status open
 
 \begin_layout Plain Layout
 The term 
@@ -1046,7 +1384,7 @@ key "Gulati"
 \end_inset
 
 .
- The audio signal of each obtained melodic phrase, along with its corresponding
+ The audio signal of each obtained section, along with its corresponding
  lyrics line, is input to the proposed phonetic recognizers (see Fig.
  
 \begin_inset CommandInset ref
@@ -1056,13 +1394,26 @@ reference "context_alignment"
 \end_inset
 
 ).
- We aim at building a separate phonetic recognizer with middle-level context
+ We aim at building a separate phonetic recognizer with mid-level context
  (Chapter 4) and a separate one with fine-level context (Chapter 5), each
- of which is a DBN.
- The middle-level one considers the influence of the structure of a melodic
- phrase on the transitions between consecutive syllables.
- In particular, we focus on representing how the position of a lyrics syllable
- in a melodic phrase influences its duration.
+ of which is a 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+gls{DBN}
+\end_layout
+
+\end_inset
+
+.
+ The mid-level one considers the influence of the temporal structure of
+ a lyrics line on the transitions between consecutive syllables.
+ In particular, we focus on the sequence of some reference durations of
+ sung syllables.
  As to the fine-level context, 
 \color black
 we aim at studying how phoneme transitions interact with the position of
@@ -1097,21 +1448,59 @@ The proposed contextual models are designed with the intention to be generic
  enough and applicable in different end-tasks in the broader research area
  of sung lyrics.
  Having in mind the time limitation of this study, we focused on the particular
- task of LAA as a way to evaluate the performance of the proposed generic
- model.
+ task of 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+gls{LAA}
+\end_layout
+
+\end_inset
+
+ as a way to evaluate the performance of the proposed generic model.
  However, we expect that due to the ubiquity of the addressed facets of
- complementary context, the behavior of our model that we asses on LAA will
- be comparable on neighboring tasks including keyword spotting and lyrics
- recognition.
+ complementary context, the behavior of our model that we asses on alignment
+ will be comparable on neighboring tasks including keyword spotting and
+ lyrics recognition.
  
 \end_layout
 
 \begin_layout Standard
-As a baseline for LAA we chose phonetic recognizer approach, adopted from
- speech-to-text alignment, based on HMMs.
- HMMs not only have proven to be the most successful strategy for LAA, but
- they also provide an appropriate temporal probabilistic framework, which
- we can extend for representing complementary context.
+As a baseline for 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+gls{LAA}
+\end_layout
+
+\end_inset
+
+ we chose phonetic recognizer approach, adopted from speech-to-text alignment,
+ based on 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+gls{HMM}
+\end_layout
+
+\end_inset
+
+-s.
+ They not only have proven to be the most successful strategy for the alignment
+ of lyrics, but they also provide an appropriate temporal probabilistic
+ framework, which we can extend for representing complementary context.
  
 \end_layout
 
@@ -1142,9 +1531,21 @@ Evaluate the contribution of each piece of complementary context knowledge
 \end_layout
 
 \begin_layout Standard
-Using LAA as a concrete end task allows evaluating the contribution of any
- particular facet of complementary context in a quantitative way and comparing
- them.
+Using 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+gls{LAA}
+\end_layout
+
+\end_inset
+
+ as a concrete end task allows evaluating the contribution of any particular
+ facet of complementary context in a quantitative way and comparing them.
  
 \end_layout
 
@@ -1152,7 +1553,7 @@ Using LAA as a concrete end task allows evaluating the contribution of any
 The novelty of the presented models is that their capability to integrate
  facets of complementary context into the main alignment step.
  Some of the context facets explored in this thesis have also been addressed
- in previous work on LAA 
+ in previous work 
 \begin_inset CommandInset citation
 LatexCommand citep
 key "fujihara2012lyrics"
@@ -1188,25 +1589,50 @@ Explore extensions and generalizations of the music-specific models to other
 \begin_layout Standard
 Working in tradition-specific context, there is a danger that the devised
  models become overfitted to the unique characteristics of the music tradition.
- To avoid that, the model should not reflect cases, unique for OTMM, but
- instead induce patterns that are applicable also to other music traditions
+ To avoid that, the model should not reflect cases, unique for 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+gls{OTMM}
+\end_layout
+
+\end_inset
+
+, but instead induce patterns that are applicable also to other music traditions
  with similar characteristics.
  
 \end_layout
 
 \begin_layout Standard
 When a song is performed, the degree of deviation from the musical score
- for OTMM is arguably the least, compared to other CompMusic traditions.
- For example, in jingju the duration of sung syllables frequently deviates
+ is arguably the least, compared to other CompMusic traditions.
+ In jingju, for example, the duration of sung syllables frequently deviates
  to a bigger extent from the score and could span a very long time interval.
  To proof the transferability of some of the proposed models outside of
- OTMM, we evaluate on material from another music tradition.
- We focused on a particular aspect of complementary context - the structure
- of a melodic phrase, for a particular tradition - jingju.
+ 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+gls{OTMM}
+\end_layout
+
+\end_inset
+
+, we evaluate on material from another music tradition.
+ We focused on a particular aspect of complementary context — the temporal
+ structure of sung lyrics lines, for a particular tradition — jingju.
  Comparing the application of the syllable-duration aware model for two
  traditions also serves to quantitatively evaluate if a facet of complementary
- context contributes to a different degree for each of them (see Chapter
- 4).
+ context contributes to a different degree for each of the two traditions
+ (see Chapter 4).
 \end_layout
 
 \begin_layout Standard
@@ -1230,8 +1656,8 @@ Contributions
 \end_layout
 
 \begin_layout Standard
-In pursuing the above presented goals we build methodologies, which can
- be seen as concrete technical and scientific contributions:
+In pursuing the above presented goals we build methods, which can be seen
+ as concrete technical and scientific contributions:
 \end_layout
 
 \begin_layout Enumerate
@@ -1240,7 +1666,20 @@ We extend the existing state of the art phonetic recognizer approach for
  context knowledge.
  We conceptualize the interaction of phoneme transitions and these facets
  in a compact way as probabilistic dependencies.
- These dependences are represented as hidden variables in a DBN.
+ These dependences are represented as hidden variables in a 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+gls{DBN}
+\end_layout
+
+\end_inset
+
+.
  
 \begin_inset Note Note
 status open
@@ -1257,9 +1696,22 @@ ADD: the goal is that the dependencies are compact way of representing the
 
 \begin_layout Enumerate
 We suggest several implementation strategies for detection with the proposed
- DBNs.
- In some cases the topology of a DBN becomes relatively complex, because
- of, for example, the big number of hidden variables.
+ 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+gls{DBN}
+\end_layout
+
+\end_inset
+
+-s.
+ In some cases the topology becomes relatively complex, because of, for
+ example, the big number of hidden variables.
  This makes the inference with DBNs computationally demanding and thus model
  simplifications are required
 \begin_inset Note Note
@@ -1307,20 +1759,58 @@ Outline
 The thesis is organized into six chapters, wherein the main contributions
  are contained in Chapters 4 and 5.
  Chapter 2 covers the research background, summarizing the principles of
- the musics studied: OTMM and jingju.
+ the musics studied: 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+gls{OTMM}
+\end_layout
+
+\end_inset
+
+ and jingju.
  It also overviews the state of the art in the methodologies used in lyrics-to-a
 udio alignment.
  A focus is put on describing the pipeline of a phonetic recognizer alignment
  approach.
- Finally, the chapter outlines related research on DBNs - the main probabilistic
- model, used throughout the thesis.
- Chapter 3 presents the developed baseline system for lyrics to audio alignment,
+ Finally, the chapter outlines related research on 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+gls{DBN}
+\end_layout
+
+\end_inset
+
+-s — the main probabilistic model, used throughout the thesis.
+ Chapter 3 presents our developed baseline system for lyrics to audio alignment,
  which is also based on a phonetic recognizer.
  Refinements in some of the recognizer steps, which makes it tailored to
- OTMM, are discussed.
+ 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+gls{OTMM}
+\end_layout
+
+\end_inset
+
+, are discussed.
  Chapter 4 describes the first core proposal of the thesis, a lyrics-to-audio
  alignment system that considers some context facets complementary to lyrics,
- in particular the structure of the sung melodic line.
+ in particular the sequence of reference durations of sung syllables.
  Chapter 5 presents a separate model for lyrics-to-audio alignment that
  considers another facet of complementary information, the accents in the
  metrical cycle of music.

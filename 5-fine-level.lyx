@@ -5,16 +5,42 @@
 \save_transient_properties true
 \origin unavailable
 \textclass memoir
+\begin_preamble
+\definecolor{BLACK}{gray}{0}
+\setsecnumdepth{subsection}
+\usepackage[automake]{glossaries}
+\makeglossaries
+
+%\newacronym{cd}{CD}{compact disk}
+
+\newglossaryentry{LAA}{type=\acronymtype, name={LAA}, description={Lyrics-to-Audio Alignment}, first={Lyrics-to-Audio Alignment (LAA)} }
+\newglossaryentry{MIR}{type=\acronymtype, name={MIR}, description={Music Information Retrieval}, first={Music Information Retrieval (MIR)} }
+\newglossaryentry{OTMM}{type=\acronymtype, name={OTMM}, description={Ottoman Turkish Makam Music}, first={Ottoman Turkish Makam Music (OTMM)} }
+\newglossaryentry{MFCC}{type=\acronymtype, name={OTMM}, description={Mel Frequency Cepstral Coefficients}, first={Mel Frequency Cepstral Coefficients (MFCC)} }
+
+
+%%%%%%%%%% Document begins %%%%%%%%%%
+
+
+%\usepackage[nodoi]{apacite}
+%\bibliographystyle{myapacite} 
+
+%\definecolor{LinkColor}{rgb}{0, 0, 0.3} 
+%\definecolor{ExtLinkColor}{rgb}{0, 0.3, 0}
+
+%\usepackage[table,xcdraw]{xcolor}
+%\usepackage{colortbl} % For some nice looking tables, assumes xcolor is already loaded
+\end_preamble
+\options noend,nofillcomment,figure, a4paper
 \use_default_options false
-\master PhDThesis_Georgi_Knowledge_based_Lyrics_Tracking.lyx
-\maintain_unincluded_children false
+\maintain_unincluded_children true
 \language english
 \language_package default
 \inputencoding auto
 \fontencoding global
-\font_roman "default" "default"
-\font_sans "default" "default"
-\font_typewriter "default" "default"
+\font_roman "lmodern" "default"
+\font_sans "helvet" "Helvetica"
+\font_typewriter "tgcursor" "default"
 \font_math "auto" "auto"
 \font_default_family default
 \use_non_tex_fonts true
@@ -25,11 +51,25 @@
 \graphics default
 \default_output_format default
 \output_sync 0
+\output_sync_macro "\synctex=1"
 \bibtex_command default
 \index_command default
-\paperfontsize default
+\paperfontsize 11
 \spacing single
-\use_hyperref false
+\use_hyperref true
+\pdf_title "Knowledge-based probabilistic modeling for tracking lyrics in music audio signals"
+\pdf_author "Georgi Dzhambazov"
+\pdf_subject "PhD thesis"
+\pdf_bookmarks true
+\pdf_bookmarksnumbered false
+\pdf_bookmarksopen false
+\pdf_bookmarksopenlevel 1
+\pdf_breaklinks true
+\pdf_pdfborder true
+\pdf_colorlinks true
+\pdf_backref page
+\pdf_pdfusetitle false
+\pdf_quoted_options "citecolor=blue,linkcolor=blue"
 \papersize default
 \use_geometry false
 \use_package amsmath 1
@@ -51,18 +91,22 @@
 \suppress_date false
 \justification true
 \use_refstyle 0
+\boxbgcolor #283d86
 \index Index
 \shortcut idx
 \color #008000
 \end_index
+\leftmargin 20page%
+\rightmargin 20page%
 \secnumdepth 3
-\tocdepth 3
-\paragraph_separation indent
-\paragraph_indentation default
+\tocdepth 2
+\paragraph_separation skip
+\defskip smallskip
 \quotes_language english
 \papercolumns 1
 \papersides 1
 \paperpagestyle default
+\listings_params "basicstyle={\ttfamily\small},captionpos=b"
 \tracking_changes false
 \output_changes false
 \html_math_output 0
@@ -88,15 +132,15 @@ Introduction
 In this chapter, we propose how to improve the baseline lyrics-to-audio
  alignment method by considering facets of fine-level context, complementary
  to lyrics.
- We focus on one particular fine-level facet - the accents in the metrical
+ We focus on one particular fine-level facet — the accents in the metrical
  cycle (i.e.
  metrical accents).
- Metrical accents are an important mechanism that guides the structure of
- a melodic phrase.
+ In sung voice, transitions between consecutive lyrics units are aligned
+ with the metrical accents to a certain degree.
  However, we found that it is not obvious how to conceptualize the direct
  relation of metrical accents to syllable transitions.
- Instead, we investigate the relation of metrical accents to the positions
- of onsets (attacks) of sung notes in a melodic phrase.
+ Instead, we investigate the relation of metrical accents to the locations
+ of onsets (attacks) of sung notes in the vocal melody.
  In this way, the influence of metrical events on syllable transitions is
  represented implicitly through its influence on note onsets, which are
  in turn influenced by metrical events.
@@ -159,12 +203,33 @@ y formalized in a computational study.
  
 \color inherit
 Further, we explore how automatically detected vocal onsets can replace
- the onset annotations.
+ the annotations.
  Using automatic singing transcription to detect the vocal onsets instead
  of score-informed methods reduces the need for music scores.
  
 \color black
-Evaluation is carried out on a cappella material from OTMM.
+Evaluation is carried out on 
+\emph on
+a cappella
+\emph default
+ material from 
+\color inherit
+
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+gls{OTMM}
+\end_layout
+
+\end_inset
+
+
+\color black
+.
  
 \end_layout
 
@@ -212,7 +277,24 @@ reference "sec:Onset-aware-lyrics-to-audio-alig"
  we present a study of how the detected note onsets influence the transitions
  between consecutive phonemes.
  The novel phoneme transition rules and their integration into the transitions
- of an HMM are presented respectively in Sections 
+ of an 
+\color inherit
+
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+gls{HMM}
+\end_layout
+
+\end_inset
+
+
+\color black
+ are presented respectively in Sections 
 \color inherit
 
 \begin_inset CommandInset ref
@@ -273,17 +355,14 @@ key "benetos2013automatic"
  In particular, singing voice poses a challenge to transcription algorithms
  because of its soft onsets and expressive elements such as portamento and
  vibrato.
- One of the core subtasks of singing voice transcription (SVT) is detecting
- note events with a discrete pitch value, an onset time and an offset time
- from the estimated time-pitch representation.
  
-\end_layout
-
-\begin_layout Standard
-
 \color black
 In recent years there has been a substantial amount of work on the extraction
- of pitch from both a cappella singing 
+ of pitch from both 
+\emph on
+a cappella
+\emph default
+ singing 
 \begin_inset CommandInset citation
 LatexCommand citep
 key "babacan2013comparative,molina2014importance"
@@ -301,11 +380,31 @@ key "salamon2014melody"
  This has paved the way to an increased accuracy of singing voice transcription
  algorithms.
  One of the reasons for this is that a correctly detected melody contour
- is a fundamental precondition for SVT.
+ is a fundamental precondition for 
+\color inherit
+singing voice transcription
+\color black
+ (SVT).
 \end_layout
 
 \begin_layout Standard
-A HMM that describes notes is presented in 
+The core subtasks of SVT are detecting note events with a discrete pitch
+ value, an onset time and an offset time from the estimated time-pitch represent
+ation.
+ A 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+gls{HMM}
+\end_layout
+
+\end_inset
+
+ that describes notes is presented in 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "ryynanen2004probabilistic"
@@ -336,18 +435,21 @@ Each MIDI pitch is further divided into 3 sub-pitches, resulting in
  
 \color inherit
 Although being conceptually capable of tracking onsets in singing voice
- audio with accompaniments, these approaches were tested only on a cappella
+ audio with accompaniments, these approaches were tested only on 
+\emph on
+a cappella
+\emph default
  singing.
  In multi-instrumental recordings, an essential first step is to extract
  reliably the predominant vocal melody.
- One of the few works dealing with SVT for polyphonic recordings - 
+ One of the few works dealing with SVT for polyphonic recordings — 
 \begin_inset CommandInset citation
 LatexCommand citet
 key "kroher2015automatic,NishikimiNIY16"
 
 \end_inset
 
- - are based on the algorithm for predominant melody extraction of 
+ — are based on the algorithm for predominant melody extraction of 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "salamon2012melody"
@@ -377,146 +479,6 @@ key "kroher2015automatic"
  
 \end_layout
 
-\begin_layout Subsection
-Beat Detection
-\end_layout
-
-\begin_layout Standard
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-say why beat detection.
- Metrical accents (in particular beats)
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-Recently a Bayesian approach, referred to as the 
-\emph on
-bar-pointer
-\emph default
- model, has been presented 
-\begin_inset CommandInset citation
-LatexCommand citep
-key "whiteley:06:ismir"
-
-\end_inset
-
-.
- It describes events in music as being driven by their current position
- in a metrical cycle (i.e.
- musical bar).
- 
-\color black
-The model represents as hidden variables in a hidden Markov model (HMM)
- the current position in a bar, the tempo, and the type of musical meter.
-\end_layout
-
-\begin_layout Standard
-The work of 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "holzapfel2014tracking"
-
-\end_inset
-
- applied this model to recordings from non-Western music, in order handle
- jointly beat and downbeat tracking.
- The authors showed that the original model can be adapted to different
- rhythmic styles and time signatures - an evaluation is presented on Indian,
- Cretan and Turkish music datasets.
- 
-\end_layout
-
-\begin_layout Standard
-
-\color black
-A modification of the bar-tempo state used in this work that optimizes its
- size, was later suggested by 
-\begin_inset CommandInset citation
-LatexCommand citet
-key "krebs:15:ismir"
-
-\end_inset
-
-.
-\end_layout
-
-\begin_layout Standard
-\begin_inset Newpage newpage
-\end_inset
-
-
-\end_layout
-
-\begin_layout Section
-
-\color black
-Beat aware vocal onset detection
-\begin_inset CommandInset label
-LatexCommand label
-name "sec:Beat-aware-note-onset"
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-
-\color black
-Metrical accents are a facet of complementary context that defines the rhythmic
- backbone of a melodic phrase.
- As such, metrical accents are an important mechanism behind the structure
- of a melodic phrase.
- Therefore it is worth studying how the transitions between lyrics of units
- (in particular syllables) interacts with these accents.
- 
-\color inherit
-By 
-\emph on
-metrical accents
-\emph default
- we will refer to notes that are emphasized as a result of the context of
- the musical meter.
- Naturally, accents occur on the beats, whereby downbeats (the first beat
- in a meter) will be perceived as being stronger accentuated.
- Detecting the times of vocal note onsets can benefit from automatically
- detected metrical events, such as beats.
- 
-\color black
-In fact, the accents in a metrical cycle determine to a large extent the
- temporal backbone of the singing melody lines.
- 
-\color inherit
-Studies on symbolic music data showed that the timestamps of vocal note
- onsets are influenced by the their position in a metrical cycle 
-\begin_inset CommandInset citation
-LatexCommand citep
-key "huron2006sweet,holzapfel2015relation"
-
-\end_inset
-
-.
- 
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-[Huron], Anja Volk - inner metric analysis or Mauch - rhythm corpus study
-\end_layout
-
-\end_inset
-
-.
- 
-\end_layout
-
 \begin_layout Standard
 Vocal onsets are usually soft (a slower attack phrase), in contrast to some
  instruments with percussive onsets 
@@ -527,10 +489,55 @@ key "sundberg1990science"
 \end_inset
 
 .
- This makes the automatic detection of a precise time position of a vocal
- onset an ill-defined problem.
- The detection of instrumental onsets in polyphonic recordings is a challenging
- problem itself, which attracts the attention of researchers for many years
+ This makes the precise location of a vocal onset ill-defined.
+ 
+\color black
+The note onset corresponds to the initial segment of the three temporal
+ segments of a vocal note: attack, sustain and release
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+
+\color black
+We stick to the definition of
+\emph on
+ temporal segments
+\emph default
+, adopted from the chapter 
+\emph on
+Singing Transcription
+\emph default
+ of 
+\begin_inset CommandInset citation
+LatexCommand citet
+key "klapuri:06:transcription"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+.
+ As the location of a note onset we will refer to the time instant, in which
+ a pitched segment starts.
+ They could follow (but exclude) a region with higher energy in case a syllable
+ starts with a non-voiced consonant.
+ The other temporal segments — sustain and release (offset) have undoubtedly
+ also impact on the transition of phonemes.
+ 
+\color inherit
+However, in this thesis, we consider the impact of vocal note onsets only,
+ for they have arguably the most evident influence on syllable transitions.
+ 
+\end_layout
+
+\begin_layout Standard
+The detection of instrumental onsets in polyphonic recordings is a challenging
+ problem itself, which has attracted the attention of researchers for many
+ years
 \begin_inset Foot
 status open
 
@@ -561,17 +568,7 @@ key "roebel2009onset"
  Soft onsets are treated as a special case: the sensitivity of the generic
  transient detector is modified whenever the transients appear in a harmonic
  structure, which is usually a condition for soft onsets.
- 
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-add DEGARA
-\end_layout
-
-\end_inset
-
-A thorough review of onset detection methods can be found in 
+ A thorough review of onset detection methods can be found in 
 \begin_inset CommandInset citation
 LatexCommand citet
 after "Section 2.2"
@@ -580,16 +577,178 @@ key "benetos2013automatic"
 \end_inset
 
 .
+ Vocal onset detection in multi-instrumental music is, in fact, one of the
+ hardest 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+gls{MIR}
+\end_layout
+
+\end_inset
+
+ problems.
+ Determining their exact onset timestamp is even harder in 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+gls{OTMM}
+\end_layout
+
+\end_inset
+
+ because of expressive singing phenomena: vocal onsets are often approached
+ by portamentos.
+ Therefore any complementary information can be an important 'stepping stone'
+ for increased detection accuracy.
+\end_layout
+
+\begin_layout Subsection
+Beat Detection
 \end_layout
 
 \begin_layout Standard
-Vocal onset detection in multi-instrumental music is, in fact, one of the
- hardest MIR problems.
- Determining their exact onset timestamp is even harder in OTMM because
- of expressive singing phenomena: melodic onsets are often approached by
- slurs and melismas.
- Therefore any complementary information can be an important 'stepping stone'
- for increased detection accuracy.
+Recently a Bayesian approach, referred to as the 
+\emph on
+bar-pointer
+\emph default
+ model, has been presented 
+\begin_inset CommandInset citation
+LatexCommand citep
+key "whiteley:06:ismir"
+
+\end_inset
+
+.
+ It describes events in music as being driven by their current position
+ in a metrical cycle (i.e.
+ musical bar).
+ 
+\color black
+The model represents as hidden variables in a 
+\color inherit
+
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+gls{DBN}
+\end_layout
+
+\end_inset
+
+
+\color black
+ the current position in a bar, the tempo, and the type of musical meter,
+ which can be referred to as bar-tempo state space.
+\end_layout
+
+\begin_layout Standard
+The work of 
+\begin_inset CommandInset citation
+LatexCommand citet
+key "holzapfel2014tracking"
+
+\end_inset
+
+ applied this model to recordings from non-Western music, in order to handle
+ jointly beat and downbeat tracking.
+ The authors showed that the original model can be adapted to different
+ rhythmic styles and time signatures, and an evaluation is presented on
+ Indian, Cretan and Turkish music datasets.
+ 
+\end_layout
+
+\begin_layout Standard
+
+\color black
+Later 
+\begin_inset CommandInset citation
+LatexCommand citet
+key "krebs:15:ismir"
+
+\end_inset
+
+ suggested a modification of the bar-tempo state space, in order to reduce
+ the computational burden from its huge size.
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Newpage newpage
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+
+\color black
+Metrical-accent-aware vocal onset detection
+\begin_inset CommandInset label
+LatexCommand label
+name "sec:Beat-aware-note-onset"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\color black
+Metrical accents are a facet of complementary context that defines the rhythmic
+ backbone of vocal melodies.
+ Therefore it is worth studying how the transitions between lyrics of units
+ (in particular syllables) interact with these accents.
+ 
+\color inherit
+By 
+\emph on
+metrical accents
+\emph default
+ we will refer to notes that are emphasized as a result of the context of
+ the musical meter.
+ Naturally, accents occur on the beats, whereby downbeats (the first beat
+ in a meter) will be perceived as being stronger accentuated.
+ Detecting the times of vocal note onsets can benefit from automatically
+ detected metrical events, such as beats.
+ 
+\color black
+In fact, the accents in a metrical cycle determine to a large extent the
+ temporal backbone of the singing melody.
+ 
+\color inherit
+Studies on symbolic music data showed that the timestamps of vocal note
+ onsets are influenced by the their position in a metrical cycle 
+\begin_inset CommandInset citation
+LatexCommand citep
+key "huron2006sweet,holzapfel2015relation"
+
+\end_inset
+
+.
+ Despite that, there have been very few studies on meter-aware analysis
+ of onsets in music audio 
+\begin_inset CommandInset citation
+LatexCommand citep
+key "degara2010note"
+
+\end_inset
+
+.
+ 
 \end_layout
 
 \begin_layout Standard
@@ -610,25 +769,25 @@ The proposed approach extends the beat and meter tracking model, presented
  in 
 \begin_inset CommandInset citation
 LatexCommand citet
-key "holzapfel2014tracking"
+key "krebs:15:ismir"
 
 \end_inset
 
 .
  
 \color black
-We adopt from that model the variables for the position in a metircal cycle
- (bar position) 
+We adopt from it the variables for the position in the metircal cycle (bar
+ position) 
 \begin_inset Formula $\phi$
 \end_inset
 
-, the instantaneous tempo 
+ and the instantaneous tempo 
 \color inherit
 
 \begin_inset Formula $\dot{\phi}$
 \end_inset
 
- and the rhythmic pattern r, related to the metrical cycle type.
+.
  We also adopt the observation model, which describes how
 \color black
  the metrical accents (beats) are related to an observed onset feature vector
@@ -640,7 +799,20 @@ We adopt from that model the variables for the position in a metircal cycle
  
 \color inherit
 All variables and their conditional dependencies are represented as the
- hidden variables in a DBN (see Figure 
+ hidden variables in a 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+gls{DBN}
+\end_layout
+
+\end_inset
+
+ (see Figure 
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "dbn"
@@ -648,16 +820,14 @@ reference "dbn"
 \end_inset
 
 ).
-\end_layout
-
-\begin_layout Standard
-In this chapter we study how the 
+ We consider that the 
 \emph on
 a priori
 \emph default
  probability of a note at a specific metrical accent interacts with the
  probability of observing a vocal note onset.
- To represent that interaction we add a hidden state for vocal note 
+ To represent that interaction we add a hidden state for the temporal segment
+ of a vocal note 
 \emph on
 n
 \emph default
@@ -678,14 +848,14 @@ n
 \begin_inset Float figure
 wide false
 sideways false
-status open
+status collapsed
 
 \begin_layout Plain Layout
 \align center
 \begin_inset Graphics
-	filename Phd_Figs/note_bar_DBN.jpeg
+	filename ../pypYIN/report/ISMIR_2017/note_bar_DBN.eps
 	lyxscale 10
-	width 50text%
+	width 60page%
 
 \end_inset
 
@@ -696,7 +866,8 @@ status open
 \begin_inset Caption Standard
 
 \begin_layout Plain Layout
-DBN for the proposed beat and vocal onset detection model.
+A dynamic Bayesian network for the proposed beat and vocal onset detection
+ model.
  Circles and squares denote continuous and discrete variables, respectively.
  Gray nodes and white nodes represent observed and hidden variables, respectivel
 y.
@@ -720,31 +891,67 @@ name "dbn"
 \end_layout
 
 \begin_layout Standard
-To enable a straight-forward inference of the most optimal hidden state
- sequence, all variables are agglomerated into a meta-variable 
-\begin_inset Formula $x_{k}$
-\end_inset
+In the proposed 
+\begin_inset ERT
+status open
 
-.
- This requires that the possible states for the tempo and bar position are
- discrete number (they are conceptually continuous).
- Now the probability of the jointly occurring state sequence 
-\begin_inset Formula $x_{1:K}$
-\end_inset
+\begin_layout Plain Layout
 
- and the acoustic feature sequence 
-\begin_inset Formula $y_{1:K}$
-\end_inset
 
- can follow Eq.
- 
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "eq:inference"
+\backslash
+gls{DBN}
+\end_layout
 
 \end_inset
 
-.
+, an observed sequence of features derived from an audio signal 
+\begin_inset Formula $y_{1:K}=\{y,..,y_{K}\}$
+\end_inset
+
+ is generated by a sequence of hidden (unknown) variables 
+\begin_inset Formula $x_{1:K}=\{x_{1},...,x_{K}\}$
+\end_inset
+
+, where K is the length of the sequence (number of audio frames in an audio
+ excerpt).
+ The joint probability distribution of hidden and observed variables factorizes
+ as: 
+\begin_inset Formula 
+\begin{equation}
+P(x_{1:K},y_{1:K})=P(x_{0})\Pi_{k=1}^{K}P(x_{k}|x_{k-1})P(y_{k}|x_{k})\label{eq:inference-1}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+where 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+
+\begin_inset Formula $P(x_{0})$
+\end_inset
+
+ is the initial state distribution; 
+\begin_inset Formula $P(x_{k}|x_{k-1})$
+\end_inset
+
+ is the transition model and 
+\begin_inset Formula $P(y_{k}|x_{k})$
+\end_inset
+
+ is the observation model.
 \end_layout
 
 \begin_layout Subsection
@@ -752,13 +959,17 @@ Hidden variables
 \end_layout
 
 \begin_layout Standard
-At each audio frame k, the hidden variables describe the state of a hypothetical
- bar pointer 
-\begin_inset Formula $x_{k}=[\dot{\phi_{k}},\phi_{k},n_{k},r_{k}]$
+At each audio frame 
+\begin_inset Formula $k$
 \end_inset
 
-, representing the instantaneous tempo, the bar position, the note state,
- and a rhythmic pattern indicator, respectively.
+, the hidden variables describe the state of a hypothetical bar pointer
+ 
+\begin_inset Formula $x_{k}=[\dot{\phi_{k}},\phi_{k},n_{k}]$
+\end_inset
+
+, representing the instantaneous tempo, the bar position and the vocal note
+ respectively.
  
 \end_layout
 
@@ -786,12 +997,12 @@ The bar position
 \begin_inset Formula $\dot{\phi}$
 \end_inset
 
- encodes how much bar positions the pointer advances from the current to
+ encodes how many bar positions the pointer advances from the current to
  the next time instant.
  To assure feasible computational time we relied on the combined bar-tempo
  efficient state space, presented in 
 \begin_inset CommandInset citation
-LatexCommand citet
+LatexCommand cite
 key "krebs:15:ismir"
 
 \end_inset
@@ -839,7 +1050,7 @@ The total number of bar positions
 \end_inset
 
 To keep the size of the bar-tempo state space small, we input the ground
- truth tempo for each recording, allowing 
+ truth tempo for each recording, allowing a range for 
 \color inherit
 
 \begin_inset Formula $\dot{\phi}$
@@ -847,21 +1058,34 @@ To keep the size of the bar-tempo state space small, we input the ground
 
 
 \color black
- to deviate within 
+ within 
 \begin_inset Formula $\pm10$
 \end_inset
 
- bpm from it.
- Another motivation to limit the tempo in such a way is avoiding possible
- octave errors in the beat tracking, which would not be desirable for beat-aware
- note onset detection.
+ bpm from it, in order to accommodate gradual tempo changes.
+ This was the minimal margin at which beat tracking accuracy did not degrade
+ substantially.
+ For a study with data with higher stylistic diversity, it would make sense
+ to increase it to at least 20% as it is done in 
+\begin_inset CommandInset citation
+LatexCommand cite
+after "Section 5.2"
+key "holzapfel2016bayesian"
+
+\end_inset
+
+.
  This yields around 100-1000 states for the bar positions within a single
- beat (around 10K for usuls).
+ beat (in the order of 
+\begin_inset Formula $10000$
+\end_inset
+
+ for the 8-9 beats of the usuls ).
 \end_layout
 
 \begin_layout Subsubsection
-Note state 
-\begin_inset Formula $n_{k}$
+Vocal note state 
+\begin_inset Formula $n$
 \end_inset
 
 
@@ -875,7 +1099,7 @@ name "subsec:Note-state"
 \end_layout
 
 \begin_layout Standard
-The note states represent the temporal segments of a sung note.
+The vocal note states represent the temporal segments of a sung note.
  They are a modified version of these suggested in the note transcription
  model of 
 \begin_inset CommandInset citation
@@ -898,27 +1122,6 @@ key "mauch2015computer"
  
 \end_layout
 
-\begin_layout Subsubsection
-Rhythmic pattern 
-\begin_inset Formula $r_{k}$
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-A rhythmic patterns indicates the pattern of accents in a metrical cycle.
- For simplicity we use only one rhythmic pattern for each metrical cycle.
- Let also 
-\begin_inset Formula $\theta(r)$
-\end_inset
-
- denote the number of beats in a rhythmic pattern r.
- Since the metrical type for each recording from the dataset is known a
- priori, a hidden state for the rhythm pattern is not modeled explicitly.
- 
-\end_layout
-
 \begin_layout Standard
 \begin_inset VSpace defskip
 \end_inset
@@ -927,15 +1130,48 @@ A rhythmic patterns indicates the pattern of accents in a metrical cycle.
 \end_layout
 
 \begin_layout Standard
-To be able to represent the DBN as a hidden Markov model, the bar-tempo
- efficient state space is combined with the note state space into a joint
- state space 
+To be able to represent the 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+gls{DBN}
+\end_layout
+
+\end_inset
+
+ as an 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+gls{HMM}
+\end_layout
+
+\end_inset
+
+, the bar-tempo efficient state space is combined with the note state space
+ into a joint state space 
 \emph on
 x
 \emph default
 .
  The joint state space is a cartesian product of the two state spaces, resulting
- in up to 10K x 105 = 1M states.
+ in up to 
+\begin_inset Formula $10000$
+\end_inset
+
+
+\begin_inset Formula $\times105\approx1\thinspace$
+\end_inset
+
+M states.
 \end_layout
 
 \begin_layout Subsection
@@ -976,12 +1212,12 @@ The tempo transition probability
 \begin_inset Formula $p(\phi_{k}|\phi_{k-1},\dot{\phi}_{k-1})$
 \end_inset
 
- are the same as in 
+ are the same as in
 \color black
-
+ 
 \begin_inset CommandInset citation
 LatexCommand cite
-key "holzapfel2014tracking"
+key "krebs:15:ismir"
 
 \end_inset
 
@@ -1018,7 +1254,7 @@ key "mauch2015computer"
 \end_inset
 
 .
- Let use briefly review it: From a given note segment the only possibility
+ Let us briefly review it: From a given note segment the only possibility
  is to progress to its following note segment.
  To ensure continuity each of the self-transition probabilities is rather
  high, given by constants 
@@ -1128,8 +1364,16 @@ for A, S and N segments respectively (
  
 \color inherit
 The authors assume that it depends on the difference between the pitch values
- of notes i and j and the difference can be approximated by a normal distributio
-n centered at change of zero (
+ of notes 
+\begin_inset Formula $i$
+\end_inset
+
+ and 
+\begin_inset Formula $j$
+\end_inset
+
+ and it can be approximated by a normal distribution centered at change
+ of zero (
 \begin_inset CommandInset citation
 LatexCommand cite
 key "mauch2015computer"
@@ -1151,7 +1395,7 @@ c_{N}, & n_{k-1}=n_{k}=N_{i}\\
 c_{A}, & n_{k-1}=n_{k}=A_{i}\\
 1-c_{S} & n_{k=1}=S_{i\quad}n_{k}=N_{j}\\
 c_{S}, & n_{k-1}=n_{k}=S_{i}\\
-0 & else
+0 & otherwise
 \end{cases}\label{eq:note_trans_probs}
 \end{equation}
 
@@ -1161,11 +1405,11 @@ c_{S}, & n_{k-1}=n_{k}=S_{i}\\
 \end_layout
 
 \begin_layout Standard
-Note also that for the self-transitions in non-vocal states 
+Note that the outbound transitions from all non-vocal states 
 \begin_inset Formula $N_{i}$
 \end_inset
 
- it should hold that 
+ should sum to 1, meaning that
 \family roman
 \series medium
 \shape up
@@ -1186,19 +1430,6 @@ c_{N}=1-\sum_{i}P_{N_{i}A_{j}}\label{eq:normalization_trans_prob}
 \end_inset
 
 
-\family default
-\series default
-\shape default
-\size default
-\emph default
-\bar default
-\strikeout default
-\uuline default
-\uwave default
-\noun default
-\color inherit
- .
- 
 \end_layout
 
 \begin_layout Standard
@@ -1208,7 +1439,7 @@ In this study, we modify
 \begin_inset Formula $P_{N_{i}A_{j}}$
 \end_inset
 
- to allow vacation
+ to allow variation
 \color inherit
  in time, depending on the current bar position 
 \begin_inset Formula $\phi_{k}$
@@ -1222,8 +1453,8 @@ In this study, we modify
 \begin_inset Formula 
 \begin{equation}
 p(n_{k}|n_{k-1,}\phi_{k})=\begin{cases}
-P_{N_{i}A_{j}}\Theta(\phi_{k}), & n_{k-1}=N_{i}\quad n_{k}=A_{j}\\
-1-\Theta(\phi_{k})\sum_{i}P_{N_{i}A_{j}}, & n_{k-1}=n_{k}=N_{i}\\
+P_{N_{i}A_{j}}\Theta(\phi_{k}), & n_{k-1}=N_{i},n_{k}=A_{j}\\
+c_{N}, & n_{k-1}=n_{k}=N_{i}\\
 ...
 \end{cases}\label{eq:note_onset_trans_prob}
 \end{equation}
@@ -1250,35 +1481,53 @@ where
 \end_layout
 
 \begin_layout Standard
-The non-vocal self-transition probability is updated so that all non-vocal
- outbound transitions sum to 1.
-
-\color black
- The transition probabilities in all the rest of the 
-\color inherit
-cases remain the same.
- 
+and
 \end_layout
 
 \begin_layout Standard
-We explored two variants of the weighting function 
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula 
+\begin{equation}
+c_{N}=1-\Theta(\phi_{k})\sum_{i}P_{N_{i}A_{j}}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\color black
+The transition probabilities in all the rest of the 
+\color inherit
+cases remain the same.
+ We explore two variants of the weighting function 
 \begin_inset Formula $\Theta(\phi_{k}):$
 \end_inset
 
  
 \end_layout
 
-\begin_layout Paragraph
-Time-window redistribution weighting
-\end_layout
-
 \begin_layout Standard
 
-\end_layout
-
-\begin_layout Standard
-In performance singers often advance or delay slightly note onsets in relation
- to the beats.
+\series bold
+1.
+ Time-window redistribution weighting:
+\series default
+ Singers often advance or delay slightly note onsets off the location of
+ a beat.
  The work 
 \begin_inset CommandInset citation
 LatexCommand cite
@@ -1286,8 +1535,8 @@ key "NishikimiNIY16"
 
 \end_inset
 
- presented an idea of how to describe off-beat time deviations of vocal
- onsets by a stochastic distribution.
+ presented an idea on how to model vocal onsets, time-shifted from a beat,
+ by stochastic distribution.
  Similarly, 
 \family roman
 \series medium
@@ -1313,11 +1562,11 @@ we introduce
 \noun default
 \color inherit
 a normal distribution 
-\begin_inset Formula $N_{0,\sigma}$
+\begin_inset Formula $\mathcal{N}{}_{0,\sigma}$
 \end_inset
 
-, centered around 0 to re-distribute the importance of beats over a time
- window around a beat.
+, centered around 0 to re-distribute the importance of a metrical accent
+ (beat) over a time window around it.
  Let 
 \begin_inset Formula $b_{k}$
 \end_inset
@@ -1417,7 +1666,7 @@ closest
 \color none
 \begin_inset Formula 
 \begin{equation}
-\Theta(\phi_{k})=[N_{0,\sigma}(d(\phi_{k},b_{k}))]^{w}e(b_{k})\label{eq:weight_anno}
+\Theta(\phi_{k})=[\mathcal{N}_{0,\sigma}(d(\phi_{k},b_{k}))]^{w}e(b_{k})\label{eq:weight_anno}
 \end{equation}
 
 \end_inset
@@ -1449,15 +1698,19 @@ where
 \begin_inset Formula $b^{th}$
 \end_inset
 
- beat in the metrical cycle (b 
+ beat (b 
 \begin_inset Formula $\in$
 \end_inset
 
 
-\begin_inset Formula $\theta(r)$
+\begin_inset Formula $B$
 \end_inset
 
-)
+); 
+\begin_inset Formula $B$
+\end_inset
+
+ is the number of beats in a metrical cycle
 \end_layout
 
 \begin_layout Description
@@ -1475,7 +1728,7 @@ where
 \begin_inset Formula $\phi_{k}$
 \end_inset
 
- to closest beat position 
+ to the position of the closest beat 
 \begin_inset Formula $b_{k}$
 \end_inset
 
@@ -1494,13 +1747,13 @@ reference "eq:note_onset_trans_prob"
 \begin_inset Formula $P_{N_{i}A_{j}}$
 \end_inset
 
- is scaled accordingly to how close in time to a beat it is.
+ is scaled according to how close in time to a beat it is.
  
-\begin_inset Note Note
+\begin_inset Note Comment
 status open
 
 \begin_layout Plain Layout
-imply (`code.MonoNoteParameters.barPositionDist_Probs`)
+impl (`code.MonoNoteParameters.barPositionDist_Probs`)
 \end_layout
 
 \end_inset
@@ -1508,12 +1761,16 @@ imply (`code.MonoNoteParameters.barPositionDist_Probs`)
 
 \end_layout
 
-\begin_layout Paragraph
-Simple weighting
-\end_layout
-
 \begin_layout Standard
-The transition probability 
+
+\series bold
+2.
+ Simple weighting:
+\series default
+ We also aim at testing a more conservative hypothesis that it is sufficient
+ to approximate the influence of metrical accents only at the locations
+ of beats.
+ To reflect that, we 
 \family roman
 \series medium
 \shape up
@@ -1525,7 +1782,7 @@ The transition probability
 \uwave off
 \noun off
 \color none
-
+modify the 
 \begin_inset Formula $P_{N_{i}A_{j}}$
 \end_inset
 
@@ -1541,12 +1798,12 @@ The transition probability
 \uwave default
 \noun default
 \color inherit
- is modified only at beat positions, i.e.
- the weighting function is set to the peak of 
+ only at bar positions corresponding to beat positions, for which the weighting
+ function is set to the peak of 
 \begin_inset Formula $N_{0,\sigma}$
 \end_inset
 
- only at bar positions corresponding to beat positions, and to 1 elsewhere.
+, and to 1 elsewhere.
 \end_layout
 
 \begin_layout Standard
@@ -1573,7 +1830,7 @@ The transition probability
 \end_inset
 
 
-\begin_inset Note Note
+\begin_inset Note Comment
 status open
 
 \begin_layout Plain Layout
@@ -1635,12 +1892,11 @@ The observation probability
  In this work we make the assumption that the observed vocal pitch and the
  observed metrical accent are conditionally independent from each other.
  This assumption may not hold in cases when energy accents of singing voice,
- which contribute to the total energy of the signal, are correlated to the
- changes in pitch.
+ which contribute to the total energy of the signal, are correlated to changes
+ in pitch.
  However, for music with percussive instruments the importance of singing
  voice accents is diminished to a significant extent by percussive accents.
  Now we can rewrite Eq.
- 
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "eq:inference"
@@ -1651,6 +1907,14 @@ reference "eq:inference"
 \end_layout
 
 \begin_layout Standard
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
 \begin_inset Formula 
 \begin{equation}
 \begin{array}{cc}
@@ -1658,6 +1922,61 @@ P(x_{1:K},y_{1:K}^{f},y_{1:K}^{p})=\\
 P(x_{0})\Pi_{k=1}^{K}P(x_{k}|x_{k-1})P(y_{k}^{f}|x_{k})P(y_{k}^{p}|x_{k})
 \end{array}
 \end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{equation}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{array}{cc}
+\end_layout
+
+\begin_layout Plain Layout
+
+P(x_{1:K},y_{1:K}^{f},y_{1:K}^{p})=
+\backslash
+
+\backslash
+[3pt]
+\end_layout
+
+\begin_layout Plain Layout
+
+P(x_{0})
+\backslash
+Pi_{k=1}^{K}P(x_{k}|x_{k-1})P(y_{k}^{f}|x_{k})P(y_{k}^{p}|x_{k})
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{array}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{equation}
+\end_layout
 
 \end_inset
 
@@ -1734,7 +2053,20 @@ For
 \uwave default
 \noun default
 \color inherit
- we train GMMs on the spectral flux-like feature 
+ we train 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+gls{GMM}
+\end_layout
+
+\end_inset
+
+-s on the spectral flux-like feature 
 \begin_inset Formula $y^{f}$
 \end_inset
 
@@ -1861,9 +2193,21 @@ target "https://github.com/georgid/pypYIN/blob/master/pypYIN/MonoNoteParameters.
  Based on frames with zero probabilities, one can infer which segments are
  vocal and which not.
  Since correct vocal segments is crucial for the sake of this study and
- the voicing estimation of these melody extraction algorithms are not state
- of the art, we preferred to rely on manual vocal annotations and thus assigned
- 
+ the 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+gls{VAD}
+\end_layout
+
+\end_inset
+
+ of these melody extraction algorithms are not state of the art, we manually
+ annotated segments with singing voice, and thus assigned 
 \begin_inset Formula $v_{k}=0$
 \end_inset
 
@@ -1917,16 +2261,7 @@ name "subsec:Bar-Observation-model"
 \end_layout
 
 \begin_layout Standard
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-todo describe better using tracking the odd paper
-\end_layout
-
-\end_inset
-
-We trained the accent probability patterns 
+For this study we divided the
 \family roman
 \series medium
 \shape up
@@ -1938,11 +2273,7 @@ We trained the accent probability patterns
 \uwave off
 \noun off
 \color none
-
-\begin_inset Formula $P(y_{k}^{f}|\phi_{k},r_{k})$
-\end_inset
-
- on the training subset of the 
+ the 
 \family default
 \series default
 \shape default
@@ -1963,8 +2294,53 @@ reference "subsec:Multi-instrumental-vocal-onsets"
 
 \end_inset
 
-).
- For each usul we trained one rhythmic pattern by fitting a 2-mixture GMM
+) into training and test subsets.
+ The training dataset spans around 7 minutes of audio from each of the two
+ usuls.
+ Due to the scarcity of material with solo singing voice, several excerpts
+ with choir sections were included in the training data.
+ We trained the accent probability patterns 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+
+\begin_inset Formula $P(y_{k}^{f}|\phi_{k},r_{k})$
+\end_inset
+
+ on the training dataset.
+
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+ For each usul we trained one rhythmic pattern by fitting a 2-mixture 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+gls{GMM}
+\end_layout
+
+\end_inset
+
  on the spectral-flux-like feature vector 
 \begin_inset Formula $y^{f}$
 \end_inset
@@ -2030,6 +2406,16 @@ key "holzapfel2015relation"
 Inference
 \end_layout
 
+\begin_layout Standard
+We obtain the best state sequence 
+\begin_inset Formula $x_{1:K}$
+\end_inset
+
+ by decoding with the Viterbi algorithm.
+ A note onset is detected when the state path enters an attack note state
+ after being in non-vocal state.
+\end_layout
+
 \begin_layout Subsubsection
 With manually annotated beats
 \begin_inset CommandInset label
@@ -2048,13 +2434,12 @@ We explored the option that beats are given as input from a preprocessing
  In this case, the detection of vocal onsets can be carried out by a reduced
  model with a single hidden variable: the note state.
  The observation model is then reduced to the pitch observation probability.
- The transition model is reduced to bar-position aware transition probability
+ The transition model is reduced to bar-position-aware transition probability
  
 \begin_inset Formula $a_{ij}(k)=p(n_{k}=j|n_{k-1}=i,\phi_{k})$
 \end_inset
 
 (see Eq.
- 
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "eq:note_onset_trans_prob"
@@ -2070,7 +2455,24 @@ To represent this
 \color black
  time-dependent self-transition probabilities we we utilize time-varying
  transition matrix.
- It falls in the general category of variable-time HMMs (VTHMMs) 
+ It falls in the general category of variable-time 
+\color inherit
+
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+gls{HMM}
+\end_layout
+
+\end_inset
+
+
+\color black
+-s (VTHMMs) 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "johnson2005capacity"
@@ -2090,7 +2492,7 @@ reference "eq:time-variable-viterbi-1"
 
 
 \color black
- are substituted for the bar-position aware transitions 
+ are substituted for the bar-position-aware transitions 
 \begin_inset Formula $a_{ij}(k)$
 \end_inset
 
@@ -2130,18 +2532,12 @@ Full model
 \end_layout
 
 \begin_layout Standard
-We obtain the most optimal state sequence 
-\begin_inset Formula $x_{1:K}$
-\end_inset
-
- by decoding with the well-known Viterbi algorithm.
- A beat is detected when the bar position variable hits one of the 
-\begin_inset Formula $\theta(r)$
+In addition to onsets, a beat is detected when the bar position variable
+ hits one of 
+\begin_inset Formula $B$
 \end_inset
 
  positions of beats within the metrical cycle.
- A vocal note onset is detected when the state path enters an attack note
- state after being in non-vocal state.
  
 \begin_inset Note Note
 status open
@@ -2156,15 +2552,29 @@ comment independence
 \end_layout
 
 \begin_layout Standard
-Note that the size of the state space poses a memory requirement.
- A recording of 1 minute has around 10K frames at a hopsize of 
-\begin_inset Formula $5.8\thinspace ms$
+Note that the size of the state space 
+\begin_inset Formula $x$
 \end_inset
 
-.
- To use Viterbi thus requires to store in memory pointers to up to 4G states,
- which amounts to 40G RAM (with uint32 python data type).
- 
+ poses a memory requirement.
+ A recording of 1 minute has around 
+\begin_inset Formula $10000$
+\end_inset
+
+ frames at a hopsize of 
+\begin_inset Formula $5.8\thinspace$
+\end_inset
+
+ms.
+ To use Viterbi thus requires to store in memory pointers to up to 
+\begin_inset Formula $4\thinspace$
+\end_inset
+
+G states, which amounts to 
+\begin_inset Formula $40\thinspace$
+\end_inset
+
+G RAM (with uint32 python data type).
 \end_layout
 
 \begin_layout Subsection
@@ -2191,9 +2601,9 @@ reference "subsec:Multi-instrumental-vocal-onsets"
 
 \end_inset
 
-), totaling in 10 minutes of audio.
- The hopsize of computing the spectral flux feature, which resulted in most
- optimal beat detection accuracy in 
+), totaling in 10 minutes of audio (on total 780 onsets).
+ The hopsize of computing the spectral flux feature, which resulted in best
+ beat detection accuracy in 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "holzapfel2014tracking"
@@ -2248,8 +2658,15 @@ reference "subsec:Note-state"
 status open
 
 \begin_layout Plain Layout
-We ported the original VAMP plugin implementation to python, which is available
- at 
+We extended the port of the original VAMP plugin implementation to Python
+ 
+\begin_inset CommandInset href
+LatexCommand href
+target "https://github.com/ronggong/pypYIN"
+
+\end_inset
+
+, which we make available at 
 \begin_inset CommandInset href
 LatexCommand href
 target "https://github.com/georgid/pypYIN"
@@ -2263,7 +2680,6 @@ target "https://github.com/georgid/pypYIN"
 
 .
  The note transition probability is the original as presented in Eq.
- 
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "eq:note_trans_probs"
@@ -2283,9 +2699,9 @@ key "mauch2015computer"
  sung notes with same pitch are detected considering their intensity difference.
  We excluded this step in all system variants presented, because it could
  not be integrated in the proposed observation model in a trivial way.
- This means that, essentially, in this paper cases of consecutive same-pitch
- notes are missed, which decreases somewhat the recall compared to the original
- algorithm.
+ This means that, essentially, in this experiments cases of consecutive
+ same-pitch notes are missed, which decreases somewhat the recall compared
+ to the original algorithm.
  
 \end_layout
 
@@ -2299,12 +2715,15 @@ Beat detection
 
 \begin_layout Standard
 Since improvement of the beat detector is outside the scope of this dissertation
-, we report accuracy of detected beats only in terms of their f-measure
+, we report accuracy of detected beats only in terms of their F-measure
 \begin_inset Foot
 status open
 
 \begin_layout Plain Layout
 The evaluation script used is at 
+\end_layout
+
+\begin_layout Plain Layout
 \begin_inset CommandInset href
 LatexCommand href
 target "https://github.com/CPJKU/madmom/blob/master/madmom/evaluation/beats.py"
@@ -2322,15 +2741,15 @@ target "https://github.com/CPJKU/madmom/blob/master/madmom/evaluation/beats.py"
 status collapsed
 
 \begin_layout Plain Layout
-Note that f-measure is agnostic to the phase of the detected beats, which
+Note that F-measure is agnostic to the phase of the detected beats, which
  is clearly not optimal
 \end_layout
 
 \end_inset
 
 .
- The f-measure can take a maximum value of 1, while beats tapped on the
- off-beat relative to annotations will be assigned an f-measure of 0.
+ The F-measure can take a maximum value of 1, while beats tapped on the
+ off-beat relative to annotations will be assigned an F-measure of 0.
  We used the default tolerance window of 
 \begin_inset Formula $70\thinspace ms$
 \end_inset
@@ -2361,7 +2780,7 @@ unlike vocal note onsets, beats are evaluated non only in vocal parts, but
 placement t
 wide true
 sideways false
-status open
+status collapsed
 
 \begin_layout Plain Layout
 \align center
@@ -2435,7 +2854,7 @@ Fmeas
 \begin_inset Text
 
 \begin_layout Plain Layout
-düyek
+aksak
 \end_layout
 
 \end_inset
@@ -2566,7 +2985,7 @@ Ex-1
 \uwave off
 \noun off
 \color none
-40.4
+37.5
 \end_layout
 
 \end_inset
@@ -2587,7 +3006,7 @@ Ex-1
 \uwave off
 \noun off
 \color none
-39.5
+38.4
 \end_layout
 
 \end_inset
@@ -2608,7 +3027,7 @@ Ex-1
 \uwave off
 \noun off
 \color none
-39.0
+37.2
 \end_layout
 
 \end_inset
@@ -2711,7 +3130,7 @@ Ex-2
 \begin_inset Text
 
 \begin_layout Plain Layout
-aksak
+düyek
 \end_layout
 
 \end_inset
@@ -2842,7 +3261,7 @@ Ex-1
 \uwave off
 \noun off
 \color none
-48.4
+44.3
 \end_layout
 
 \end_inset
@@ -2863,7 +3282,7 @@ Ex-1
 \uwave off
 \noun off
 \color none
-39.1
+41.0
 \end_layout
 
 \end_inset
@@ -2884,7 +3303,7 @@ Ex-1
 \uwave off
 \noun off
 \color none
-43.0
+41.4
 \end_layout
 
 \end_inset
@@ -3003,7 +3422,7 @@ key "mauch2015computer"
 \end_inset
 
 .
- P, R and Fmeas denote the precision, recall and f-measure of detected vocal
+ P, R and Fmeas denote the precision, recall and F-measure of detected vocal
  onsets.
  Results are averaged per usul.
 \end_layout
@@ -3062,8 +3481,12 @@ target "https://github.com/craffel/mir_eval"
 \end_inset
 
 .
- Unlike a cappella singing, the exact onset times of singing voice accompanied
- by instruments, might be much more ambiguous.
+ Unlike 
+\emph on
+a cappella
+\emph default
+ singing, the exact onset times of singing voice accompanied by instruments,
+ might be much more ambiguous.
  To accommodate this fact, we adopted the tolerance of 
 \begin_inset Formula $t=50\thinspace ms$
 \end_inset
@@ -3086,7 +3509,11 @@ key "mauch2015computer"
 
 \end_inset
 
- for a cappella.
+ for 
+\emph on
+a cappella
+\emph default
+.
  Note that measuring transcription accuracy remains outside the scope of
  this thesis.
 \begin_inset Note Comment
@@ -3150,7 +3577,6 @@ We did apply both the simple and the time-redistribution weighting schemes
 \end_inset
 
 , presented respectively in Eq.
- 
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "eq:weight_detected"
@@ -3158,7 +3584,6 @@ reference "eq:weight_detected"
 \end_inset
 
  and in Eq.
- 
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "eq:weight_anno"
@@ -3184,7 +3609,6 @@ We have tested different pairs of values for
 \end_inset
 
  from Eq.
- 
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "eq:note_onset_trans_prob"
@@ -3263,7 +3687,7 @@ target "https://github.com/georgid/madmom"
 \end_inset
 
 .
- The average f-measure of detected beats for the different metrical cycles
+ The average F-measure of detected beats for the different metrical cycles
  can be seen in Table 
 \begin_inset CommandInset ref
 LatexCommand ref
@@ -3289,8 +3713,28 @@ target "https://tinyurl.com/kz4mpkz"
 \end_inset
 
 .
- The beat tracking accuracy for the Turkish usuls is on par with the results
- reported in 
+ For aksak and d
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+{
+\backslash
+"u}
+\end_layout
+
+\end_inset
+
+yek usuls, the accuracy is somewhat worse than the results of 
+\begin_inset Formula $91$
+\end_inset
+
+ and 
+\begin_inset Formula $85.2$
+\end_inset
+
+ respectively, reported in 
 \begin_inset CommandInset citation
 LatexCommand cite
 after "Table 1.a-c, R=1"
@@ -3299,8 +3743,7 @@ key "holzapfel2014tracking"
 \end_inset
 
 .
- The results reported are only with the simple weighting scheme for the
- vocal note onset transition model.
+ We believe the reason is in the smaller size of our training data.
  Table 
 \begin_inset CommandInset ref
 LatexCommand ref
@@ -3308,18 +3751,33 @@ reference "results_all"
 
 \end_inset
 
- shows a reasonable improvement of vocal onset detection accuracy for both
- usuls.
+ evidences also a reasonable improvement of the vocal onset detection accuracy
+ for both music traditions.
+ The results reported are only with the simple weighting scheme for the
+ vocal note onset transition model (the time-redistribution weighting was
+ not implemented in this experiment).
+ 
 \end_layout
 
 \begin_layout Standard
-For simple weighting, adding the automatic beat tracking results in improvement
- over the baseline, whereas this was not the case with manual beats.
+Adding the automatic beat tracking improved the baseline, whereas this was
+ not the case with manual beats for simple weighting.
  This suggests that the concurrent tracking of beats and vocal onsets is
- a flexible strategy and can accommodate some off-beat vocal onsets.
- We observed also that the vocal onset accuracy is on average almost the
- same as that with manual beat annotations (done with the time-redistribution
+ a flexible strategy and can accommodate some vocal onsets, slightly time-shifte
+d from a beat.
+ We observe also that the vocal onset accuracy is on average a bit inferior
+ to that with manual beat annotations (done with the time-redistribution
  weighting).
+ 
+\color black
+All the experiments in this Section are to be presented in 
+\begin_inset CommandInset citation
+LatexCommand citet
+key "dzhambazov2017metrical"
+
+\end_inset
+
+.
 \end_layout
 
 \begin_layout Standard
@@ -3397,56 +3855,31 @@ name "sec:Onset-aware-lyrics-to-audio-alig"
 In the previous section 
 \color black
 we investigated the relation of metrical accents to the positions of vocal
- onsets in a melodic phrase.
+ onsets.
 
 \color inherit
  We proposed a method for automatic vocal onset detection in a way aware
  of metrical accents.
- 
+ Using as input the detected vocal onsets, in this chapter we propose a
+ strategy to improve 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+gls{LAA}
 \end_layout
 
-\begin_layout Standard
-Using as input the detected vocal onsets, in this chapter we propose a strategy
- to improve LAA by representing the interaction of vocal onsets with syllable
- transitions.
+\end_inset
+
+ by representing the interaction of vocal onsets with syllable transitions.
  In this way the influence of metrical events on syllable transitions is
  represented implicitly through its influence on vocal note onsets, which
  are in turn influenced by metrical events.
 
 \color black
- The note onset is the initial segment of the three temporal segments of
- a vocal note: onset, sustain and release
-\begin_inset Foot
-status open
-
-\begin_layout Plain Layout
-
-\color black
-The term 
-\emph on
-temporal segments
-\emph default
- is adopted from the chapter on Singing Transcription of 
-\begin_inset CommandInset citation
-LatexCommand citet
-key "klapuri:06:transcription"
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-.
- The other temporal segments - sustain and release (offset) have undoubtedly
- also impact on the transition of phonemes.
- 
-\color inherit
-However, due to the time limitation of this thesis, we considered the impact
- of vocal note onsets only.
- The reason to focus on note onsets among the three segments is that onsets
- have arguably the most evident influence on syllable transitions.
  
 \end_layout
 
@@ -3482,9 +3915,21 @@ key "benetos2013automatic"
 Since we intend that the proposed methodologies can be applicable for material
  with no music scores available, we preferred to apply automatic vocal onset
  detection instead of score-to-audio alignment.
- Detecting vocal onsets in any setting is arguably one of the hardest MIR
+ Detecting vocal onsets in any setting is arguably one of the hardest 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+gls{MIR}
+\end_layout
+
+\end_inset
+
  problems.
- Still, for the study of onset aware phoneme transitions, it is important
+ Still, for the study of onset-aware phoneme transitions, it is important
  that onsets timestamps are detected as accurately as possible.
  To 
 \color black
@@ -3492,15 +3937,35 @@ assure better accuracy
 \color inherit
 , 
 \color black
-experiments in this section are conducted only on a cappella material from
- OTMM, as well as on manually annotated onsets.
+experiments in this section are conducted only on 
+\emph on
+a cappella
+\emph default
+ material from 
+\color inherit
+
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+gls{OTMM}
+\end_layout
+
+\end_inset
+
+
+\color black
+, as well as with manually annotated onsets.
  
 \end_layout
 
 \begin_layout Standard
 
 \color black
-A general overview of the proposed approach is presented in Figure 
+An overview of the proposed approach is presented in Figure 
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "overview"
@@ -3512,7 +3977,7 @@ reference "overview"
 \color inherit
 As in all approaches presented in this thesis, first an audio recording
  is manually divided into segments according to the coarse level complementary
- context - the sections of the composition.
+ context — the sections of the composition.
  The boundaries of vocal section (one of 
 \emph on
 zemin
@@ -3532,7 +3997,7 @@ meyan
  The vocal note onsets (automatically detected or manually annotated) together
  with phoneme transition rules are fed as input to the transition model.
  The phonetic recognizer, guided by the phoneme transition rules, returns
- start and end timestamps of aligned words.
+ the start and end timestamps of the aligned phonemes.
  
 \end_layout
 
@@ -3543,14 +4008,14 @@ meyan
 placement H
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \align center
 
 \color black
 \begin_inset Graphics
-	filename Phd_Figs/onsets/LAA_onsets_overview.pdf
+	filename Phd_Figs/onsets/LAA_onsets_overview.png
 	lyxscale 20
 	width 100col%
 
@@ -3610,11 +4075,11 @@ The transition to a consecutive lyrics syllable implies a concurrent transition
  note cannot start at unvoiced consonants.
  Taking advantage of that fact, we formulate rules that guide the transition
  between consecutive phonemes when a note onset is present.
- In general, we consider note onsets (attack) events as a complementary
- context of phonetic timbre.
+ In general, we consider note onsets (attack) events as complementary context
+ of phonetic timbre.
  
 \begin_inset Note Note
-status open
+status collapsed
 
 \begin_layout Plain Layout
 
@@ -3627,7 +4092,7 @@ ADD.
 \end_inset
 
 Similar phoneme transitions rules have been used successfully to enhance
- the naturalness of synthesized singing voice 
+ the perceived naturalness of synthesized singing voice 
 \begin_inset CommandInset citation
 LatexCommand citep
 key "sundberg2006kth"
@@ -3635,7 +4100,7 @@ key "sundberg2006kth"
 \end_inset
 
 .
- The onset aware phoneme transitions rules, we designed, have been presented
+ The onset-aware phoneme transitions rules, we designed, have been presented
  in 
 \begin_inset CommandInset citation
 LatexCommand citet
@@ -3649,11 +4114,10 @@ key "dzhambazov2016onsetLyrics_ismir"
 \begin_layout Standard
 
 \color black
-We formalize transition rules described in this Section for Turkish language,
- in which each syllable has exactly one vowel.
+We formalize transition rules described in this Section for Turkish, in
+ which each syllable has exactly one vowel.
  In this sense, the rules could be transferred to another language with
- single-vowel syllables.
- 
+ single-vowel syllables
 \begin_inset Foot
 status open
 
@@ -3726,7 +4190,7 @@ For example, for rule
  if a syllable ends in a consonant, a note onset imposes with high probability
  that a transition to the following syllable is done, provided that it starts
  with a vowel.
- Same rule applies if it starts with a liquid, according to the observation
+ The same rule applies if it starts with a liquid, according to the observation
  that
 \emph on
  
@@ -3761,7 +4225,7 @@ R3:\quad i=V\quad j=C\end{array}
 \begin_layout Standard
 
 \color black
-Essentially, if the current phoneme is vocal and the next is non-voiced
+Essentially, if the current phoneme is vocal and the next one is non-voiced
  (e.g.
  
 \begin_inset Formula $R1$
@@ -3771,18 +4235,15 @@ Essentially, if the current phoneme is vocal and the next is non-voiced
 \begin_inset Formula $R3$
 \end_inset
 
-) the transition no next phoneme is discouraged.
+) the transition to the next is discouraged.
  An example of the intra-syllable 
 \begin_inset Formula $R2$
 \end_inset
 
  can be seen for the syllable KK-AA in Figure 
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "example_annotaion"
-
-\end_inset
-
+\color inherit
+5.3
+\color black
  where the note onset triggers the change to the vowel AA.
  Unlike that, an onset for example, to the syllable Y to onset at Y for
  the syllable Y-E-T.
@@ -3796,7 +4257,7 @@ reference "example_annotaion"
 placement h
 wide false
 sideways false
-status open
+status collapsed
 
 \begin_layout Plain Layout
 
@@ -3816,25 +4277,17 @@ Ground truth annotation of syllables (in orange/top), phonemes (in red/middle)
  and notes (with blue/changing position).
  Audio excerpt corresponding to the word şikayet with syllables SH-IY, KK-AA
  and Y-E-T.
-\begin_inset CommandInset label
-LatexCommand label
-name "example_annotaion"
+\end_layout
 
 \end_inset
 
 
-\begin_inset Note Comment
-status open
+\end_layout
 
 \begin_layout Plain Layout
-../../workspace/AlignmentDuration/ISMIR_noteOnsets/note_onsets_poster/screen_shot_so
-nic_vis.png
-\end_layout
-
-\end_inset
-
-
-\end_layout
+\begin_inset CommandInset label
+LatexCommand label
+name "example-onset-annotation"
 
 \end_inset
 
@@ -3868,8 +4321,21 @@ The phoneme transitions are dependent on the current vocal note temporal
  be conditioned differently, compared to when a note is in a another segment.
  
 \color inherit
-A crucial limitation of the phonetic recognizer HMMs is the single latent
- variable, which can represent only one music facet - phonetic timbre.
+A crucial limitation of the phonetic recognizer 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+gls{HMM}
+\end_layout
+
+\end_inset
+
+ is the single latent variable, which can represent only one music facet
+ - phonetic timbre.
 
 \emph on
  
@@ -3879,7 +4345,23 @@ To represent the influence of events of different music facets
 ,
 \emph default
 \color black
- such as vocal note segments, one can use the hidden variables in a DBN
+ such as vocal note segments, one can use the hidden variables in a 
+\color inherit
+
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+gls{DBN}
+\end_layout
+
+\end_inset
+
+
+\color black
  (see in Figure 
 \color inherit
 5.4).
@@ -3924,7 +4406,20 @@ status collapsed
 \begin_inset Caption Standard
 
 \begin_layout Plain Layout
-A DBN for the simultaneous music note and phoneme states.
+A 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+gls{DBN}
+\end_layout
+
+\end_inset
+
+ for the simultaneous music note and phoneme states.
  Circles and squares denote continuous and discrete variables, respectively.
  Gray nodes and white nodes represent observed and hidden variables, respectivel
 y.
@@ -4089,7 +4584,7 @@ Since singing voice onsets are regions in time, they span over multiple
 \begin_inset Formula $0.15$
 \end_inset
 
- seconds - a value we found empirically to be most optimal.
+ seconds - a value we found empirically to be the optimal.
  
 \begin_inset Note Comment
 status open
@@ -4116,7 +4611,7 @@ Inference
 \color black
 The most likely state sequence is found by means of a forced alignment Viterbi
  decoding.
- Similarly to the inference for metrical-accent aware detection of vocal
+ Similarly to the inference for metrical-accent-aware detection of vocal
  onsets (see Section 
 \color inherit
 
@@ -4129,11 +4624,10 @@ reference "subsec:With-manually-annotated"
 
 \color black
 ), we apply a VTHMM.
- For the sake of brevity we will refer to the onset aware alignment model
+ For the sake of brevity we will refer to the onset-aware alignment model
  as VTHMM.
  The standard transition probabilities in the Viterbi maximization step
  in Eq.
- 
 \color inherit
 
 \begin_inset CommandInset ref
@@ -4144,12 +4638,11 @@ reference "eq:time-variable-viterbi-1"
 
 
 \color black
- are substituted for the onset aware transitions 
+ are substituted for the onset-aware transitions 
 \begin_inset Formula $a_{ij}(k)$
 \end_inset
 
  from Eq.
- 
 \color inherit
 
 \begin_inset CommandInset ref
@@ -4226,10 +4719,26 @@ key "kroher2015automatic"
 .
  It has been designed to handle singing with high degree of vocal pitch
  embellishments.
- We expect that this made it suitable for material from OTMM singing, which
- has many embellishments, too
-\begin_inset Foot
+ We expect that this made it suitable for material from 
+\color inherit
+
+\begin_inset ERT
 status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+gls{OTMM}
+\end_layout
+
+\end_inset
+
+
+\color black
+ singing, which has many embellishments, too
+\begin_inset Foot
+status collapsed
 
 \begin_layout Plain Layout
 We preferred it, because preliminary experiments showed that with default
@@ -4263,8 +4772,24 @@ and accompaniment of string instruments - doe that matter in Nadine?
 \end_inset
 
 .
- We replace the predominant vocal extraction method with the OTMM-tailored
- pitch detection method of 
+ We replace the predominant vocal extraction method with the 
+\color inherit
+
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+gls{OTMM}
+\end_layout
+
+\end_inset
+
+
+\color black
+-tailored pitch detection method of 
 \begin_inset CommandInset citation
 LatexCommand citet
 key "atli2014audio"
@@ -4307,8 +4832,25 @@ key "kroher2015automatic"
 \end_inset
 
 : the minimum output of the Gaussian filter.
- Since the algorithm cannot be integrated easily in an HMM, note onset segmentat
-ion is performed as a preprocessing step to the actual alignment.
+ Since the algorithm cannot be integrated easily in an 
+\color inherit
+
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+gls{HMM}
+\end_layout
+
+\end_inset
+
+
+\color black
+, note onset segmentation is performed as a preprocessing step to the actual
+ alignment.
  The extracted note onsets are converted, as in the case of manually annotated
  onsets, to a binary onset activation at each frame 
 \begin_inset Formula $\Delta n_{t}=(0,1)$
@@ -4325,7 +4867,19 @@ Experiments
 \end_layout
 
 \begin_layout Standard
-LAA is evaluated on the 6-recording subset of the 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+gls{LAA}
+\end_layout
+
+\end_inset
+
+ is evaluated on the 6-recording subset of the 
 \emph on
 a cappella lyrics OTMM dataset
 \emph default
@@ -4337,8 +4891,12 @@ reference "subsec:Multi-instrumental-vocal-onsets"
 \end_inset
 
 ), for which vocal onsets have been annotated.
- A cappella was preferred because of the very low vocal onset detection
- accuracy on instrumentally-accompanied singing.
+ 
+\emph on
+A cappella
+\emph default
+ was preferred because of the very low vocal onset detection accuracy on
+ instrumentally-accompanied singing.
  Experiments are executed with the MLP-DirectM (direct mapping to the 
 \emph on
 MLP-English
@@ -4359,7 +4917,7 @@ Evaluation metrics
 
 \begin_layout Standard
 Alignment accuracy is measured as the percentage of duration of correctly
- aligned lyrics phrases from total audio duration (see Figure 
+ aligned words from the total audio duration (see Figure 
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "fig:percentage_alignment"
@@ -4367,8 +4925,13 @@ reference "fig:percentage_alignment"
 \end_inset
 
  for an example).
- A phrase spans one (or two in faster tempo) metrical cycles and contains
- up to 4 consecutive words.
+ 
+\color black
+Unlike previous chapters, in this experiment we preferred to measure accuracy
+ at the finer level of words, since looking at boundaries of phrases, we
+ could potentially miss certain onset locations with improvement over the
+ baseline.
+ To this end, we annotated also word boundaries in the 6-recording subset.
 \end_layout
 
 \begin_layout Standard
@@ -4456,7 +5019,6 @@ reference "sec:Evaluation"
 \end_inset
 
  from Eq.
- 
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "eq:transition model"
@@ -4543,8 +5105,11 @@ reference "results"
 \end_inset
 
  summarizes the alignment accuracy with the VTHMM depending on recall.
- On a cappella best improvement over the baseline is achieved at recall
- of 
+ On 
+\emph on
+a cappella
+\emph default
+ best improvement over the baseline is achieved at recall of 
 \begin_inset Formula $72.3$
 \end_inset
 
@@ -4890,7 +5455,24 @@ reference "example alignment"
 \end_inset
 
  allows a glance at results at the level of detected phonemes: the baseline
- HMM switches to the following phoneme after some amount of time, relatively
+ 
+\color inherit
+
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+gls{HMM}
+\end_layout
+
+\end_inset
+
+
+\color black
+ switches to the following phoneme after some amount of time, relatively
  similar for all phonemes.
  One reason for this might be that the waiting time in a state in HMMs with
  a fixed transition matrix cannot be too long 
@@ -4923,9 +5505,25 @@ key "yu2010hidden"
  only.
  Often in our dataset several consecutive notes with different pitch correspond
  to the same vowel.
- In fact, due to some characteristic for OTMM descending/ascending melody
- progressions, a single syllable may happen to span many notes (up to 12
- in our dataset) 
+ In fact, due to some characteristic for 
+\color inherit
+
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+gls{OTMM}
+\end_layout
+
+\end_inset
+
+
+\color black
+ descending/ascending melody progressions, a single syllable may happen
+ to span many notes (up to 12 in our dataset) 
 \begin_inset CommandInset citation
 LatexCommand citep
 key "ederer2011theory"
@@ -4944,8 +5542,12 @@ reference "example alignment"
 
  by the prematurely detected end boundary of E from the word SH-IY-KK-AA-Y-E-T.
  Although no separate experiment for each rule was made, inspection of particula
-r cases revalued almost no contribution of R2, supposedly due to the difficulty
- of detecting onsets are syllables starting with unvoiced consonants.
+r cases revalued almost no contribution of 
+\emph on
+R2
+\emph default
+, supposedly due to the difficulty of detecting onsets are syllables starting
+ with unvoiced consonants.
  
 \end_layout
 
@@ -4953,7 +5555,7 @@ r cases revalued almost no contribution of R2, supposedly due to the difficulty
 
 \color black
 \begin_inset Note Note
-status open
+status collapsed
 
 \begin_layout Plain Layout
 In addition to that, we examined alignment accuracy per recording (Figure
@@ -5056,13 +5658,40 @@ emph{then from top to bottom}
 
 \end_inset
 
-: ground truth boundaries, phonemes detected with HMM, detected onsets,
- phonemes detected with VTHMM; (excerpt from the recording 
+: ground truth boundaries, phonemes detected with the 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+gls{HMM}
+\end_layout
+
+\end_inset
+
+, detected onsets, phonemes detected with VTHMM; (excerpt from the recording
+ 
 \emph on
 Kimseye etmem şikayet
 \emph default
- (in orignal sung by Bekir Unluater).
+ (in original sung by Bekir Unluater).
  
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset label
+LatexCommand label
+name "example alignment"
+
+\end_inset
+
+
+\color inherit
+
 \begin_inset Note Comment
 status open
 
@@ -5079,24 +5708,12 @@ THMM.png
 \end_inset
 
 
-\begin_inset CommandInset label
-LatexCommand label
-name "example alignment"
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
 \end_layout
 
 \begin_layout Standard
 
 \color black
-\begin_inset Newpage pagebreak
+\begin_inset Newpage newpage
 \end_inset
 
 
@@ -5121,14 +5738,27 @@ In this chapter we assessed the contribution of explicitly representing
  
 \color inherit
 Therefore, we presented two separate probabilistic models for two separate
- tasks: metrical-accent aware vocal onset detection and onset aware lyrics-to-au
+ tasks: metrical-accent-aware vocal onset detection and onset-aware lyrics-to-au
 dio alignment.
- We carry out an evaluation on material from OTMM.
+ We carry out an evaluation on material from 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+gls{OTMM}
+\end_layout
+
+\end_inset
+
+.
  
 \end_layout
 
 \begin_layout Paragraph
-Metrical-accent aware vocal onset detection
+Metrical-accent-aware vocal onset detection
 \end_layout
 
 \begin_layout Standard
@@ -5137,8 +5767,24 @@ We strived to improve the automatic vocal note onset detection by incorporating
  metrical accents).
  
 \color black
-To this end we proposed a DBN for the simultaneous tracking of metrical
- position and vocal onsets.
+To this end we proposed a 
+\color inherit
+
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+gls{DBN}
+\end_layout
+
+\end_inset
+
+
+\color black
+ for the simultaneous tracking of metrical position and vocal onsets.
  The main contribution is that the approach integrates in one coherent model
  two existing state of the art probabilistic approaches for different tasks:
  beat tracking and singing voice transcription.
@@ -5146,30 +5792,84 @@ To this end we proposed a DBN for the simultaneous tracking of metrical
 \color red
  
 \color inherit
-We carried out an evaluation on a multi-instrument dataset from OTMM with
- two different usul (meter) types.
+We carried out an evaluation on a multi-instrument dataset from 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+gls{OTMM}
+\end_layout
+
+\end_inset
+
+ with two different usul (meter) types.
  Context knowledge about the usul is built within the transition model of
- the DBN.
+ the 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+gls{DBN}
+\end_layout
+
+\end_inset
+
+.
  Results confirmed that the proposed model reasonably improves vocal note
  onset detection accuracy compared to a baseline model that does not take
  the metrical position into account.
- The f-measure rises from 31% to 36 % for the düyek usul, which has better
- beat detection f-measure and from 38 to 40 % for aksak usul.
+ The F-measure rises from 31% to 36 % for the düyek usul, which has better
+ beat detection F-measure and from 38 to 40 % for aksak usul.
  
 \end_layout
 
 \begin_layout Standard
 Detecting vocal onsets is polyphonic audio is arguably one of the hardest
- MIR problems.
+ 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+gls{MIR}
+\end_layout
+
+\end_inset
+
+ problems.
 
 \color black
- Although, not the goal of this thesis, the presented DBN can be used for
- full-fledged singing voice transcription.
+ Although not the goal of this thesis, the presented 
+\color inherit
+
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+gls{DBN}
+\end_layout
+
+\end_inset
+
+
+\color black
+ can be used for full-fledged singing voice transcription.
  
 \end_layout
 
 \begin_layout Paragraph
-Onset aware lyrics-to-audio alignment.
+Onset-aware lyrics-to-audio alignment.
  
 \end_layout
 
@@ -5188,7 +5888,11 @@ by modeling the singing voice onsets, occurring simultaneously with phoneme
  and proposed how to integrate them into the
 \color inherit
  transition model of the phonetic recognizer.
- The method was tested on the a cappella OTMM dataset.
+ The method was tested on an 
+\emph on
+a cappella
+\emph default
+ OTMM dataset.
  The new model resulted in a slight improvement of from 79.2 % for baseline,
  unaware of singing voice onsets, to 81.7 %.
  In particular, the onsets due to rules discouraging premature transition,
@@ -5198,7 +5902,20 @@ by modeling the singing voice onsets, occurring simultaneously with phoneme
  
 \color inherit
 This is, to our knowledge, the first attempt to model explicitly onsets
- from the vocal melody in the LAA decoding process itself.
+ from the vocal melody in the 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+gls{LAA}
+\end_layout
+
+\end_inset
+
+ decoding process itself.
 \end_layout
 
 \end_body

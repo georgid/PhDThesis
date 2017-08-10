@@ -105,7 +105,20 @@ key "porter2013dunya_ismir"
 
 .
  Dunya-web has a makam part, representing algorithms developed for the computati
-onal analysis of OTMM 
+onal analysis of 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+gls{OTMM}
+\end_layout
+
+\end_inset
+
+ 
 \begin_inset CommandInset citation
 LatexCommand citep
 key "senturk2015dunyaMakam_ismir"
@@ -113,8 +126,8 @@ key "senturk2015dunyaMakam_ismir"
 \end_inset
 
 .
- Dunya-web stores all the audio recordings (including the OTMM datasets
- described in Section 
+ Dunya-web stores all the audio recordings (including the datasets described
+ in Section 
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "sec:Dataset"
@@ -130,8 +143,8 @@ The users can navigate the audio collection by searching or filtering by
  recordings, compositions, artists, makams, musical forms and/or usuls.
  Users can play the recordings and examine musical facets synchronous to
  the audio playback.
- Facets like pitch, the score, the tonic are visualized in a user-intuitive
- way.
+ Musical facets like pitch, the score, the tonic are visualized in a user-intuit
+ive way.
  
 \begin_inset Note Note
 status open
@@ -148,10 +161,36 @@ On top of that, it display some complementary musical facets and music-specific
 \end_layout
 
 \begin_layout Standard
-The most successful lyrics-to-audio alignment (LAA) approach for OTMM, developed
- in this thesis, is the phonetic recognizer, aware of syllable durations.
+The most successful 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+gls{LAA}
+\end_layout
+
+\end_inset
+
+ approach, developed in this thesis, is the phonetic recognizer, aware of
+ syllable durations.
  We integrated its python implementation into Dunya-web for a subset of
- the OTMM corpus available in Dunya-web (see Fig.
+ the 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+gls{OTMM}
+\end_layout
+
+\end_inset
+
+ corpus available in Dunya-web (see Fig.
  
 \begin_inset CommandInset ref
 LatexCommand ref
@@ -175,30 +214,54 @@ Dunya has also the scores integrated, also MB
 \end_layout
 
 \begin_layout Standard
-The ease of use of Dunya-web and intuitive interface allows expert users
+The ease of use of Dunya-web and its intuitive interface allows expert users
  (e.g.
  music aficionados, musicologists and/or music students) to follow the aligned
  lyrics, while listening to the audio.
- Simultaneously, the acoustic features (inverse spectral representation
- of MFCCs) representing the timbral differences of phonemes are displayed.
- 
-\begin_inset Note Note
+ Simultaneously, the acoustic features, representing the timbral differences
+ of phonemes are displayed.
+ The 
+\begin_inset ERT
 status open
 
 \begin_layout Plain Layout
-more about MFCCs and link to code for inverse MFCCs
+
+
+\backslash
+gls{MFCC}
 \end_layout
 
 \end_inset
 
+ feature vectors are hard to interpret visually.
+ Instead, it is a common practice to invert the first 12 coefficients back
+ to mel-bands domain for visualization
+\begin_inset Foot
+status open
 
+\begin_layout Plain Layout
+MFCC are inverted by 
+\begin_inset CommandInset href
+LatexCommand href
+name "https://tinyurl.com/y9swfbhf"
+target "https://tinyurl.com/y9swfbhf"
+
+\end_inset
+
+ 
+\end_layout
+
+\end_inset
+
+.
+ 
 \end_layout
 
 \begin_layout Standard
 \begin_inset Float figure
 wide false
 sideways false
-status open
+status collapsed
 
 \begin_layout Plain Layout
 \align center

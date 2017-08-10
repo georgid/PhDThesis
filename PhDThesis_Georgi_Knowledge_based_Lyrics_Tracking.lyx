@@ -8,6 +8,21 @@
 \begin_preamble
 \definecolor{BLACK}{gray}{0}
 \setsecnumdepth{subsection}
+\usepackage[automake]{glossaries}
+\makeglossaries
+
+%\newacronym{cd}{CD}{compact disk}
+
+\newglossaryentry{LAA}{type=\acronymtype, name={LAA}, description={Lyrics-to-Audio Alignment}, first={Lyrics-to-Audio Alignment (LAA)} }
+\newglossaryentry{MIR}{type=\acronymtype, name={MIR}, description={Music Information Retrieval}, first={Music Information Retrieval (MIR)} }
+\newglossaryentry{OTMM}{type=\acronymtype, name={OTMM}, description={Ottoman Turkish Makam Music}, first={Ottoman Turkish Makam Music (OTMM)} }
+\newglossaryentry{MLP}{type=\acronymtype, name={MLP}, description={Multi-Layer Perceptron}, first={Multi-Layer Perceptron (MLP)} }
+\newglossaryentry{GMM}{type=\acronymtype, name={GMM}, description={Gaussian Mixture Model}, first={Gaussian Mixture Model (GMM)} }
+\newglossaryentry{HMM}{type=\acronymtype, name={HMM}, description={Hidden Markov Model}, first={Hidden Markov Model (HMM)} }
+\newglossaryentry{DHMM}{type=\acronymtype, name={DHMM}, description={Duration-explicit Hidden Markov Model}, first={Duration-explicit Hidden Markov Model (DHMM)} }
+\newglossaryentry{DBN}{type=\acronymtype, name={DBN}, description={Dynamic Bayesian Network}, first={Dynamic Bayesian Network (DBN)} }
+\newglossaryentry{VAD}{type=\acronymtype, name={VAD}, description={Voice Activity Detection}, first={Voice Activity Detection (VAD)} }
+\newglossaryentry{MFCC}{type=\acronymtype, name={MFCC}, description={Mel Frequency Cepstral Coefficients}, first={Mel Frequency Cepstral Coefficients (MFCC)} }
 
 
 %%%%%%%%%% Document begins %%%%%%%%%%
@@ -22,7 +37,7 @@
 %\usepackage[table,xcdraw]{xcolor}
 %\usepackage{colortbl} % For some nice looking tables, assumes xcolor is already loaded
 \end_preamble
-\options noend,nofillcomment,figure
+\options noend,nofillcomment,figure, a4paper
 \use_default_options false
 \maintain_unincluded_children true
 \language english
@@ -57,9 +72,10 @@
 \pdf_bookmarksopenlevel 1
 \pdf_breaklinks true
 \pdf_pdfborder true
-\pdf_colorlinks false
+\pdf_colorlinks true
 \pdf_backref page
 \pdf_pdfusetitle false
+\pdf_quoted_options "citecolor=blue,linkcolor=blue"
 \papersize default
 \use_geometry false
 \use_package amsmath 1
@@ -81,6 +97,7 @@
 \suppress_date false
 \justification true
 \use_refstyle 0
+\boxbgcolor #283d86
 \index Index
 \shortcut idx
 \color #008000
@@ -93,7 +110,7 @@
 \defskip smallskip
 \quotes_language english
 \papercolumns 1
-\papersides 2
+\papersides 1
 \paperpagestyle default
 \listings_params "basicstyle={\ttfamily\small},captionpos=b"
 \tracking_changes false
@@ -560,18 +577,18 @@ Abstract
 \end_layout
 
 \begin_layout Standard
-This thesis proposes specific signal processing and machine learning methodologi
-es for automatically aligning the lyrics of a song to its corresponding
- audio recording.
+This thesis proposes specific signal processing and machine learning methods
+ for automatically aligning the lyrics of a song to its corresponding audio
+ recording.
  The research carried out falls in the broader field of music information
  retrieval (MIR) and in this respect, we aim at improving some existing
- state-of-the-art methodologies, by introducing domain-specific knowledge.
+ state-of-the-art methods, by introducing domain-specific knowledge.
 \end_layout
 
 \begin_layout Standard
 The goal of this work is to devise models capable of tracking in the music
  audio signal the sequential aspect of one particular element of lyrics
- - the phonemes.
+ – the phonemes.
  Music can be understood as comprising different facets, one of which is
  lyrics.
  The models we build take into account the 
@@ -581,7 +598,7 @@ complementary context
  that exists around lyrics, which is any musical facet complementary to
  lyrics.
  The facets used in this thesis include the structure of the music composition,
- structure of a melodic phrase, the structure of a metrical cycle.
+ temporal structure of a lyrics line, the structure of the metrical cycle.
  From this perspective, we analyse not only the low-level acoustic characteristi
 cs, representing the timbre of the phonemes, but also higher-level characteristi
 cs, in which the complementary context manifests.
@@ -605,32 +622,32 @@ The complementary context, which we address, unfolds in time according to
 
 \begin_layout Standard
 As a baseline, we choose a phonetic recognizer based on hidden Markov models
- (HMM): a widely-used methodology for tracking phonemes both in singing
- and speech processing problems.
+ (HMM): a widely-used method for tracking phonemes both in singing and speech
+ processing problems.
  We present refinements in the typical steps of existing phonetic recognizer
  approaches, tailored towards the characteristics of the studied music tradition
 s.
- On top of the refined baseline, we device probabilistic models, based on
+ On top of the refined baseline, we devise probabilistic models, based on
  dynamic Bayesian networks (DBN) that represent the relation of phoneme
  transitions to its complementary context.
  Two separate models are built for two granularities of complementary context:
- the structure of a melodic phrase (higher-level) and the structure of the
- metrical cycle (finer-level).
+ the temporal structure of a lyrics line (higher-level) and the structure
+ of the metrical cycle (finer-level).
  In one model we exploit the fact the syllable durations depend on their
- position within a melodic phrase.
- Information about the melodic phrases is obtained from the score, as well
- as from music-specific knowledge.Then in another model, we analyse how vocal
- note onsets, estimated from audio recordings, influence the transitions
- between consecutive vowels and consonants.
- We also propose how to detect the time positions of vocal note onsets in
- melodic phrases by tracking simultaneously the positions in a metrical
- cycle (i.e.
+ position within a lyrics line.
+ Information about the expected durations is obtained from the score, as
+ well as from music-specific knowledge.
+ Then in another model, we analyse how vocal note onsets, estimated from
+ audio recordings, influence the transitions between consecutive vowels
+ and consonants.
+ We also propose how to detect the time positions of sung note onsets by
+ tracking simultaneously the positions in the metrical cycle (i.e.
  metrical accents).
 \end_layout
 
 \begin_layout Standard
-In order to evaluate the potential of the proposed models, we use the lyrics-to-
-audio alignment as a concrete task.
+In order to evaluate the potential of the proposed models, we use lyrics-to-audi
+o alignment as a concrete task.
  Each model improves the alignment accuracy, compared to the baseline, which
  is based solely on the acoustics of the phonetic timbre.
  This validates our hypothesis that knowledge of complementary context is
@@ -639,13 +656,13 @@ audio alignment as a concrete task.
 \end_layout
 
 \begin_layout Standard
-The outcomes of this study are not only theoretic methodologies and data,
- but also specific software tools that have been integrated into Dunya -
- a suite of tools, built in the context of CompMusic, a project for advancing
- the computational analysis of the world's music.
- With this application, we have also shown that the developed methodologies
- are useful not only for tracking lyrics, but also for other use cases,
- such as enriched music listening and appreciation, or for educational purposes.
+The outcomes of this study are not only theoretic methods and data, but
+ also specific software tools that have been integrated into Dunya — a suite
+ of tools, built in the context of CompMusic, a project for advancing the
+ computational analysis of the world's music.
+ With this application, we have also shown that the developed methods are
+ useful not only for tracking lyrics, but also for other use cases, such
+ as enriched music listening and appreciation, and for educational purposes.
 \end_layout
 
 \begin_layout Chapter*
@@ -763,6 +780,117 @@ Els resultats d’aquest treball no consisteixen només en metodologies teòriqu
 í
 \emph on
  Picas)
+\end_layout
+
+\begin_layout Chapter*
+Resumen
+\end_layout
+
+\begin_layout Standard
+Esta tesis propone metodologías específicas de procesamiento de señales
+ y aprendizaje automático para alinear de manera automática la letra de
+ una canción a su correspondiente grabación de audio.
+ La investigación llevada a cabo recae en el campo más amplio de la recuperación
+ de información musical (MIR), y por lo tanto, pretendemos con ella mejorar
+ algunas de las metodologías más avanzadas de la actualidad, introduciendo
+ conocimiento específico del dominio.
+\end_layout
+
+\begin_layout Standard
+El objetivo de este trabajo es diseñar modelos capaces de rastrear en la
+ señal de audio musical el aspecto secuencial de un elemento particular
+ de la letra, los fonemas.
+ Se puede entender que la música comprende diferentes facetas, una de las
+ cuales es la letra.
+ Los modelos que construimos tienen en cuenta el contexto complementario
+ que existe alrededor de la letra, que es cualquier faceta musical complementari
+a a las letras.
+ Las facetas utilizadas en esta tesis incluyen la estructura de la composición
+ musical, la estructura temporal de un enunciado de la letra, la estructura
+ métrica.
+ Desde esta perspectiva, analizamos no sólo las características acústicas
+ de bajo nivel, que representan el timbre de los fonemas, sino también las
+ características de alto nivel, en las que se manifiesta el contexto complementa
+rio.
+ Proponemos modelos probabilísticos específicos para representar cómo las
+ transiciones entre fonemas cantados consecutivamente están condicionadas
+ por diferentes facetas del contexto complementario.
+\end_layout
+
+\begin_layout Standard
+El contexto complementario, al cual abordamos, se despliega en el tiempo
+ según principios propios de una tradición musical.
+ Para capturar estos principios, hemos creado corpus y conjuntos de datos
+ para dos tradiciones musicales, dichas que tienen un rico conjunto de tales
+ principios: makam turco otomano y ópera de Beijing.
+ Los conjuntos de datos y los corpus comprenden diferentes tipos de datos:
+ grabaciones de audio, partituras y metadatos.
+ Desde esta perspectiva, los modelos propuestos pueden aprovechar tanto
+ los datos como el conocimiento del dominio de la música de determinados
+ estilos musicales para mejorar los enfoques existentes usados como referencia.
+ 
+\end_layout
+
+\begin_layout Standard
+Como punto de partida, elegimos un reconocedor fonético basado en modelos
+ ocultos de Markov (HMM): una metodología ampliamente utilizada para el
+ rastreo de fonemas tanto en el canto como en los problemas de procesamiento
+ del habla.
+ Presentamos mejoras en los pasos típicos de los enfoques de reconocimiento
+ fonético existentes, dirigidos hacia las características de las tradiciones
+ musicales estudiadas.
+ Además de los puntos de partida mejorados, usamos modelos probabilísticos
+ basados en redes bayesianas dinámicas (DBN) que representan la relación
+ de las transiciones de fonemas con su contexto complementario.
+ Se construyen dos modelos independientes para dos granularidades de contexto
+ complementario: la estructura temporal de un enunciado de la letra (alto
+ nivel) y la estructura del ciclo métrico (nivel más fino).
+ En un modelo explotamos el hecho de que las duraciones de las sílabas dependen
+ de su posición dentro de un enunciado de la letra.
+ La información sobre las duraciones esperadas se obtiene de la partitura,
+ así como de conocimientos específicos de la música.
+ Luego, en otro modelo, analizamos cómo los onsets de notas vocales, estimados
+ a partir de grabaciones de audio, influyen en las transiciones entre vocales
+ consecutivas y consonantes.
+ También proponemos cómo detectar las posiciones de tiempo de los onsets
+ de nota cantada mediante el rastreo simultáneo de las posiciones en el
+ ciclo métrico (es decir, acentos métricos).
+\end_layout
+
+\begin_layout Standard
+Con el fin de evaluar el potencial de los modelos propuestos, utilizamos
+ la alineación de letra a grabación de audio como una tarea concreta.
+ Cada modelo mejora la precisión de la alineación, en comparación con el
+ modelo de referencia inicial, que se basa únicamente en la acústica del
+ timbre fonético.
+ Esto valida nuestra hipótesis de que el conocimiento del contexto complementari
+o es un factor importante para el seguimiento computacional de las letras,
+ especialmente en el desafiante caso de cantar junto a un acompañamiento
+ instrumental.
+\end_layout
+
+\begin_layout Standard
+Los resultados de este estudio no son sólo metodologías teóricas y datos,
+ sino también herramientas de software específicas que se han integrado
+ en Dunya — un conjunto de herramientas, construido en el contexto de CompMusic,
+ un proyecto para avanzar el análisis computacional de la música del mundo.
+ Con esta aplicación, también hemos demostrado que las metodologías desarrollada
+s son útiles no sólo para el seguimiento de letras, sino también para otros
+ casos de uso, como una experiencia y apreciación enriquecidas al escuchar
+ música, y fines educativos.
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace defskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\emph on
+(Translated from English by Néstor Nápoles)
 \end_layout
 
 \begin_layout Standard
@@ -965,6 +1093,24 @@ Your appendices
 \begin_inset CommandInset include
 LatexCommand include
 filename "Appendix.lyx"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+printglossary[type=
+\backslash
+acronymtype,title=Abbreviations]
+\end_layout
 
 \end_inset
 

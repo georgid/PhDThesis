@@ -120,6 +120,11 @@ Copyright © by Georgi Dzhambazov
 
 \end_inset
 
+
+\end_layout
+
+\begin_layout Standard
+\align center
 Licensed under
 \end_layout
 
@@ -129,6 +134,25 @@ Licensed under
 LatexCommand href
 name "Creative Commons Attribution-NonCommercial-NoDerivatives 4.0"
 target "http://creativecommons.org/licenses/by-nc-nd/4.0/"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset VSpace vfill
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+A web page with links to materials accompanying this manuscript is available
+ at 
+\begin_inset CommandInset href
+LatexCommand href
+target "http://compmusic.upf.edu/phd-thesis-georgi"
 
 \end_inset
 

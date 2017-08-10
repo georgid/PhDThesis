@@ -84,12 +84,24 @@ reference "sec:Background-on-Ottoman"
 
 \end_inset
 
- we first summarize some of the principles of OTMM, the main music tradition
- analysed in this thesis, which influence directly or implicitly the way
- phonetic timbre progresses in time.
+ we first summarize some of the principles of 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+gls{OTMM}
+\end_layout
+
+\end_inset
+
+, the main music tradition analysed in this thesis, which influence directly
+ or implicitly the way phonetic timbre progresses in time.
  We put a focus among all principles on the ones related to the structural
- form of the compositions; the vocal melodic phrases of singing voice and
- their underlying metric patterns.
+ form of the compositions; the music scores; and the rhythmic patterns of
+ the music.
  Language, being one of the important aspects of lyrics, is reviewed in
  terms of the acoustic characteristics of the phonemes.
  Analogously, for jingju we review the language and some relevant principles
@@ -101,7 +113,7 @@ reference "subsec:Beijing-opera"
 \end_inset
 
 ).
- We emphasize the structure of a melodic phrase, being the specific context
+ We emphasize the structure of a lyrics line, being the specific context
  facet we exploit later in Chapter 4.
  
 \end_layout
@@ -114,8 +126,21 @@ reference "sec:Background-on-Lyrics-to-Audio"
 
 \end_inset
 
- we summarize the hitherto approaches to the LAA alignment problem whereby
- the focus is put on those based on the phonetic recognizer paradigm.
+ we summarize the existing approaches to the 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+gls{LAA}
+\end_layout
+
+\end_inset
+
+ problem whereby the focus is put on those based on the phonetic recognizer
+ paradigm.
  Common shortcomings as well as opportunities for extension are identified.
  
 \end_layout
@@ -176,11 +201,24 @@ complementary context
 \emph default
  in this thesis we defined the music events that occur simultaneously to
  and are complementary to the lyrics.
- OTMM and jingju, the music traditions studied, are characterized by well-define
-d theory and music principles.
- In this section we introduce OTMM and jingju in general and exemplify in
- particular the principles of complementary context for each tradition in
- turn.
+ 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+gls{OTMM}
+\end_layout
+
+\end_inset
+
+ and jingju, the music traditions studied, are characterized by well-defined
+ theory and music principles.
+ In this section we introduce the music traditions in general and exemplify
+ in particular the principles of complementary context for each tradition
+ in turn.
  
 \end_layout
 
@@ -203,16 +241,26 @@ makam
  describes a system of melodic scales used in numerous music traditions
  in Asia, north Africa and east Europe.
  Makam music is characterized by solid theory and modal principles.
- One of these traditions is Turkish classical/art music - the tradition,
+ One of these traditions is Turkish classical/art music — the tradition,
  which proliferated in the Ottoman Empire and Turkey afterwards.
- Throughout this thesis we refer to this tradition as Ottoman Turkish makam
- music (OTMM).
- 
 \end_layout
 
 \begin_layout Standard
-For a comprehensive introduction on the concepts of OTMM from a computational
- point of view, the interested reader is referred to 
+For a comprehensive introduction on the concepts of 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+gls{OTMM}
+\end_layout
+
+\end_inset
+
+ from a computational point of view, the interested reader is referred to
+ 
 \begin_inset CommandInset citation
 LatexCommand citet
 key "bozkurt2014makamReview"
@@ -250,8 +298,11 @@ Vocal melodic phrases are organised in the course of the performance according
 \emph on
 şarkı
 \emph default
- form (the principal form in OTMM with a lead vocal) adheres to a well-defined
- verse-refrain-like structure.
+ form (the principal form in 
+\emph on
+makam
+\emph default
+ with a lead vocal) adheres to a well-defined verse-refrain-like structure.
  A şarkı contains three vocal sections: zemin (verse), nakarat (refrain),
  meyan (second verse).
  They are preceded/surrounded by aranağme (an instrumental interlude) 
@@ -270,17 +321,26 @@ key "ederer2011theory"
 \end_layout
 
 \begin_layout Paragraph
-Middle-level: (structure of a melodic phrase)
+Mid-level: (lyrics durations)
 \end_layout
 
 \begin_layout Standard
-A melodic phrase in the şarkı form represents a musically-meaningful and
- complete segment of the melodic line.
- In this thesis we did not exploit any OTMM-specific principles of the melodic
- phrase, because their correlation to the lyrics transitions was not obvious.
- Instead, we utilized information about musical note events from complementary
- source of music representation - the music scores.
- For most of its existence, OTMM has been predominantly an oral tradition.
+In this thesis we utilized information about musical note events from the
+ music scores.
+ For most of its existence, 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+gls{OTMM}
+\end_layout
+
+\end_inset
+
+ has been predominantly an oral tradition.
  However, since early 20th century, in parallel to the oral practice, music
  scores were introduced 
 \begin_inset CommandInset citation
@@ -309,7 +369,7 @@ Fine-level: (structure of the metrical cycle)
 \end_layout
 
 \begin_layout Standard
-The metric structure in OTMM is explained by 
+The metric structure is explained by 
 \emph on
 usul
 \emph default
@@ -341,10 +401,11 @@ key "ederer2011theory"
 \end_inset
 
 .
- The progression of the events in a melodic phrase is correlated tightly
- to the underlying metric pulsation.
- Studies on symbolic music data showed that the likelihoods of vocal note
- events are influenced by the their position in a metrical cycle 
+ The progression of the events in a vocal melody is correlated tightly to
+ the underlying metric pulsation.
+ For example, studies on symbolic music data showed that the likelihoods
+ of vocal note events are influenced by the their position in a metrical
+ cycle 
 \begin_inset CommandInset citation
 LatexCommand citep
 key "holzapfel2015relation"
@@ -359,12 +420,24 @@ Singing style
 \end_layout
 
 \begin_layout Standard
-OTMM is predominantly a voice-centered tradition.
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+gls{OTMM}
+\end_layout
+
+\end_inset
+
+ is predominantly a voice-centered tradition.
  This implies not only that singing voice is the source of predominant melody.
  It also entails that in performances the vocal melodies are rich in expressive
  embellishment.
- Embellishments of the melodic line is, in fact, a fundamental aesthetic
- aspect of OTMM.
+ Embellishments of the melody is, in fact, a fundamental aesthetic aspect
+ of the music.
  Singers typically perform variations of a simultaneous instrumental melody
  in their own register, a musical interaction commonly referred to as heterophon
 y 
@@ -375,15 +448,15 @@ key "Cooke"
 \end_inset
 
 .
- The vocal lines are especially embellished, because this way singers can
- ‘stand out’ from the instrumental mix and evidence their virtuosity.
+ The melodies are embellished to a high extent, because this way singers
+ can ‘stand out’ from the instrumental mix and evidence their virtuosity.
  
 \end_layout
 
 \begin_layout Standard
-The melody lines of singing voice are not flat: skilled singers can control
+The melody contours of singing voice are not flat: skilled singers can control
  the variation of their voice's pitch to articulate expressive figures such
- as portamentos, vibratos and melismas.
+ as portamento, vibrato and melisma.
  Examples of singers very versed at that are Zeki Müren, Melihat Gülses,
  Kani Karaça.
 \begin_inset Note Note
@@ -395,8 +468,8 @@ add citation or quantitative example
 
 \end_inset
 
- Melodic phrases have often a 'slow start' - the first tone is approached
- after a long portamento or a slur 
+ Vocal melodies have often a 'slow start' — the first tone is approached
+ after a long vocal slide (portamento) 
 \begin_inset CommandInset citation
 LatexCommand citep
 key "ederer2011theory"
@@ -406,7 +479,7 @@ key "ederer2011theory"
 .
  Detecting the exact onset timestamp of vocal onsets is hard because of
  the 'slow start' effect.
- A further challenge is the ambiguity of note transitions - the transitions
+ A further challenge is the ambiguity of note transitions — the transitions
  to another note are often 'enriched' by melismas.
  
 \end_layout
@@ -485,15 +558,28 @@ jingju literally means theatrical play from the capital (i.e.
 \end_layout
 
 \begin_layout Standard
-Singing in jingju music has attracted the interest of MIR researchers during
- the recent years, who have studied topics like pitch contour analysis 
+Singing in jingju music has attracted the interest of 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+gls{MIR}
+\end_layout
+
+\end_inset
+
+ researchers during the recent years, who have studied topics like pitch
+ contour analysis 
 \begin_inset CommandInset citation
 LatexCommand citep
 key "repetto2015comparison"
 
 \end_inset
 
-, segmentation into syllables
+ or segmentation into syllables 
 \begin_inset CommandInset citation
 LatexCommand citep
 key "gong:hal-01513160"
@@ -523,6 +609,13 @@ and structural segmentation [ M.
 
 \begin_layout Subsubsection
 Principles of complementary context
+\begin_inset CommandInset label
+LatexCommand label
+name "subsec:Principles-of-complementary"
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Paragraph
@@ -531,7 +624,7 @@ Coarse-level: (structure of the composition)
 
 \begin_layout Standard
 Lyrics in jingju are a central musical facet.
- Lyrics come from poetry and are commonly structured into couplets.
+ Lyrics have poetic structure and are thus commonly organized into couplets.
  Each couplet has two lyrics lines and can be considered a structural section.
  The lyrics describe the story of the play and rarely repeat, even though
  some melodic motives could recur.
@@ -574,11 +667,24 @@ banshi
 \end_layout
 
 \begin_layout Paragraph
-Middle-level: (structure of a melodic phrase)
+Mid-level: (lyrics durations)
 \end_layout
 
 \begin_layout Standard
-In contrast to OTMM, music scores in jingju serve a different purpose.
+In contrast to 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+gls{OTMM}
+\end_layout
+
+\end_inset
+
+, music scores in jingju serve a different purpose.
  Music in jingju originally was not created by composers, but arranged by
  performers from a repertory of pre-existing tunes, to fit new lyrics.
  Once a new play was in this way set to music, it would be transmitted orally
@@ -593,21 +699,18 @@ In contrast to OTMM, music scores in jingju serve a different purpose.
 \end_layout
 
 \begin_layout Standard
-We consider as a melodic phrase a segment of the vocal line, that corresponds
- to a line of the lyrics.
- In jingju a lyrics line (sentence) is usually divided into 3 syllable groupings
-, called 
+In jingju a lyrics line (sentence) is usually divided into 3 syllable groupings,
+ called 
 \emph on
 dou.
 
 \emph default
- Each lyrics line can be considered a melodic phrase.
  Interestingly, in jingju there exist some conventions of the durations
  of the 
 \emph on
-dous
+dou
 \emph default
-, which serve as guidance to actors.
+-s, which serve as guidance to actors.
  A 
 \emph on
 dou 
@@ -629,7 +732,7 @@ dou
 ’s final syllable.
  One (or in rare cases more) of the the vowels in the belly part can be
  prolonged substantially (in the order of 20 seconds).
- There is, however, no guidance on which is the prolonged vowel.
+ There is, however, no indication on which vowel is the prolonged one.
  
 \end_layout
 
@@ -648,13 +751,6 @@ If a poetry line of the lyrics has 10 syllables, a rule of thumb is that
  
 \end_layout
 
-\begin_layout Standard
-\begin_inset Newpage pagebreak
-\end_inset
-
-
-\end_layout
-
 \begin_layout Subsubsection
 Language
 \end_layout
@@ -669,8 +765,20 @@ The language used in jingju is based mainly in the Beijing dialect, but
  character represents not a phonetic unit, but a lexical one.
  As a result, Chinese characters represent lexical units that are pronounced
  with single syllables.
- Therefore it makes naturally sense that LAA is evaluated on the syllable
- level.
+ Therefore it makes naturally sense that 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+gls{LAA}
+\end_layout
+
+\end_inset
+
+ is evaluated on the syllable level.
  When referring to jingju we will use the term 
 \emph on
 syllable
@@ -732,6 +840,13 @@ note that intoanation in the language gets lost in singing
 
 \end_layout
 
+\begin_layout Standard
+\begin_inset Newpage newpage
+\end_inset
+
+
+\end_layout
+
 \begin_layout Section
 Background on Lyrics-to-Audio Alignment
 \begin_inset CommandInset label
@@ -746,8 +861,21 @@ name "sec:Background-on-Lyrics-to-Audio"
 \begin_layout Standard
 Although humans are very versed in making sense of the lyrics, sung in songs,
  for machines the task of automatically tracking lyrics is very challenging.
- LAA refers to the automatic synchronization between sung lyrics and their
- written representation.
+ 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+gls{LAA}
+\end_layout
+
+\end_inset
+
+ refers to the automatic synchronization between sung lyrics and their written
+ representation.
  According to 
 \begin_inset CommandInset citation
 LatexCommand citeauthor
@@ -760,7 +888,20 @@ tion of lyrics from a mixture of singing voice and accompaniment.
  Lyrics transcription (a.k.a.
  lyrics recognition) is the problem of finding where and what units of lyrics
  occur in the music signal.
- LAA can be seen as a particular subproblem of lyrics recognition, in which
+ 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+gls{LAA}
+\end_layout
+
+\end_inset
+
+s can be seen as a particular subproblem of lyrics recognition, in which
  the search space is limited: the sequence of lyrical units is known, leaving
  to find their timestamps (temporal locations).
  The recognition of ordinary speech in noisy environments itself started
@@ -777,9 +918,9 @@ status open
 .
  Therefore, it is still not realistic to strive for reasonable results in
  automatic lyrics recognition.
- Despite the few research attempts, none of them has succeeded in achieving
- satisfactory performance with instrumental-accompanied musical signals
- 
+ Despite the fact that there has been a few research attempts, none of them
+ has succeeded in achieving satisfactory performance with instrumental-accompani
+ed musical signals 
 \begin_inset CommandInset citation
 LatexCommand citep
 key "mesaros2010automatic,mcvicar2014leveraging"
@@ -787,9 +928,35 @@ key "mesaros2010automatic,mcvicar2014leveraging"
 \end_inset
 
 .
- Still, approaching LAA one could gain precious insights, that could be
- useful as stepping stones to disentangling the riddle of lyrics recognition.
- LAA relates to lyrics recognition much in the same way speech-to-text alignment
+ Still, approaching 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+gls{LAA}
+\end_layout
+
+\end_inset
+
+ one could gain precious insights, that could be useful as stepping stones
+ to disentangling the riddle of lyrics recognition.
+ 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+gls{LAA}
+\end_layout
+
+\end_inset
+
+ relates to lyrics recognition much in the same way speech-to-text alignment
  relates to speech recognition.
  
 \end_layout
@@ -833,17 +1000,21 @@ name "subsec:Evaluation-metrics"
 \end_layout
 
 \begin_layout Standard
-The accuracy of alignment can be evaluated at different granularity, which
- depends on the application.
+The accuracy of alignment can be evaluated at different level of granularity,
+ which depends on the application.
  In this sense the accuracy is measured in different level of entities,
- which we will refer to in what follows as lyrical units.
+ which we will refer to in what follows as 
+\emph on
+lyrical units
+\emph default
+.
  A unit could be either phoneme, syllable, word, lyrics line/phrase, or
  complete lyrics paragraph/section.
  When generating subtitles for music videos, for instance, line- or phrase-level
  alignment might suffice.
- On the contrary, when precise alignment is required, as in the case of
+ On the other hand, when precise alignment is required, as in the case of
  automatic generation of highlights for karaoke, syllable- or even phoneme-level
- is required.
+ alignment is required.
  
 \end_layout
 
@@ -867,9 +1038,36 @@ key "mesaros2008automatic"
 
 \end_inset
 
-, the absolute error measures the time displacement between the actual timestamp
- and its estimate at the beginning and the end of each lyrical unit.
- The error is then averaged over all individual errors.
+, the absolute error 
+\emph on
+e
+\emph default
+ measures the time displacement between the actual timestamp 
+\begin_inset Formula $t_{i}$
+\end_inset
+
+ and its estimate 
+\begin_inset Formula $\hat{t}_{i}$
+\end_inset
+
+ at the beginning and the end of each lyrical unit.
+ 
+\begin_inset Formula 
+\begin{equation}
+e=\frac{1}{N_{k}}\sum_{word\thinspace i}\hat{(t_{i}}-t_{i})
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The error is then averaged over all 
+\begin_inset Formula $N_{k}$
+\end_inset
+
+ words in the dataset.
  Evaluation was carried on timestamps at boundaries of lyrics lines.
  The authors themselves note that an error in absolute terms has the drawback
  that the perception of an error with the same duration can be different
@@ -896,9 +1094,41 @@ Percentage of correct segments
 \end_layout
 
 \begin_layout Standard
-The perceptual dependence on tempo is mitigated by measuring the percentage
- of the total length of the segments, labeled correctly to the total duration
- of the song - a metric, suggested by 
+The perceptual dependence on tempo is mitigated by measuring for a song
+ 
+\begin_inset Formula $k$
+\end_inset
+
+ the percentage 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+
+\begin_inset Formula $\rho^{k}$
+\end_inset
+
+
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+ of the total length of the correctly-labeled audio segments to the total
+ length of the song — a metric, suggested by 
 \begin_inset CommandInset citation
 LatexCommand citet
 after "Figure 9"
@@ -906,8 +1136,15 @@ key "fujihara2011lyricsynchronizer"
 
 \end_inset
 
-.
- Figure 
+:
+\begin_inset Formula 
+\begin{equation}
+\rho^{k}=\frac{length\ of\ correct\ segmetns}{total\ length\ of\ the\ song}\times100
+\end{equation}
+
+\end_inset
+
+Figure 
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "fig:percentage_alignment"
@@ -963,7 +1200,7 @@ name "fig:percentage_alignment"
 \end_layout
 
 \begin_layout Standard
-The granularity, on which the authors evaluated, was lyric lines.
+The granularity on which the authors evaluated was lyric lines.
  This metric can be seen as a special case of the frame clustering metric
  for evaluating structural segmentation proposed in the work of 
 \begin_inset CommandInset citation
@@ -974,7 +1211,15 @@ key "levy2008structural"
 
 .
  This is essentially the same as the percentage of correct segments if we
- consider a lyrical unit acting as a 'section'.
+ consider a lyrical unit acting as a 
+\begin_inset Quotes eld
+\end_inset
+
+section
+\begin_inset Quotes erd
+\end_inset
+
+.
  Despite being rather unbiased by tempo and rather strict, the percentage
  of frames does not give a very intuitive estimate from a perceptual point
  of view, because the correlation to the extent of the absolute error is
@@ -1014,13 +1259,17 @@ key "mauch2012integrating"
 
 \begin_layout Standard
 \begin_inset Formula 
-\[
+\begin{equation}
 \rho_{\tau}^{k}=\frac{1}{N_{k}}\sum_{word\thinspace i}1_{|\hat{t}_{i}-t_{i}|<r}\times100
-\]
+\end{equation}
 
 \end_inset
 
-where k is the count of words in a given song.
+where 
+\begin_inset Formula $N_{k}$
+\end_inset
+
+ is the count of words in a given song k.
  The final metric is computed averaging 
 \begin_inset Formula $\rho_{\tau}^{k}$
 \end_inset
@@ -1051,7 +1300,20 @@ Phonetic recognizer overview
 \end_layout
 
 \begin_layout Standard
-A complete overview of recent LAA approaches can be found in 
+The only existing overview of 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+gls{LAA}
+\end_layout
+
+\end_inset
+
+ approaches can be found in 
 \begin_inset CommandInset citation
 LatexCommand citet
 after "Literature Review"
@@ -1059,21 +1321,35 @@ key "fujihara2012lyrics"
 
 \end_inset
 
-.
+, which is a bit old but still encompasses the most seminal approaches up
+ to date.
  Here we review only the approaches based on what the authors call a ‘phonetic
  recognizer’, because it is the alignment strategy, which has resulted in
  most promising results.
- The core machine learning algorithm used in phonetic recognizers is HMMs.
+ The core machine learning model used in phonetic recognizers is 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+gls{HMM}
+\end_layout
+
+\end_inset
+
+-s.
  They are suitably representing the time-changing nature of lyrics, because
- HMMs can model time-contiguous, non-overlapping events.
+ they can model time-contiguous, non-overlapping events.
  
 \end_layout
 
 \begin_layout Standard
 The task of automatically converting spoken speech into text is known as
  automatic speech recognition (ASR) and has been one of the most well researched
- acoustic processing research problems.
- The typical way speech recognition is approached is by building a model
+ acoustic processing problems.
+ One typical way speech recognition is approached is by building a model
  for each phoneme based on the characteristics of its timbral acoustics
  
 \begin_inset CommandInset citation
@@ -1097,8 +1373,21 @@ An end-task, related to ASR is the automatic alignment between speech and
  Each phonetic model represents the acoustic characteristics of the phoneme
  and is used to compare the likelihoods of feature vectors, extracted from
  the audio.
- A phonetic model is usually a HMM consisting of 1 up to 3 states representing
- the initial, middle and final acoustic state of a phoneme.
+ A phonetic model is usually a 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+gls{HMM}
+\end_layout
+
+\end_inset
+
+ consisting of 1 up to 3 states representing the initial, middle and final
+ acoustic state of a phoneme.
  The audio is aligned to the phonemes by finding the most likely path for
  the extracted sequence of feature vectors in the phoneme network 
 \begin_inset CommandInset citation
@@ -1112,9 +1401,26 @@ key "Rabiner:1993:FSR:153687"
 \end_layout
 
 \begin_layout Standard
-When the vocal recordings are a cappella (a.k.a.
- monophonic), LAA can be considered a special case of text-to-speech alignment,
- which is essentially solved 
+When the vocal audio recordings are monophonic (commonly referred to as
+ 
+\emph on
+a cappella
+\emph default
+, too), 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+gls{LAA}
+\end_layout
+
+\end_inset
+
+ can be considered a special case of text-to-speech alignment, which is
+ essentially solved 
 \begin_inset CommandInset citation
 LatexCommand citep
 key "anguera2014audio"
@@ -1124,11 +1430,24 @@ key "anguera2014audio"
 .
  Since the forced alignment technique was originally developed for clean
  speech, the presence of accompanying instruments and non-vocal sections
- pose a challenge to migrating it as-it-is to accompanied singing.
- Therefore, an accompaniment attenuation and a singing voice detection (a.k.a.
- vocal detection) are steps commonly executed before the actual alignment.
- A LAA that is based on phonetic recognizer with forced alignment comprises
- a sequence of typical steps, presented in Figure 
+ pose a challenge to migrating it as-is to accompanied singing.
+ Therefore, accompaniment attenuation and singing voice detection are steps
+ that are commonly executed before the actual alignment.
+ A 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+gls{LAA}
+\end_layout
+
+\end_inset
+
+ that is based on phonetic recognizer with forced alignment comprises a
+ sequence of typical steps, presented in Figure 
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "steps_phonetic_recognizer"
@@ -1182,8 +1501,21 @@ name "steps_phonetic_recognizer"
  The goal of accompaniment attenuation (AA) is to isolate from the mixture
  signal the spectral content, which has its origin in singing voice, while
  attenuating the rest of the spectrum, with origin in accompanying instruments.
- Singing Voice Detection (SVD) has an aim to identify time intervals of
- the music signal, in which singing voice is present.
+ Singing Voice Detection also known as 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+gls{VAD}
+\end_layout
+
+\end_inset
+
+ has the aim to identify time intervals of the music signal, in which singing
+ voice is present.
 \begin_inset Note Note
 status collapsed
 
@@ -1196,7 +1528,7 @@ status collapsed
 
 \end_inset
 
- Since AA and SVD can be considered separate problems on their own, in some
+ Since AA and VAD can be considered separate problems on their own, in some
  related work existing prior methods are adopted.
  
 \end_layout
@@ -1204,9 +1536,26 @@ status collapsed
 \begin_layout Standard
 Then, lyrics lines are expanded to a sequence of phonemes based on language-spec
 ific grapheme-to-phoneme rules.
- In this way, the HMMs are concatenated into a phoneme network.
+ In this way, the 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+gls{HMM}
+\end_layout
+
+\end_inset
+
+-s are concatenated into a phoneme network.
  Phonetic models are trained on acoustic characteristics of material from
- either clean speech or a cappella singing.
+ either clean speech or
+\emph on
+ a cappella
+\emph default
+ singing.
 \end_layout
 
 \begin_layout Standard
@@ -1220,15 +1569,31 @@ reference "back_ground"
 
 , staying some time at each of these steps and scrutinizing how some of
  the approaches address it.
- Notably, the approach of 
+ The approach of 
 \begin_inset CommandInset citation
 LatexCommand citet
 key "kruspe2016bootstrapping"
 
 \end_inset
 
- is trained on a cappella singing, which excludes the need of both the AA
- and SVD steps.
+ is evaluated on
+\emph on
+ a cappella
+\emph default
+ singing, which excludes the need of both the AA and 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+gls{VAD}
+\end_layout
+
+\end_inset
+
+ steps.
  
 \end_layout
 
@@ -1482,29 +1847,42 @@ N
 \begin_inset Caption Standard
 
 \begin_layout Plain Layout
-Seminal LAA works based on the phonetic recognizer approach.
- These are respectively: Mesaros - 
+Seminal 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+gls{LAA}
+\end_layout
+
+\end_inset
+
+ works based on the phonetic recognizer approach.
+ These are respectively: Mesaros, 
 \begin_inset CommandInset citation
 LatexCommand citet
 key "mesaros2008automatic"
 
 \end_inset
 
-; Fujihara - 
+; Fujihara, 
 \begin_inset CommandInset citation
 LatexCommand citet
 key "fujihara2011lyricsynchronizer"
 
 \end_inset
 
-; Kruspe - 
+; Kruspe, 
 \begin_inset CommandInset citation
 LatexCommand citep
 key "kruspe2016bootstrapping"
 
 \end_inset
 
- 
+
 \end_layout
 
 \end_inset
@@ -1539,41 +1917,55 @@ name "subsec:Background-Accompaniment-attenuation"
 \end_layout
 
 \begin_layout Standard
-Compared to a cappella, the automatic alignment of lyrics in singing voice
- signal accompanied by various instruments, is much more challenging.
- The phonetic models trained on features, extracted from unaccompanied voice
+Compared to 
+\emph on
+a cappella
+\emph default
+, the automatic alignment of lyrics in singing voice accompanied by various
+ instruments is much more challenging.
+ The phonetic models trained on features extracted from unaccompanied voice
  represent entirely the singing voice properties.
- In polyphonic mixture of voice and accompaniment, however, the vocal properties
- interfere with the instrumental sounds.
+ In polyphonic mixtures of the voice and accompaniment, however, the vocal
+ properties interfere with the instrumental sounds.
  Spectral peaks from harmonics of accompanying instruments may occlude the
- harmonic components of voice.
- This means that some timbral characteristics, pivotal for distinguishing
+ harmonic components of the voice.
+ This means that some timbral characteristics, that are key to detecting
  the vowel identity, can be distorted.
- In this setting, the phonetic models, trained on a cappella voice lose
- their discriminative power.
+ In this setting, phonetic models trained on
+\emph on
+ a cappella
+\emph default
+ voice lose their discriminative power.
  To address this problem researchers have come up with techniques that isolate
  as much as possible the spectral content, which has its origin in singing
- voice, while attenuating the rest of the spectrum.
+ voice while attenuating the rest of the spectrum.
 \end_layout
 
 \begin_layout Standard
 In 
 \begin_inset CommandInset citation
 LatexCommand citet
-key "fujihara2011lyricsynchronizer,mesaros2008automatic"
+key "mesaros2008automatic"
 
 \end_inset
 
- a method for segregating the predominant melodic line is utilized: First
- the spectral components that are multiples of the fundamental frequency
- of the vocal melody (also known as harmonic partials) are extracted from
- the sound mixture.
- Then they could be optionally refined and eventually grouped together to
- form the vocal signal.
+ and 
+\begin_inset CommandInset citation
+LatexCommand citet
+key "fujihara2011lyricsynchronizer"
+
+\end_inset
+
+ a method for segregating the predominant melody is utilized: First the
+ spectral components that are multiples of the fundamental frequency of
+ the vocal melody (also known as harmonic partials) are extracted from the
+ sound mixture.
+ Then they are optionally refined and eventually grouped together to form
+ the vocal signal.
  In the end, the vocal content is resynthesized from these by means of a
  sinusoidal model.
  At the core of representing singing voice content in polyphonic mixtures
- is a model, capable of representing the complex interactions between the
+ is a model capable of representing the complex interactions between the
  vocal harmonic partials and other instrumental sources in the mix.
  Several strategies of harmonic modeling have been proposed 
 \begin_inset CommandInset citation
@@ -1608,8 +2000,8 @@ key "fujihara2011lyricsynchronizer"
 \end_inset
 
  suggest as a solution a method for fricative (unvoiced consonants) detection.
- In the alignment stage the time intervals, for which the presence of fricative
- sounds is unlikely, are forbidden to be matched to fricatives (actually
+ In the alignment stage the time intervals for which the presence of fricative
+ sounds is unlikely are forbidden to be matched to fricatives (actually
  only ‘sh’) from the phonemes network.
  A slight improvement in alignment accuracy was registered, supposedly because
  phoneme gaps in the middle of lyrics phrases were shorter than they were
@@ -1622,10 +2014,36 @@ key "fujihara2011lyricsynchronizer"
 
 \begin_layout Standard
 The importance of the accompaniment attenuation method has been confirmed
- by comparing the alignment performance when disabling it.
- The phrase-level accuracy was improved by 4.8 absolute percent when MFCCs
+ by comparing the alignment performance when disabling it (see Section 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "sec:Evaluation"
+
+\end_inset
+
+).
+ The phrase-level accuracy was improved by 4.8 absolute percent when 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+gls{MFCC}
+\end_layout
+
+\end_inset
+
  were extracted from the vocal segregated signal compared to when extracted
- directly from the polyphonic mix.
+ directly from the polyphonic mix (rows 3 and 4 of Table 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "results baseline"
+
+\end_inset
+
+).
  Apart from that, the quality of the attenuation process can be objectively
  judged with the metrics used for evaluation of source separation on the
  segregated vocal (ideally vocal-only) signal.
@@ -1643,28 +2061,54 @@ Singing voice detection
 \end_layout
 
 \begin_layout Standard
-In early LAA approaches (including the work of 
+In early 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+gls{LAA}
+\end_layout
+
+\end_inset
+
+ approaches (including the work of 
 \begin_inset CommandInset citation
 LatexCommand citet
 key "mesaros2008automatic"
 
 \end_inset
 
-) no automatic SVD method was applied.
+) no automatic 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+gls{VAD}
+\end_layout
+
+\end_inset
+
+ method was applied.
  Instead the authors annotate manually structural sections (verse, chorus,
  bridge) with singing voice present.
- The sections durations range from 9 to 40 seconds.
+ The sections' durations range from 9 to 40 seconds.
  The authors assume that in all vocal sections the predominant source is
  the voice.
- This permits to apply the harmonic modeling, presented in the previous
- section 
+ This permits to apply harmonic modeling, presented in the previous section
+ 
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "subsec:Background-Accompaniment-attenuation"
 
 \end_inset
 
- without the need of explicitly determining if the source of the main melody
+, without the need of explicitly determining if the source of the main melody
  is voice.
  Short instrumental interludes are accommodated by training a model for
  instrumental accompaniment, which is expected to get activated in such
@@ -1687,10 +2131,14 @@ Acoustic Features
 \end_layout
 
 \begin_layout Standard
-The timbre of singing voice is described by its harmonic partials.
- The timbral properties of a sung note depend on the distribution of the
- energy of its harmonic partials, whereas more energy is concentrated in
- harmonics around formant frequencies.
+The timbre of singing voice is related to its harmonic partials — the timbral
+ properties of a sung note depend on the distribution of the energy of its
+ harmonic partials, whereby more energy is concentrated in harmonics around
+ specific frequencies, commonly known as 
+\emph on
+formant frequencies
+\emph default
+.
  
 \end_layout
 
@@ -1699,8 +2147,11 @@ Formant frequencies
 \end_layout
 
 \begin_layout Standard
-The formant frequencies represent resonances of the vocal tract and cavities
- 
+The 
+\emph on
+formant frequencies
+\emph default
+ represent resonances of the vocal tract and cavities 
 \begin_inset CommandInset citation
 LatexCommand citep
 key "ladefoged1996elements"
@@ -1711,8 +2162,8 @@ key "ladefoged1996elements"
  Formants spectral regions, ordered according to their energy, with first
  formant (F1) representing the one with highest energy.
  Findings in phonology have indicated that the two lower order formants
- (F1-F2) are most important for understanding spoken speech, whereas higher
- order ones (F3-F5) are related to the identity of the singer 
+ (F1-F2) are most important for understanding speech, whereas higher order
+ ones (F3-F5) are related to the identity of the singer 
 \begin_inset CommandInset citation
 LatexCommand citep
 key "ladefoged1996elements"
@@ -1720,9 +2171,9 @@ key "ladefoged1996elements"
 \end_inset
 
 .
- The first formant is known to change with varying the vocal tract shape
- (mainly by varying the jaw opening), while the second is correlated to
- the tongue shape.
+ The first formant is known to change with the vocal tract shape (mainly
+ by varying the jaw opening), while the second is correlated to the tongue
+ shape.
  The vowels of speech are determined by specific combinations of F1 and
  F2, which are relatively stable for each vowel among different speakers.
  
@@ -1743,8 +2194,20 @@ Mel frequency cepstral coefficients
 \end_layout
 
 \begin_layout Standard
-Mel-frequency cepstral coefficients (MFCCs) are reliable descriptor of phonetic
- timbre.
+The 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+gls{MFCC}
+\end_layout
+
+\end_inset
+
+ are reliable descriptor of phonetic timbre.
  
 \begin_inset Note Note
 status open
@@ -1755,7 +2218,7 @@ HERE from Mesaros
 
 \end_inset
 
-It is usually well captured by the first 12 MFCCs and their differences
+It is usually well captured by the first 12 coefficients and their differences
  to the preceding time instants 
 \begin_inset CommandInset citation
 LatexCommand citep
@@ -1764,8 +2227,33 @@ key "Rabiner:1993:FSR:153687"
 \end_inset
 
 .
- A commonly adopted variant of MFCC is the configuration of default parameters
- in the HMM toolkit (htk) 
+ A commonly adopted variant of 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+gls{MFCC}
+\end_layout
+
+\end_inset
+
+ is the default configuration of the 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+gls{HMM}
+\end_layout
+
+\end_inset
+
+ toolkit (htk) 
 \begin_inset CommandInset citation
 LatexCommand citep
 key "young1993htk"
@@ -1808,9 +2296,34 @@ Introduction to Hidden Markov Models
 \end_layout
 
 \begin_layout Standard
-Not only are HMMs the main machine learning algorithm behind the phonetic
- recognizer approach, but they can be also considered a reduced case of
- DBNs, in which only one hidden variable is present (see Section 
+Not only are 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+gls{HMM}
+\end_layout
+
+\end_inset
+
+-s the main machine learning algorithm behind the phonetic recognizer approach,
+ but they can be also considered a reduced case of 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+gls{DBN}
+\end_layout
+
+\end_inset
+
+-s, in which only one hidden variable is present (see Section 
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "sec:Background-on-dynamic"
@@ -1818,12 +2331,24 @@ reference "sec:Background-on-dynamic"
 \end_inset
 
 ).
- We will give here a very brief overview of HMMs and interpret it in the
- context of a phonetic recognizer.
+ We will give here a very brief overview of 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+gls{HMM}
+\end_layout
+
+\end_inset
+
+-s and interpret them in the context of a phonetic recognizer.
 \end_layout
 
 \begin_layout Standard
-HMMs are probabilistic finite-state automata, where transitions between
+They are probabilistic finite-state automata, where transitions between
  states 
 \begin_inset Formula $x_{k}\in{1,...,S}$
 \end_inset
@@ -1842,11 +2367,23 @@ HMMs are probabilistic finite-state automata, where transitions between
 \end_inset
 
  (number of audio frames in an audio excerpt).
- In speech research, traditionally a 3-state HMM model for each phonemes
- is trained.
- A phoneme HMM has left-to-right topology, which corresponds to how the
- acoustics of the voice evolve sequentially in time from an initial, through
- a middle, and ending in a final state.
+ In speech research, traditionally a 3-state 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+gls{HMM}
+\end_layout
+
+\end_inset
+
+ for each phonemes is trained.
+ It has left-to-right topology, which corresponds to how the acoustics of
+ the voice evolve sequentially in time from an initial, through a middle,
+ and ending in a final state.
  Transition probabilities are assumed to depend only on a finite number
  of previous states.
  
@@ -1989,10 +2526,22 @@ observation model
  
 \color inherit
 It can be learned by maximizing the probability of emitting a given set
- of sequences of (observed) acoustic featrues from training data.
- Although traditionally modeled by GMMs, the acoustic model could be virtually
- any machine learning model, which can output a continuous probability distribut
-ion.
+ of sequences of (observed) acoustic features from training data.
+ Although traditionally modeled by 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+gls{GMM}
+\end_layout
+
+\end_inset
+
+-s, the acoustic model could be virtually any machine learning model, which
+ can output a continuous probability distribution.
  
 \end_layout
 
@@ -2048,7 +2597,7 @@ where
 \begin_inset Formula $x_{1:K}$
 \end_inset
 
- can be decoded, among others, by the Viterbi decoding - an efficient dynamic
+ can be decoded, among others, by the Viterbi decoding — an efficient dynamic
  programming algorithm 
 \begin_inset CommandInset citation
 LatexCommand citep
@@ -2154,7 +2703,7 @@ key "rabiner1989tutorial"
 
 .
  Note that in the case of forced alignment we maximize only over two possible
- transitions - from the current state 
+ transitions — from the current state 
 \begin_inset Formula $j$
 \end_inset
 
@@ -2174,7 +2723,20 @@ key "rabiner1989tutorial"
 \end_layout
 
 \begin_layout Standard
-A complete discussion on theory and applications of HMMs can be found 
+A complete discussion on theory and applications of 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+gls{HMM}
+\end_layout
+
+\end_inset
+
+-s can be found 
 \begin_inset Note Note
 status open
 
@@ -2210,21 +2772,72 @@ name "subsec:Phoneme-network"
 \begin_layout Standard
 The goal of the grapheme-to-phoneme conversion is to create a phoneme sequence
  out of the input lyrics.
- The conversion is carried out using a set of the phonemes from a phonetic
- alphabet, based on a pronunciation dictionary, prepared by linguists.
+ The conversion is carried out using a set of phonemes from a phonetic alphabet,
+ based on a pronunciation dictionary prepared by linguists.
  
 \end_layout
 
 \begin_layout Standard
 In the phonetic recognizer approach, it is assumed that the observed feature
- sequence is generated from an HMM.
- The phoneme network is a super-HMM, concatenated from the individual phoneme
- HMMs in the order of the input phoneme sequence.
+ sequence is generated from an 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+gls{HMM}
+\end_layout
+
+\end_inset
+
+.
+ The phoneme network is a super-
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+gls{HMM}
+\end_layout
+
+\end_inset
+
+, concatenated from the individual phoneme 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+gls{HMM}
+\end_layout
+
+\end_inset
+
+-s in the order of the input phoneme sequence.
  The transition model imposes the 'forced' transition to the consequent
  phoneme.
  The only exception are special case phonemes for short silent pauses, which
  can be optionally skipped.
- Most LAA approaches adopt this paradigm: Both 
+ Most 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+gls{LAA}
+\end_layout
+
+\end_inset
+
+ approaches adopt this paradigm: Both 
 \begin_inset CommandInset citation
 LatexCommand citet
 key "mesaros2008automatic"
@@ -2238,12 +2851,50 @@ key "fujihara2011lyricsynchronizer"
 
 \end_inset
 
- utilized the 3-state HMMs and trained for each state a GMM fitted on a
- feature vector 
+ utilized the 3-state 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+gls{HMM}
+\end_layout
+
+\end_inset
+
+-s and trained for each state a 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+gls{GMM}
+\end_layout
+
+\end_inset
+
+ fitted on a feature vector 
 \begin_inset Formula $y_{k}$
 \end_inset
 
- of MFCCs.
+ of 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+gls{MFCC}
+\end_layout
+
+\end_inset
+
+.
  
 \end_layout
 
@@ -2252,12 +2903,12 @@ Cross-language modeling
 \end_layout
 
 \begin_layout Standard
-As a rule of thumb the phoneme models, used in the recognition are trained
- from the same target language to assure their integrity.
+As a rule of thumb the phoneme models used in the recognition are trained
+ from the same target language to ensure their integrity.
  However, often there might not be enough training material for the language
  of interest, which opens a necessity for finding a cross-language phoneme
  mapping strategy as an alternative.
- As a matter of fact cross-language mapping has been important research
+ As a matter of fact cross-language mapping has been an important research
  direction in speech recognition for long time, but only recently some substanti
 al results were achieved 
 \begin_inset CommandInset citation
@@ -2267,8 +2918,21 @@ key "sun2016personalized"
 \end_inset
 
  (for the particular task of speech synthesis).
- One of the few LAA research works using phonemes trained on a different
- language was done by 
+ One of the few 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+gls{LAA}
+\end_layout
+
+\end_inset
+
+ research works using phonemes trained on a different language was done
+ by 
 \begin_inset CommandInset citation
 LatexCommand citet
 key "fujihara2011lyricsynchronizer"
@@ -2281,7 +2945,10 @@ key "fujihara2011lyricsynchronizer"
  This resulted in suboptimal alignment results though, due to the different
  language phonetics.
  In Japanese all vowels are pure (i.e.
- monophthongs), which is a clear limitation for the more complex acoustic
+\begin_inset space \thinspace{}
+\end_inset
+
+monophthongs), which is a clear limitation for the more complex acoustic
  characteristics of English diphthongs.
  
 \end_layout
@@ -2310,7 +2977,7 @@ Training on speech
 \end_layout
 
 \begin_layout Standard
-Compared to speech, singing voice evinces more complex frequency and dynamic
+Compared to speech, the singing voice has more complex frequency and dynamic
  characteristics: fluctuation of fundamental frequency (F0) and loudness
  of singing voices are far stronger than those of speech sounds 
 \begin_inset CommandInset citation
@@ -2355,8 +3022,8 @@ key "fujihara2011lyricsynchronizer"
 
 \end_inset
 
- after applying a MLLR, another statistical adaptation technique - the Maximum
- a posteriori (MAP) transform - was run.
+ after applying a MLLR, another statistical adaptation technique, the Maximum
+ a posteriori (MAP) transform, was run.
  MAP shifts the mean and variance components of the Gaussians of the each
  spoken phoneme model in an acoustic space towards the characteristics of
  the corresponding sung phoneme.
@@ -2377,8 +3044,8 @@ name "par:Training-on-singing"
 
 \begin_layout Standard
 Another fundamental difference between speech and singing voice is that
- the time a vowel is held in singing is much longer and much varying than
- in speech.
+ the time a vowel is held in singing is much longer and much more variable
+ than in speech.
  In a recent study 
 \begin_inset CommandInset citation
 LatexCommand citet
@@ -2422,8 +3089,7 @@ key "kruspe2016bootstrapping"
 
 \end_inset
 
- proposed a viable strategy for annotation: they trained monophone one-state
- HMMs on a 
+ proposed a viable strategy for annotation: they trained on a 
 \begin_inset Note Note
 status open
 
@@ -2433,9 +3099,35 @@ the TIMIT
 
 \end_inset
 
- speech corpus, wherein each observation model is a GMM.
- Then they preselected around 6000 recordings of full songs from the DAMP
- dataset from Stanford University
+ speech corpus monophone one-state 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+gls{HMM}
+\end_layout
+
+\end_inset
+
+-s, wherein each observation model is a 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+gls{GMM}
+\end_layout
+
+\end_inset
+
+.
+ Then the author preselected around 6000 recordings of full songs from the
+ DAMP dataset from Stanford University
 \begin_inset Foot
 status open
 
@@ -2452,16 +3144,56 @@ target "https://ccrma.stanford.edu/damp/"
 \end_inset
 
 .
- DAMP is a huge collection of a cappella popular music, sung by amateur
- singers with lyrics available, but not aligned whatsoever.
- The authors aligned the a cappella audio on the phoneme level to its lyrics
- by means of forced alignment with the fitted speech-trained GMMs.
- The aligned phoneme timestamps have been fed as if they were manual annotations
- into a 3-hidden-layer Multi-Layer Perceptron (MLP) with sigmoid activation
- function.
- On material from DAMP the resulting model reached a remarkable phoneme
- recognition of 25% of correctly classified frames compared to 12% with
- a model trained only on the speech dataset.
+ DAMP is a huge collection of 
+\emph on
+a cappella
+\emph default
+ popular music, sung by amateur singers with lyrics available, but without
+ any annotated word locations.
+ The authors aligned the
+\emph on
+ a cappella
+\emph default
+ audio on the phoneme level to its lyrics by means of forced alignment with
+ the fitted speech-trained 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+gls{GMM}
+\end_layout
+
+\end_inset
+
+-s.
+ The aligned phoneme timestamps were fed into a 3-hidden-layer 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+gls{MLP}
+\end_layout
+
+\end_inset
+
+ with sigmoid activation function, as if they were manual annotations.
+ On material from DAMP the resulting model reached a phoneme recognition
+ of 25% (better than the previous  state of the art of 
+\begin_inset CommandInset citation
+LatexCommand citet
+key "hansen2012recognition"
+
+\end_inset
+
+) of correctly classified frames.
+ This is a remarkable improvement over the 12% with a model trained only
+ on the speech dataset.
  Results on the word-level alignment were however not reported.
  
 \begin_inset Note Note
@@ -2484,7 +3216,20 @@ TODO write kruspes results here
 \end_layout
 
 \begin_layout Standard
-In summary, there has been only a few research works on the problem of LAA.
+In summary, there has been only a few research works on the problem of 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+gls{LAA}
+\end_layout
+
+\end_inset
+
+.
  The phonetic recognizer was established as one of the successful alignment
  strategies.
  Solutions were proposed for all steps necessary to carry out a complete
@@ -2500,7 +3245,7 @@ reference "back_ground"
 \end_layout
 
 \begin_layout Enumerate
-Each of the presented approaches is trained on material from the language,
+Almost all of the presented approaches is trained on material from the language,
  on which it was tested.
  This means each time an aligner is required for a language, different from
  the one of existing work (for example Turkish), reuse of the existing aligner
@@ -2514,7 +3259,7 @@ status open
 
 \begin_layout Plain Layout
 In fact, to our knowledge, the biggest and only dataset with phoneme annotations
- is of English pop songs with total duration of less than 30 minutes - the
+ is of English pop songs with total duration of less than 30 minutes — the
  one prepared and used in 
 \begin_inset CommandInset citation
 LatexCommand citet
@@ -2531,30 +3276,82 @@ key "hansen2012recognition"
 \end_layout
 
 \begin_layout Enumerate
-In most approaches the extracted acoustic features (usually MFCCs) are agglomera
-ted into classes of phonetic timbre in a bottom-up fashion, without considering
- the dependence of simultaneously occurring melodic and rhythmic musical
- events.
+In most approaches the extracted acoustic features (usually 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+gls{MFCC}
+\end_layout
+
+\end_inset
+
+) are agglomerated into classes of phonetic timbre in a bottom-up fashion,
+ without considering the dependence of simultaneously occurring rhythmic
+ musical events or reference durations of syllables.
  Although phonetic timbre is the core distinguishing facet of sung lyrics,
- relying solely on the MFCCs can be error-prone.
- They are usually trained on a cappella material and extracted (likely with
- artifacts) from the vocal part of multi-instrumental recordings, which
- is premise for acoustic mismatch.
+ relying solely on the 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+gls{MFCC}
+\end_layout
+
+\end_inset
+
+ can be error-prone.
+ They are usually trained on
+\emph on
+ a cappella
+\emph default
+ material and extracted (likely with artifacts) from the vocal part of multi-ins
+trumental recordings, which is premise for acoustic mismatch.
 \end_layout
 
 \begin_layout Enumerate
-There is no existing approach on LAA with instrumental accompaniment, that
- can be reproduced.
+There is no existing approach on 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+gls{LAA}
+\end_layout
+
+\end_inset
+
+ with instrumental accompaniment, which can be reproduced.
  None of the papers discussed have their implementation available.
  After personal communication with some of the authors we were able to obtain
- several pieces of source code, but for several reasons, none of the LAA
+ several pieces of source code, but for several reasons, none of the 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+gls{LAA}
+\end_layout
+
+\end_inset
+
  systems presented in this section is reproducible in its entirety
 \begin_inset Foot
 status open
 
 \begin_layout Plain Layout
 Personal communication with H.
- Fujihara in March 2014, with A.
+ Fujihara in March 2014; with A.
  Mesaros in October 2013
 \end_layout
 
@@ -2585,16 +3382,42 @@ name "sec:Background-on-dynamic"
 \begin_layout Standard
 A probabilistic graphical model is a probabilistic model that expresses
  conditional dependence between random variables using a graph.
- HMMs can be considered a probabilistic graphical model with a single hidden
+ 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+gls{HMM}
+\end_layout
+
+\end_inset
+
+-s can be considered a probabilistic graphical model with a single hidden
  random variable.
- A bayesian network is a probabilistic graphical model that represents a
+ A Bayesian network is a probabilistic graphical model that represents a
  set of random variables and their (conditional) dependencies with a directed
  acyclic graph.
 \end_layout
 
 \begin_layout Standard
-A dynamic Bayesian network (DBN) is an extension of Bayesian networks that
- can relate variables over time 
+A 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+gls{DBN}
+\end_layout
+
+\end_inset
+
+ is an extension of a Bayesian network that can relate variables over time
+ 
 \begin_inset CommandInset citation
 LatexCommand citep
 key "murphy2002dynamic"
@@ -2602,12 +3425,25 @@ key "murphy2002dynamic"
 \end_inset
 
 .
- In a DBN variables could be either continuous or discrete, represented
- by circles and squares respectively.
+ In a DBN variables could be either continuous or discrete, which we represent
+ in all diagrams in this dissertation by circles and squares respectively.
  To build a model of sung lyrics we have at our disposal sequential data
  from audio features, as well as complementary context events that are interrela
 ted to phonetic timbre.
- DBNs hence provide an effective and explicit way to encode the dependence
+ 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+gls{DBN}
+\end_layout
+
+\end_inset
+
+-s hence provide an effective and explicit way to encode the dependence
  relationships between the phonetic timbre and these context events.
  Excellent resources on graphical probabilistic models and inference, in
  general, is 
@@ -2636,13 +3472,39 @@ key "whiteley:06:ismir"
 
 \end_inset
 
- introduced DBNs to music processing.
+ introduced 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+gls{DBN}
+\end_layout
+
+\end_inset
+
+-s to music processing.
 
 \series bold
  
 \series default
-The authors emphasize the fact that DBNs can natively model higher-level
- musical facets more intuitively and efficiently than an HMM
+The authors emphasize the fact that they can natively model higher-level
+ musical facets more intuitively and efficiently than an 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+gls{HMM}
+\end_layout
+
+\end_inset
+
+
 \series bold
 .
  
@@ -2653,9 +3515,8 @@ Inference in DBNs
 \end_layout
 
 \begin_layout Standard
-To execute inference in DBNs, one has to obtain the distribution over the
- required set of hidden variables, by marginalizing over the rest of the
- variables.
+To execute inference, one has to obtain the distribution over the required
+ set of hidden variables, by marginalizing over the rest of the variables.
  This can be achieved by direct marginalization, variable elimination and/or
  other techniques 
 \begin_inset CommandInset citation
@@ -2667,8 +3528,34 @@ key "ambrosio:99:bninf"
 .
  However, in practice this can be complex and without closed form solutions.
  Therefore, in this dissertation we take a viable workaround, by reducing
- the proposed DBNs, without losing their encoded dependence between musical
- phenomena, to HMMs and resort to the Viterbi decoding (Section 
+ the proposed 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+gls{DBN}
+\end_layout
+
+\end_inset
+
+-s, without losing their encoded dependence between musical phenomena, to
+ 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+gls{HMM}
+\end_layout
+
+\end_inset
+
+-s and resort to the Viterbi decoding (Section 
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "subsec:Inference"
@@ -2699,13 +3586,12 @@ name "sec:Background-on-sung"
 \begin_layout Standard
 In what follows we review existing studies on sung lyrics, in which knowledge
  from complementary context contributed to improvement in accuracy.
- We have organised these studies tentatively, according to the levels of
- granularity of complementary context, to which we comply in this thesis.
+ We have organised these studies, according to the levels of granularity
+ of complementary context, to which we comply in this thesis.
  As some approaches can be considered to benefit from more than one level,
- we do not aim at rigorous subdivision, but rather at laying out the background
- in a structured way, which we can start off extending systematically in
- the following chapters, to address the goals of this thesis.
- 
+ we do not aim at strict formal subdivision, but rather at laying out the
+ background in a structured way, which we can start off extending systematically
+ in the following chapters.
 \end_layout
 
 \begin_layout Subsection
@@ -2716,7 +3602,20 @@ Coarse-level context
 An experimental evaluation of the relation of structure and sung lyrics
  remains outside the scope of this study.
  Instead, we utilize automatic segmentation of complete song recording into
- its structural segments as a preprocessing step to LAA.
+ its structural segments as a preprocessing step to 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+gls{LAA}
+\end_layout
+
+\end_inset
+
+.
  However, in a future work, it is desirable to incorporate structural informatio
 n into the phonetic recognizers, proposed in this thesis.
  
@@ -2741,17 +3640,30 @@ key "lee2008segmentation"
 
  showed that the results of rough structure segmentation can be used for
  paragraph-level alignment of lyrics.
- First a structural segmentation of the audio recording is performed using
+ First, a structural segmentation of the audio recording is performed using
  acoustic features.
  Then the chorus section is determined by a clustering method, whereas the
- vocal ones are determined by a SVD method.
+ vocal ones are determined by a 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+gls{VAD}
+\end_layout
+
+\end_inset
+
+ method.
  The resulting sections are aligned to the hand-labeled lyrics paragraphs
  by means of dynamic programming.
  
 \end_layout
 
 \begin_layout Subsection
-Middle-level context
+Mid-level context
 \end_layout
 
 \begin_layout Standard
@@ -2789,9 +3701,22 @@ key "mauch2012integrating"
 
 \end_inset
 
- suggests ‘a flexible chord onset’ strategy: To allow a chord change in
- any of the syllable of its corresponding word, for each syllable alternative
- paths is constructed in the syllable-HMM network 
+ suggest ‘a flexible chord onset’ strategy: To allow a chord change in any
+ of the syllable of its corresponding word, for each syllable alternative
+ paths are constructed in the syllable-
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+gls{HMM}
+\end_layout
+
+\end_inset
+
+ network 
 \begin_inset Note Note
 status open
 
@@ -2880,7 +3805,21 @@ name "chord_syllable_combs"
 \begin_layout Standard
 In this setting, since the phoneme sequence is fixed, a hidden phoneme state
  h determines several possibilities with equal likelihood for a hidden chord
- state c, which can be represented as a DBN 
+ state c, which can be represented as a 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+gls{DBN}
+\end_layout
+
+\end_inset
+
+.
+ 
 \begin_inset Note Note
 status open
 
@@ -2900,8 +3839,8 @@ status open
 \begin_inset Formula $y^{c}$
 \end_inset
 
- for chroma is added, which are combined in one mutual observation probability
- on inference.
+ for chroma is added.
+ Both are combined into one mutual observation probability on inference.
  The approach greatly improves the word-level accuracy of the baseline,
  from 46.4% to 87.5 % in terms of the percentage of correct estimates according
  to a tolerance window of 1 second.
@@ -2946,10 +3885,10 @@ key "fujihara2009novel"
 
 \end_inset
 
- concurrently estimates the phoneme classes and fundamental frequency of
+ concurrently estimate the phoneme classes and fundamental frequency of
  singing voice from recordings with instrumental accompaniment.
- They suggest the use of probabilistic spectral templates of singing voice,
- that represents both phoneme identity and the predominant f0.
+ They suggest the use of probabilistic spectral templates of singing voice
+ to represent both phoneme identity and the predominant f0.
  No temporal progression from one template to the next is modeled though.
  An important advantage of the approach is that the templates can be trained
  directly from the polyphonic mix without segregating the predominant voice
@@ -2958,10 +3897,35 @@ key "fujihara2009novel"
  Accuracy for phoneme estimation is evaluated in terms of the ratio of the
  number of frames that are correctly estimated to the total number of frames.
  Frames taken into consideration in this calculation were only the five
- Japanese vowels a,e,i,o,u.
- The ratio of 55 % for a baseline with GMMs and MFCCs was increased to 60.1
- % with the proposed model, which is arguably the best vowel recognition
- system in accompanied singing.
+ Japanese vowels a,e,i,o and u.
+ The ratio of 55 % for a baseline with 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+gls{GMM}
+\end_layout
+
+\end_inset
+
+-s and 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+gls{MFCC}
+\end_layout
+
+\end_inset
+
+ was increased to 60.1 % with the proposed model, which is arguably the best
+ vowel recognition system in accompanied singing.
  
 \end_layout
 
@@ -2974,7 +3938,20 @@ key "FilipsThesis"
 \end_inset
 
  a hidden state space is proposed that combines the typical 3-state left-to-righ
-t HMMs for phonemes with the note state space introduced in 
+t 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+gls{HMM}
+\end_layout
+
+\end_inset
+
+-s for phonemes with the note state space introduced in 
 \begin_inset CommandInset citation
 LatexCommand citet
 key "orio2001score"
@@ -2986,12 +3963,24 @@ key "orio2001score"
  The goal of the study is to improve automatic score-to-audio alignment
  by integrating information from the lyrics timbre, available in parallel
  to the score.
- However, due to the humongous state space, result of the the cartesian
+ However, due to the very large state space, result of the the Cartesian
  combination of the note and phoneme state space, the authors were not able
  to implement this strategy.
- Instead they used the note HMM and incorporated vowel information as additional
- feature (together with pitch, loudness, etc.) via the observation probabilities
- of the states.
+ Instead they used the note 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+gls{HMM}
+\end_layout
+
+\end_inset
+
+ and incorporated vowel information as additional feature (together with
+ pitch, loudness, etc.) via the observation probabilities of the states.
 \end_layout
 
 \begin_layout Standard
@@ -3003,7 +3992,8 @@ key "orio2001score"
 
 \begin_layout Standard
 Summarizing, almost none of the related work that considers complementary
- context is based on a temporal framework ( such as the phonetic recognizer).
+ context is based on a temporal modeling framework (such is the phonetic
+ recognizer).
  The only exception is the approach of 
 \begin_inset CommandInset citation
 LatexCommand citet
@@ -3011,11 +4001,24 @@ key "mauch2012integrating"
 
 \end_inset
 
-, which is however limited to music traditions, for which the concept of
+, which is however limited to music traditions for which the concept of
  chords is applicable.
  Due to the heterophonic interaction of accompaniment instruments with singing
- voice for traditions like OTMM the harmony does not occur in the form of
- chords and we cannot benefit from this work.
+ voice for traditions like 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+gls{OTMM}
+\end_layout
+
+\end_inset
+
+ the harmony does not occur in the form of chords and we cannot benefit
+ from that work.
  
 \end_layout
 
@@ -3028,6 +4031,8 @@ Typical exploited knowledge about temporal musical facets, complementary
  one are used in a preprocessing step
 \emph on
  
+\emph default
+
 \begin_inset CommandInset citation
 LatexCommand citep
 key "lee2008segmentation"
