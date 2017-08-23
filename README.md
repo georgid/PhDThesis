@@ -4,6 +4,7 @@ PhD thesis data
 This thesis is generated based on the [Lyx PhD Template](https://github.com/chaosct/LyxPhDTemplateUPF).
 The pdf is generated with XeTex in [LyX](http://www.lyx.org/). 
 
+The presentation folder contains the materials used in the presentation slides. The thesis defense video is done with camtasia 3. The saved project file is here [PhD_defense_georgi_video.cmproj](https://drive.google.com/open?id=0B4bIMgQlCAuqWXp3VzB1N0ZlUjQ)  
 
 Setup
 -----
